@@ -44,7 +44,7 @@
 #' mod  <- tfa(age,
 #'            genotype,
 #'            k = 2,
-#'            lambda = 7e-3,
+#'            lambda = 1e-3,
 #'            center = TRUE,
 #'            coverage = coverage,
 #'            log = TRUE)
