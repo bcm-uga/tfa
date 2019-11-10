@@ -53,12 +53,6 @@
 #'      xlab = "Factor 1", ylab = "Factor 2",
 #'      ylim = c(-20,20))
 #'
-#' legend(x = -55, y = -12,
-#'      c("Yamnaya","England_EBA","England_MBA   ","Anatolia"),
-#'      horiz = TRUE,
-#'      col = c("darkblue", "yellow3", "yellow4", "salmon3"),
-#'      pch = c(8,19,8,8), cex = .8, bty = "n")
-#'
 #' points(mod$u[meta$Country == "Great Britain",],
 #'        pch = 19, cex = 1, col = "yellow3")
 #' points(mod$u[meta$Country == "Russia",],
@@ -68,7 +62,11 @@
 #' points(mod$u[meta$Group.ID == "England_MBA",],
 #'       pch = 8, cex = .6, col = "yellow4")
 #' abline(h = 0, lty = 2, col = "orange")
-#' legend()
+#' legend(x = -55, y = -12,
+#'      c("Yamnaya","England_EBA  ","England_MBA   ","Anatolia"),
+#'      horiz = TRUE,
+#'      col = c("darkblue", "yellow3", "yellow4", "salmon3"),
+#'      pch = c(8,19,8,8), cex = .8, bty = "n")
 #'
 #' detach(England_BA)
 #' @references François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of population genetic structure from temporal samples
@@ -85,10 +83,10 @@ tfa <- function(sample_ages,
 
   n <- length(sample_ages)
   if (!is.matrix(Y)) stop("Y must be a matrix.")
-  if (anyNA(Y)) stop("NA not allowed in the genetic data.")
-  if (anyNA(sample_ages)) stop("NA not allowed in the sample ages.")
+  if (anyNA(Y)) stop("NA not allowed in genetic data.")
+  if (anyNA(sample_ages)) stop("NA not allowed in sample ages.")
   if (dim(Y)[1] != n) stop("Number of Y rows (samples) not equal to the length of
-                           'sample_ages'.")
+                           sample ages.")
 
 
   # Covariance model

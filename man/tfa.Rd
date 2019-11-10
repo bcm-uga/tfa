@@ -69,12 +69,6 @@ plot(mod$u, pch = 19, cex = 2, col = "grey90",
      xlab = "Factor 1", ylab = "Factor 2",
      ylim = c(-20,20))
 
-legend(x = -55, y = -12,
-     c("Yamnaya","England_EBA","England_MBA   ","Anatolia"),
-     horiz = TRUE,
-     col = c("darkblue", "yellow3", "yellow4", "salmon3"),
-     pch = c(8,19,8,8), cex = .8, bty = "n")
-
 points(mod$u[meta$Country == "Great Britain",],
        pch = 19, cex = 1, col = "yellow3")
 points(mod$u[meta$Country == "Russia",],
@@ -84,7 +78,11 @@ points(mod$u[meta$Country == "Turkey",],
 points(mod$u[meta$Group.ID == "England_MBA",],
       pch = 8, cex = .6, col = "yellow4")
 abline(h = 0, lty = 2, col = "orange")
-legend()
+legend(x = -55, y = -12,
+     c("Yamnaya","England_EBA  ","England_MBA   ","Anatolia"),
+     horiz = TRUE,
+     col = c("darkblue", "yellow3", "yellow4", "salmon3"),
+     pch = c(8,19,8,8), cex = .8, bty = "n")
 
 detach(England_BA)
 }
