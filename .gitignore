@@ -1,0 +1,12 @@
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
+.txt
+.Rbuildignore
+
+Rproj.user
+tfa.Rproj
+
+R/.Rapp.history
+.Rproj.user

@@ -1,0 +1,15 @@
+Package: tfa
+Type: Package
+Title: Factor Analysis of Temporal Population Genetic Samples
+Version: 0.1.0
+Author: Olivier Francois
+Maintainer: Olivier Francois <olivier.francois@univ-grenoble-alpes.fr>
+Description: This package implements the tfa function for factor analysis of temporal samples of individual genotypes.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Suggests:
+    knitr,
+    rmarkdown,
+RoxygenNote: 6.0.1
+VignetteBuilder: knitr

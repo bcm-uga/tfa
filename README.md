@@ -1,2 +1,2 @@
 # tfa
-Factor analysis for temporal population genetic samples  
+Factor analysis of temporal and ancient population genetic samples  
