@@ -7,7 +7,7 @@
 #' present-day individuals). By default, ages are converted into dates between 0 and 1
 #' (date = 1 for present-day individuals).
 #' @param Y an nxp numeric matrix containing genetic information for n individuals recorded in p columns.
-#' Genetic information could be encoded as any numeric value, not necessarily an integer value.
+#' Genetic information could be encoded as any numeric value, not necessarily an integer value. Missing data are not allowed.
 #' @param lambda a nonnegative numeric value which corresponds to a scale parameter (noise-to-temporal-signal ratio).
 #' @param k an integer value for the number of factor to compute. The default value is k = 2.
 #' @param cov_matrix a user-specified nxn prior covariance matrix for the n samples. If \code{NULL},
@@ -21,8 +21,8 @@
 #' @param coverage a numerical vector containing information on DNA sample coverage. Note that
 #' coverage differences might strongly bias factor analysis results. Including coverage information
 #' allows the program to correct coverage bias on factors via local regression (\code{loess}).
-#' We also suggest that correction of the data for low coverage should be performed before analysis with \code{tfa},
-#' for example, using latent factor mixed models with external functions like \code{lfmm}.
+#' We also suggest that correction of the data for low coverage should be performed before analysis
+#' with \code{tfa}, for example, using the function \code{coverage_adjust}.
 #' @param log a logical value indicating that corrections are performed from log(coverage) instead of coverage.
 #'
 #' @return A list with the following attributes:
