@@ -4,14 +4,18 @@
 \alias{coverage_adjust}
 \title{Correct ancient genotypes for coverage effect}
 \usage{
-coverage_adjust(Y = NULL, coverage = NULL, lambda = 1e-05, log = FALSE)
+coverage_adjust(Y = NULL, coverage = NULL, K, lambda = 1e-05,
+  log = FALSE)
 }
 \arguments{
-\item{Y}{an nxp numeric matrix containing genetic information for n individuals recorded in p columns.
+\item{Y}{an nxp numeric data matrix containing genetic information for n individuals recorded in p columns.
 Genetic information could be encoded as any numeric value, usually as genotypes taking values in 0,1,2.
 Missing data are not allowed.}
 
 \item{coverage}{a numerical vector containing information on each DNA sample coverage.}
+
+\item{K}{a nonnegative integer for the number of components in the data matrix Y.
+It could be obtained from a PCA of the data matrix.}
 
 \item{lambda}{a ridge regularization parameter, to be kept at a small values (defaut 1e-5)).}
 
@@ -39,9 +43,8 @@ coverage <- as.numeric(as.character(meta$Coverage))
 detach(England_BA)
 }
 \references{
-François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of population genetic structure from temporal samples
-of DNA. bioRxiv, 801324. \url{https://www.biorxiv.org/content/10.1101/801324v3}
+François, O., Jay, F. (2020). Factor analysis of ancient DNA samples. Under review.
 }
 \seealso{
-\code{\link{england_ba}}
+\code{\link{england_ba}}, \code{\link{tfa}}
 }
