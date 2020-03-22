@@ -22,10 +22,7 @@ It could be obtained from a PCA of the data matrix.}
 \item{log}{a logical value indicating that corrections are performed from log(coverage) instead of coverage.}
 }
 \value{
-A list with the following attributes:
-\describe{
-   \item{W}{an nxp numeric matrix containing the n corrected genotypes}
-}
+an nxp numeric matrix containing the n corrected genotypes
 }
 \description{
 \code{coverage_adjust} corrects the matrix of genotypes for low and uneven coverage of
@@ -38,12 +35,12 @@ library(tfa)
 # including Steppe (Yamnaya) and early farmers from Anatolia
 data(england_ba)
 attach(England_BA)
-coverage <- as.numeric(as.character(meta$Coverage))
-## TO DEVELOP
+coverage <- meta$Coverage
+geno <- coverage_adjust(genotype, coverage, K = 3, log = TRUE)
 detach(England_BA)
 }
 \references{
-François, O., Jay, F. (2020). Factor analysis of ancient DNA samples. Under review.
+François, O., Jay, F. (2020). Factor analysis of ancient DNA samples.
 }
 \seealso{
 \code{\link{england_ba}}, \code{\link{tfa}}

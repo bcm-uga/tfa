@@ -37,52 +37,65 @@
 #' library(tfa)
 #'
 #' # Ancient DNA from Bronze Age Great Britain samples
-#' # including Steppe (Yamnaya) and early farmers from Anatolia
+#' # including Yamnaya, early farmers (Anatolia) and hunter-gatherers (Serbia)
 #' data(england_ba)
+#'
 #' attach(England_BA)
-#' coverage <- as.numeric(as.character(meta$Coverage))
+#' coverage <- meta$Coverage
+#' geno <- coverage_adjust(genotype, coverage, K = 3, log = TRUE)
+#'
 #' mod  <- tfa(age,
-#'            genotype,
-#'            k = 2,
-#'            lambda = 1e-3,
-#'            center = TRUE,
-#'            coverage = coverage,
-#'            log = TRUE)
+#'             geno,
+#'             k = 2,
+#'             lambda = 5e-1,
+#'             center = TRUE,
+#'             coverage = coverage,
+#'             log = TRUE)
 #'
 #' plot(mod$u, pch = 19, cex = 2, col = "grey90",
 #'      xlab = "Factor 1", ylab = "Factor 2",
-#'      ylim = c(-26,20))
+#'      main = "FA")
 #'
-#' points(mod$u[meta$Country == "Great Britain",],
-#'        pch = 19, cex = 1, col = "yellow3")
-#' points(mod$u[meta$Country == "Russia",],
-#'       pch = 8, cex = .6, col = "darkblue")
-#' points(mod$u[meta$Country == "Turkey",],
-#'       pch = 8, cex = .6, col = "salmon3")
-#' points(mod$u[meta$Group.ID == "England_MBA",],
-#'       pch = 8, cex = .6, col = "yellow4")
-#' abline(h = 0, lty = 2, col = "orange")
-#' legend(x = -55, y = -17,
-#'      c("Yamnaya","England_EBA  ","England_MBA   ","Anatolia"),
-#'      horiz = TRUE,
-#'      col = c("darkblue", "yellow3", "yellow4", "salmon3"),
-#'      pch = c(8,19,8,8), cex = .8, bty = "n")
+#' m_yamnaya <- apply(mod$u[meta$Group.ID == "Russia_Yamnaya",],
+#'                    2, mean)
+#' m_anatolia <- apply(mod$u[meta$Group.ID == "Anatolia_N",],
+#'                     2, mean)
+#' m_hg <- apply(mod$u[meta$Group.ID == "Serbia_HG",],
+#'               2, mean)
 #'
-#' ne = mean(mod$u[meta$Country == "Turkey",1])
-#' ru = mean(mod$u[meta$Country == "Russia",1])
+#' points(rbind(m_yamnaya, m_anatolia, m_hg), lwd = 2)
 #'
-#' # Fraction of Yamnaya ancestry in England Bronze Age genomes
-#' gb = mean(mod$u[meta$Country == "Great Britain",1])
-#' (ne - gb)/(ne - ru)
+#' lines(rbind(m_yamnaya, m_anatolia, m_hg, m_yamnaya))
 #'
-#' # Fraction of Yamnaya ancestry in Middle Bronze Age genomes
-#' mba = mean(mod$u[meta$Group.ID == "England_MBA",1])
-#' (ne - mba)/(ne - ru)
+#' points(mod$u[meta$Group.ID == "Russia_Yamnaya",],
+#'        pch = 8, cex = .6, col = "darkblue")
 #'
+#' points(mod$u[meta$Group.ID == "Anatolia_N",],
+#'        pch = 8, cex = .6, col = "salmon3")
+#'
+#' points(mod$u[meta$Group.ID ==  "Serbia_HG",],
+#'        pch = 8, cex = .6, col = "olivedrab")
+#'
+#' points(mod$u[meta$Group.ID == "England_Bell_Beaker",],
+#'        pch = 19, cex = .6, col = "yellow4")
+#'
+#' points(mod$u[meta$Group.ID == "England_BA",],
+#'        pch = 19, cex = .6, col = "yellow3")
+#'
+#' points(mod$u[meta$Group.ID %in% c("England_N", "Scotland_N"),],
+#'        pch = 19, cex = .6, col = "salmon1")
+#'
+#' legend(x = 10, y = -15, cex = .6,
+#'        legend = c("Early Farmers", "Hunter Gatherers", "Steppe"),
+#'        col = c("salmon3", "olivedrab", "darkblue"), pch = 8)
+#'
+#' legend(x = 10, y = 21, cex = .6,
+#'        legend = c("Neolithic GB", "Bronze Age GB", "Bell Beaker"),
+#'        col = c("salmon1", "yellow3", "yellow4"), pch = 19)
 #' detach(England_BA)
 #' @references François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of population genetic structure from temporal samples
 #' of DNA. bioRxiv, 801324. \url{https://www.biorxiv.org/content/10.1101/801324v3}
-#' @seealso \code{\link{england_ba}}
+#' @seealso \code{\link{england_ba}}, \code{\link{coverage_adjust}}
 tfa <- function(sample_ages,
                 Y,
                 k = 2,

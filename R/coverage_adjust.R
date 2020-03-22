@@ -11,11 +11,7 @@
 #' It could be obtained from a PCA of the data matrix.
 #' @param lambda  a ridge regularization parameter, to be kept at a small values (defaut 1e-5)).
 #' @param log a logical value indicating that corrections are performed from log(coverage) instead of coverage.
-#' @return A list with the following attributes:
-#' \describe{
-#'    \item{W}{an nxp numeric matrix containing the n corrected genotypes}
-#' }
-#'
+#' @return an nxp numeric matrix containing the n corrected genotypes
 #' @export
 #' @examples
 #' library(tfa)
@@ -24,10 +20,10 @@
 #' # including Steppe (Yamnaya) and early farmers from Anatolia
 #' data(england_ba)
 #' attach(England_BA)
-#' coverage <- as.numeric(as.character(meta$Coverage))
-#' ## TO DEVELOP
+#' coverage <- meta$Coverage
+#' geno <- coverage_adjust(genotype, coverage, K = 3, log = TRUE)
 #' detach(England_BA)
-#' @references François, O., Jay, F. (2020). Factor analysis of ancient DNA samples. Under review.
+#' @references François, O., Jay, F. (2020). Factor analysis of ancient DNA samples.
 #' @seealso \code{\link{england_ba}}, \code{\link{tfa}}
 coverage_adjust <- function(
                   Y = NULL,
