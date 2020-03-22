@@ -13,7 +13,7 @@ present-day individuals). By default, ages are converted into dates between 0 an
 (date = 1 for present-day individuals).}
 
 \item{Y}{an nxp numeric matrix containing genetic information for n individuals recorded in p columns.
-Genetic information could be encoded as any numeric value, not necessarily an integer value.}
+Genetic information could be encoded as any numeric value, not necessarily an integer value. Missing data are not allowed.}
 
 \item{k}{an integer value for the number of factor to compute. The default value is k = 2.}
 
@@ -32,8 +32,8 @@ their row mean.}
 \item{coverage}{a numerical vector containing information on DNA sample coverage. Note that
 coverage differences might strongly bias factor analysis results. Including coverage information
 allows the program to correct coverage bias on factors via local regression (\code{loess}).
-We also suggest that correction of the data for low coverage should be performed before analysis with \code{tfa},
-for example, using latent factor mixed models with external functions like \code{lfmm}.}
+We also suggest that correction of the data for low coverage should be performed before analysis
+with \code{tfa}, for example, using the function \code{coverage_adjust}.}
 
 \item{log}{a logical value indicating that corrections are performed from log(coverage) instead of coverage.}
 }
