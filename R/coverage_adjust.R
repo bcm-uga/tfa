@@ -24,7 +24,7 @@
 #' geno <- coverage_adjust(genotype, coverage, K = 3, log = TRUE)
 #' detach(England_BA)
 #' @references François, O., Jay, F. (2020). Factor analysis of ancient DNA samples.
-#' @seealso \code{\link{england_ba}}, \code{\link{tfa}}
+#' @seealso \code{\link{England_BA}}, \code{\link{tfa}}
 coverage_adjust <- function(
                   Y = NULL,
                   coverage = NULL,

@@ -116,5 +116,5 @@ François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of populat
 of DNA. bioRxiv, 801324. \url{https://www.biorxiv.org/content/10.1101/801324v3}
 }
 \seealso{
-\code{\link{england_ba}}, \code{\link{coverage_adjust}}
+\code{\link{England_BA}}, \code{\link{coverage_adjust}}
 }

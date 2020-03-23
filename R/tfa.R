@@ -96,7 +96,7 @@
 #' detach(England_BA)
 #' @references François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of population genetic structure from temporal samples
 #' of DNA. bioRxiv, 801324. \url{https://www.biorxiv.org/content/10.1101/801324v3}
-#' @seealso \code{\link{england_ba}}, \code{\link{coverage_adjust}}
+#' @seealso \code{\link{England_BA}}, \code{\link{coverage_adjust}}
 tfa <- function(sample_ages,
                 Y,
                 k = 2,

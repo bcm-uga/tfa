@@ -32,5 +32,5 @@ detach(England_BA)
 François, O., Jay, F. (2020). Factor analysis of ancient DNA samples.
 }
 \seealso{
-\code{\link{england_ba}}, \code{\link{ancestry_coefficients}}
+\code{\link{England_BA}}, \code{\link{ancestry_coefficients}}
 }

@@ -18,7 +18,7 @@
 #' metadata <- as.tfa_data(meta)
 #' detach(England_BA)
 #' @references François, O., Jay, F. (2020). Factor analysis of ancient DNA samples.
-#' @seealso \code{\link{england_ba}}, \code{\link{ancestry_coefficients}}
+#' @seealso \code{\link{England_BA}}, \code{\link{ancestry_coefficients}}
 as.tfa_data <- function(dataframe){
 
   if (class(dataframe) != "data.frame"){
@@ -80,7 +80,7 @@ as.tfa_data <- function(dataframe){
 #'                       target = target)
 #' detach(England_BA)
 #' @references François, O., Jay, F. (2020). Factor analysis of ancient DNA samples.
-#' @seealso \code{\link{england_ba}}, \code{\link{tfa}}
+#' @seealso \code{\link{England_BA}}, \code{\link{tfa}}
 ancestry_coefficients <- function(model, metadata, source, target){
 
   if (class(model) != "tfa") {
@@ -123,10 +123,10 @@ ancestry_coefficients <- function(model, metadata, source, target){
      M <- matrix(NA,  nrow = k - 1, ncol = k)
 
       for (j in 1:k){
-       M[,j] <- apply(mod$u[metadata$Group.ID == source[j], 1:(k-1)], 2, mean)
+       M[,j] <- apply(model$u[metadata$Group.ID == source[j], 1:(k-1)], 2, mean)
       }
 
-      Z <- apply(mod$u[metadata$Group.ID == targ, 1:(k-1)], 2, mean)
+      Z <- apply(model$u[metadata$Group.ID == targ, 1:(k-1)], 2, mean)
       Z <- t(as.matrix(Z))
 
       A <- M - M[,1]
@@ -137,10 +137,10 @@ ancestry_coefficients <- function(model, metadata, source, target){
 
       M <- matrix(NA,  nrow = k, ncol = k)
       for (j in 1:k){
-       M[,j] <- apply(mod$u[metadata$Group.ID == source[j], 1:k], 2, mean)
+       M[,j] <- apply(model$u[metadata$Group.ID == source[j], 1:k], 2, mean)
      }
 
-      Z <- apply(mod$u[metadata$Group.ID == targ, 1:k], 2, mean)
+      Z <- apply(model$u[metadata$Group.ID == targ, 1:k], 2, mean)
       Z <- t(as.matrix(Z))
       A <- M - M[,1]
       a <- (Z - M[,1]) %*% A[,-1]
