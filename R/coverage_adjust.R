@@ -17,7 +17,7 @@
 #' library(tfa)
 #'
 #' # Ancient DNA from Bronze Age Great Britain samples
-#' # including Steppe (Yamnaya) and early farmers from Anatolia
+#' # including Steppe (Yamnaya), hunter gatherers, and early farmers from Anatolia
 #' data(england_ba)
 #' attach(England_BA)
 #' coverage <- meta$Coverage

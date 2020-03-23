@@ -27,8 +27,9 @@
 #'
 #' @return A list with the following attributes:
 #' \describe{
-#'    \item{tn}{vector of normalized sample dates}
 #'    \item{u}{an nxk numeric matrix containing the k corrected factors}
+#'    \item{singular.values}{a vector of size n containing the singular values}
+#'    \item{tn}{vector of normalized sample dates}
 #'    \item{cov}{the Brownian covariance matrix used for correction}
 #' }
 #'
@@ -89,7 +90,7 @@
 #'        legend = c("Early Farmers", "Hunter Gatherers", "Steppe"),
 #'        col = c("salmon3", "olivedrab", "darkblue"), pch = 8)
 #'
-#' legend(x = 10, y = 21, cex = .6,
+#' legend(x = 10, y = 20.5, cex = .6,
 #'        legend = c("Neolithic GB", "Bronze Age GB", "Bell Beaker"),
 #'        col = c("salmon1", "yellow3", "yellow4"), pch = 19)
 #' detach(England_BA)
@@ -158,20 +159,18 @@ tfa <- function(sample_ages,
   if (!is.null(coverage)){
     if (log){
       for (i in 1:k){
-        #plot(log(coverage), Wn[,k], col = "grey", pch = 19, cex = .8)
         mod = loess(Un[,k]  ~ log(coverage))
-        #points(log(coverage), fitted(mod), col = 2, pch = 19, cex = 1)
         Un[,k] <- Un[,k] - fitted(mod)}
       Un <-  prcomp(Un)$x
     } else {
       for (i in 1:k){
-        #plot(coverage, Wn[,k], col = "grey", pch = 19, cex = .8)
         mod = loess(Un[,k]  ~ coverage)
-        #points(coverage, fitted(mod), col = 2, pch = 19, cex = 1)
         Un[,k] <- Un[,k] - fitted(mod)}
       Un <-  prcomp(Un)$x
     }
   }
   # returns corrected factors in $u
-  return(list(tn = tn, u = Un, cov = C))
+  obj <- list(u = Un, singular.values = sw$d, adjusted.times = tn, cov = C)
+  class(obj) <- "tfa"
+  return(obj)
 }

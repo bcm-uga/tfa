@@ -1,2 +1,2 @@
 # tfa
-Factor analysis of temporal and ancient population genetic samples  
+An R package for factor analysis of temporal and ancient population genetic samples  

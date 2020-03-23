@@ -40,8 +40,9 @@ with \code{tfa}, for example, using the function \code{coverage_adjust}.}
 \value{
 A list with the following attributes:
 \describe{
-   \item{tn}{vector of normalized sample dates}
    \item{u}{an nxk numeric matrix containing the k corrected factors}
+   \item{singular.values}{a vector of size n containing the singular values}
+   \item{tn}{vector of normalized sample dates}
    \item{cov}{the Brownian covariance matrix used for correction}
 }
 }
@@ -105,7 +106,7 @@ legend(x = 10, y = -15, cex = .6,
        legend = c("Early Farmers", "Hunter Gatherers", "Steppe"),
        col = c("salmon3", "olivedrab", "darkblue"), pch = 8)
 
-legend(x = 10, y = 21, cex = .6,
+legend(x = 10, y = 20.5, cex = .6,
        legend = c("Neolithic GB", "Bronze Age GB", "Bell Beaker"),
        col = c("salmon1", "yellow3", "yellow4"), pch = 19)
 detach(England_BA)
