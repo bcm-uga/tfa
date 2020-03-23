@@ -1,8 +1,13 @@
 ---
-title: "my-vignette"
-output: rmarkdown::html_vignette
+title: "Analyzing ancient DNA data with tfa" 
+author: "Olivier François - Flora Jay" 
+date: "`r Sys.Date()`" 
+output: 
+  rmarkdown::html_vignette
+  #pdf_document:
+  #  latex_engine: xelatex
 vignette: >
-  %\VignetteIndexEntry{my-vignette}
+  %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,6 +19,114 @@ knitr::opts_chunk$set(
 )
 ```
 
+**Summary:** The R package `tfa` performs factor analyses of temporal or ancient DNA samples, correcting individual scores for the effect of allele frequency drift through time. The package implements a fast algorithm that computes $K$ corrected factors, and provides estimates of ancestry proportions for a target individual or population given a  set of source populations.
+
+
 ```{r setup}
 library(tfa)
 ```
+
+
+#### Main function 
+
+```{r}
+library(tfa)
+
+# Ancient DNA from Bronze Age Great Britain samples
+# including Yamnaya, early farmers (Anatolia) and hunter-gatherers (Serbia)
+data(england_ba)
+
+attach(England_BA)
+coverage <- meta$Coverage
+geno <- coverage_adjust(genotype, coverage, K = 3, log = TRUE)
+
+mod  <- tfa(age,
+            geno,
+            k = 2,
+            lambda = 5e-1,
+            center = TRUE,
+            coverage = coverage,
+            log = TRUE)
+
+plot(mod$u, pch = 19, cex = 2, col = "grey90",
+     xlab = "Factor 1", ylab = "Factor 2",
+     main = "FA")
+
+m_yamnaya <- apply(mod$u[meta$Group.ID == "Russia_Yamnaya",],
+                   2, mean)
+m_anatolia <- apply(mod$u[meta$Group.ID == "Anatolia_N",],
+                    2, mean)
+m_hg <- apply(mod$u[meta$Group.ID == "Serbia_HG",],
+              2, mean)
+
+points(rbind(m_yamnaya, m_anatolia, m_hg), lwd = 2)
+
+lines(rbind(m_yamnaya, m_anatolia, m_hg, m_yamnaya))
+
+points(mod$u[meta$Group.ID == "Russia_Yamnaya",],
+       pch = 8, cex = .6, col = "darkblue")
+
+points(mod$u[meta$Group.ID == "Anatolia_N",],
+       pch = 8, cex = .6, col = "salmon3")
+
+points(mod$u[meta$Group.ID ==  "Serbia_HG",],
+       pch = 8, cex = .6, col = "olivedrab")
+
+points(mod$u[meta$Group.ID == "England_Bell_Beaker",],
+       pch = 19, cex = .6, col = "yellow4")
+
+points(mod$u[meta$Group.ID == "England_BA",],
+       pch = 19, cex = .6, col = "yellow3")
+
+points(mod$u[meta$Group.ID %in% c("England_N", "Scotland_N"),],
+       pch = 19, cex = .6, col = "salmon1")
+
+legend(x = 10, y = -15, cex = .6,
+       legend = c("Early Farmers", "Hunter Gatherers", "Steppe"),
+       col = c("salmon3", "olivedrab", "darkblue"), pch = 8)
+
+legend(x = 10, y = 20.5, cex = .6,
+       legend = c("Neolithic GB", "Bronze Age GB", "Bell Beaker"),
+       col = c("salmon1", "yellow3", "yellow4"), pch = 19)
+detach(England_BA)
+# rm(list = ls())
+```
+
+
+#### Ancestry coefficients
+
+```{r}
+# Ancient DNA from Bronze Age Great Britain samples
+# including Steppe (Yamnaya), hunter gatherers, and early farmers from Anatolia
+data(england_ba)
+attach(England_BA)
+metadata <- as.tfa_data(meta)
+coverage <- meta$Coverage
+geno <- coverage_adjust(genotype, coverage, K = 3, log = TRUE)
+
+mod  <- tfa(age,
+            geno,
+            k = 3,
+            lambda = 5e-1,
+            center = TRUE,
+            coverage = coverage,
+            log = TRUE)
+
+target = c("England_Bell_Beaker", "England_BA")
+source = c("Anatolia_N", "Russia_Yamnaya", "Serbia_HG")
+ancestry_coefficients(model = mod,
+                      metadata = metadata,
+                      source = source,
+                      target = target)
+
+source = c("Scotland_N", "Russia_Yamnaya", "Serbia_HG")
+ancestry_coefficients(model = mod,
+                      metadata = metadata,
+                      source = source,
+                      target = target)
+detach(England_BA)
+# rm(list = ls())
+```
+
+
+

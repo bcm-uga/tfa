@@ -95,6 +95,7 @@
 #'        legend = c("Neolithic GB", "Bronze Age GB", "Bell Beaker"),
 #'        col = c("salmon1", "yellow3", "yellow4"), pch = 19)
 #' detach(England_BA)
+#' # rm(list = ls())
 #' @references François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of population genetic structure from temporal samples
 #' of DNA. bioRxiv, 801324. \url{https://www.biorxiv.org/content/10.1101/801324v3}
 #' @seealso \code{\link{England_BA}}, \code{\link{coverage_adjust}}
