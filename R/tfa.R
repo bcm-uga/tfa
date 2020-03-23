@@ -32,7 +32,8 @@
 #'    \item{tn}{vector of normalized sample dates}
 #'    \item{cov}{the Brownian covariance matrix used for correction}
 #' }
-#'
+#' @author Olivier Francois, \email{olivier.francois@@univ-grenoble-alpes.fr}
+#' @importFrom stats prcomp loess fitted var
 #' @export
 #' @examples
 #' library(tfa)

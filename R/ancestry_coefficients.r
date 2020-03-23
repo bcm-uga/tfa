@@ -79,6 +79,7 @@ as.tfa_data <- function(dataframe){
 #'                       source = source,
 #'                       target = target)
 #' detach(England_BA)
+#' # rm(list = ls())
 #' @references François, O., Jay, F. (2020). Factor analysis of ancient DNA samples.
 #' @seealso \code{\link{England_BA}}, \code{\link{tfa}}
 ancestry_coefficients <- function(model, metadata, source, target){

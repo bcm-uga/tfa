@@ -118,3 +118,6 @@ of DNA. bioRxiv, 801324. \url{https://www.biorxiv.org/content/10.1101/801324v3}
 \seealso{
 \code{\link{England_BA}}, \code{\link{coverage_adjust}}
 }
+\author{
+Olivier Francois, \email{olivier.francois@univ-grenoble-alpes.fr}
+}

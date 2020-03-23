@@ -54,6 +54,7 @@ ancestry_coefficients(model = mod,
                       source = source,
                       target = target)
 detach(England_BA)
+# rm(list = ls())
 }
 \references{
 François, O., Jay, F. (2020). Factor analysis of ancient DNA samples.
