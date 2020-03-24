@@ -1,12 +1,12 @@
-#' Convert a data frame into an object of class 'tfa_data'
+#' Convert a data frame into an object of class \code{tfa_data}
 #'
-#' \code{as.tfa_data} checks the contents of a metadata file for the presence of group IDs, and
-#' convert the data frame as an object of class tfa_data.
+#' \code{as.tfa_data} checks the contents of a metadata file for the presence of group and instance IDs,
+#' and it convert the data frame as an object of class \code{tfa_data}.
 #'
 #' @param dataframe a dataframe containing metadata for a factor analysis of ancient DNA. The meta
-#' data could contain information on sample IDs, Group.IDs, country of origin, sample age, etc. Columns
+#' data could contain information on individual ID's, group ID's, country of origin, sample age, etc. Columns
 #' with names 'Instance.ID' and 'Group.ID' are mandatory.
-#' @return an object of class tfa_data
+#' @return an object of class \code{tfa_data}
 #' @export
 #' @examples
 #' library(tfa)
@@ -45,8 +45,8 @@ as.tfa_data <- function(dataframe){
 #'
 #' @param model an object of class \code{tfa} with the same number of individuals as in metadata.
 #' @param metadata an object of class \code{tfa_data} containing metadata on Group.IDs.
-#' @param source a vector of ancestral group ID's from \code{Group.IDs} (character).
-#' @param target a vector of target group ID's from \code{Group.IDs} (character).
+#' @param source a vector of ancestral group ID's from the list of \code{Group.IDs} (character).
+#' @param target a vector of target group ID's from the list of \code{Group.IDs} (character).
 #' @param individual a logical indicating whether individual ancestry coefficients
 #' should be computed.
 #' @return a matrix with coefficients equal to the ancestry proportions of each target population

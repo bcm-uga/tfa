@@ -3,34 +3,34 @@
 #' \code{tfa} estimates factors describing population structure for temporal samples
 #' of DNA, correcting individual scores for the effect of allele frequency drift through time
 #'
-#' @param sample_ages a numeric vector corresponding to the ages of each sample where age = 0 for
-#' present-day individuals). By default, ages are converted into dates between 0 and 1
+#' @param sample_ages a numeric vector corresponding to the age of each sample where age = 0 is for
+#' present-day individuals. By default, ages are converted into normalized dates between 0 and 1
 #' (date = 1 for present-day individuals).
 #' @param Y an nxp numeric matrix containing genetic information for n individuals recorded in p columns.
-#' Genetic information could be encoded as any numeric value, not necessarily an integer value. Missing data are not allowed.
-#' @param lambda a nonnegative numeric value which corresponds to a scale parameter (noise-to-temporal-signal ratio).
+#' Genetic information could be encoded by any numeric value, not necessarily an integer value. Missing data are not allowed.
+#' @param lambda a nonnegative numeric value which corresponds to the drift parameter (noise-to-temporal-signal ratio).
 #' @param k an integer value for the number of factor to compute. The default value is k = 2.
-#' @param cov_matrix a user-specified nxn prior covariance matrix for the n samples. If \code{NULL},
+#' @param cov_matrix a user-specified prior covariance matrix for the n samples. If \code{NULL},
 #' the prior matrix is computed as
 #' \code{C[i,j] = min(t_i, t_j)},
-#' where t_i and t_j are the normalized sampled dates, taking values between 0 and 1. The option is
-#' useful when the sample size is large, and when the user wants to avoid recomputing a same C
-#' matrix in every run.
+#' where \code{t_i} and \code{t_j} are the normalized sample dates, taking values between 0 and 1. The option is
+#' useful when the sample size is large, and when the user wants to use a pre-computed covariance matrix
+#' to save time.
 #' @param center a logical value indicating whether the genetic values should be centered by substracting
 #' their row mean.
 #' @param coverage a numerical vector containing information on DNA sample coverage. Note that
 #' coverage differences might strongly bias factor analysis results. Including coverage information
-#' allows the program to correct coverage bias on factors via local regression (\code{loess}).
-#' We also suggest that correction of the data for low coverage should be performed before analysis
-#' with \code{tfa}, for example, using the function \code{coverage_adjust}.
-#' @param log a logical value indicating that corrections are performed from log(coverage) instead of coverage.
+#' allows the program to adjust for coverage bias by using a local regression (\code{loess}).
+#' We also suggest that correction of the data for low coverage should be performed before analysis by using the function \code{coverage_adjust}.
+#' @param log a logical value indicating that corrections are performed from \code{log(coverage)}
+#'  instead of \code{coverage}.
 #'
 #' @return A list with the following attributes:
 #' \describe{
 #'    \item{u}{an nxk numeric matrix containing the k corrected factors}
 #'    \item{singular.values}{a vector of size n containing the singular values}
-#'    \item{tn}{vector of normalized sample dates}
-#'    \item{cov}{the Brownian covariance matrix used for correction}
+#'    \item{tn}{a vector containing the normalized sample dates}
+#'    \item{cov}{the C matrix used for correction (default: Brownian covariance matrix)}
 #' }
 #' @author Olivier Francois, \email{olivier.francois@@univ-grenoble-alpes.fr}
 #' @importFrom stats prcomp loess fitted var

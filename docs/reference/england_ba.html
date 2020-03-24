@@ -130,11 +130,9 @@ ages are also provided.</p>
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>List with 3 objects</p><dl class='dl-horizontal'>
-  <dt>age</dt><dd><p>ages, in years cal BP</p></dd>
-  <dt>genotype</dt><dd><p>a numeric matrix containing diploid genotypes (0,1,2) for
-  118 ancient Eurasians. The SNPs were randomly selected from a much larger
-  set of polymorphisms</p></dd>
-  <dt>meta</dt><dd><p>metadata on individuals: ID, group ID, country of origin and coverage</p></dd>
+  <dt>age</dt><dd><p>a numeric vector containing the sample ages, where age is measured in year cal BP</p></dd>
+  <dt>genotype</dt><dd><p>a numeric matrix containing diploid genotypes (0,1,2) for 118 ancient Eurasians. The 10,000 filtered SNPs were randomly selected from a large set of variants. The matrix contains no missing genotypes.</p></dd>
+  <dt>meta</dt><dd><p>metadata on individuals: <code>Instance.ID</code>, <code>Group.ID</code>, <code>Country</code> of origin and <code>coverage</code></p></dd>
 
 </dl>
     

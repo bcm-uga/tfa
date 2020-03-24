@@ -11,9 +11,9 @@ ancestry_coefficients(model, metadata, source, target, individual = FALSE)
 
 \item{metadata}{an object of class \code{tfa_data} containing metadata on Group.IDs.}
 
-\item{source}{a vector of ancestral group ID's from \code{Group.IDs} (character).}
+\item{source}{a vector of ancestral group ID's from the list of \code{Group.IDs} (character).}
 
-\item{target}{a vector of target group ID's from \code{Group.IDs} (character).}
+\item{target}{a vector of target group ID's from the list of \code{Group.IDs} (character).}
 
 \item{individual}{a logical indicating whether individual ancestry coefficients
 should be computed.}

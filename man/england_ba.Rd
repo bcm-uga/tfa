@@ -6,11 +6,9 @@
 \title{Ancient human DNA samples from David Reich's lab}
 \format{List with 3 objects
 \describe{
-  \item{age}{ages, in years cal BP}
-  \item{genotype}{a numeric matrix containing diploid genotypes (0,1,2) for
-  118 ancient Eurasians. The SNPs were randomly selected from a much larger
-  set of polymorphisms}
-  \item{meta}{metadata on individuals: ID, group ID, country of origin and coverage}
+  \item{age}{a numeric vector containing the sample ages, where age is measured in year cal BP}
+  \item{genotype}{a numeric matrix containing diploid genotypes (0,1,2) for 118 ancient Eurasians. The 10,000 filtered SNPs were randomly selected from a large set of variants. The matrix contains no missing genotypes.}
+  \item{meta}{metadata on individuals: \code{Instance.ID}, \code{Group.ID}, \code{Country} of origin and \code{coverage}}
 }}
 \source{
 \url{https://reich.hms.harvard.edu/datasets}

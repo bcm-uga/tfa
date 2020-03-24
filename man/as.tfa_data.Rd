@@ -2,21 +2,21 @@
 % Please edit documentation in R/ancestry_coefficients.r
 \name{as.tfa_data}
 \alias{as.tfa_data}
-\title{Convert a data frame into an object of class 'tfa_data'}
+\title{Convert a data frame into an object of class \code{tfa_data}}
 \usage{
 as.tfa_data(dataframe)
 }
 \arguments{
 \item{dataframe}{a dataframe containing metadata for a factor analysis of ancient DNA. The meta
-data could contain information on sample IDs, Group.IDs, country of origin, sample age, etc. Columns
+data could contain information on individual ID's, group ID's, country of origin, sample age, etc. Columns
 with names 'Instance.ID' and 'Group.ID' are mandatory.}
 }
 \value{
-an object of class tfa_data
+an object of class \code{tfa_data}
 }
 \description{
-\code{as.tfa_data} checks the contents of a metadata file for the presence of group IDs, and
-convert the data frame as an object of class tfa_data.
+\code{as.tfa_data} checks the contents of a metadata file for the presence of group and instance IDs,
+and it convert the data frame as an object of class \code{tfa_data}.
 }
 \examples{
 library(tfa)
