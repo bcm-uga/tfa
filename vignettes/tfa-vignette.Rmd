@@ -64,7 +64,7 @@ According to the PCA, $K = 3$ factors were used in the regression model. A facto
 - the number of factors (`k`),
 - the drift parameter (`lambda`). 
 
-The number of factors could be determined by PCA or other methods for analysis of population structure. Here it could be taken equal to the number of axes in the PCA. Since the `tfa` method is based low rank approximation of data matrices, lower values such `k = 2` work too.
+The number of factors could be determined by PCA or other methods for analysis of population structure. Here it could be taken equal to the number of axes in the PCA. Since the `tfa` method is based low rank approximation of data matrices, lower values such as `k = 2` can be accepted.
 
 The drift parameter (`lambda`) was determined by a grid search procedure. It was chosen as the value for which the effect of age was removed from the **third** factor of the `tfa` analysis, repeated several times.
 
