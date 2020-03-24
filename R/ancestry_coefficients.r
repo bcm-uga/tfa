@@ -43,11 +43,12 @@ as.tfa_data <- function(dataframe){
 #'
 #' \code{ancestry_coefficients} compute the proportions of shared ancestry from specified source populations
 #'
-#' @param model an object of class `tfa` with the same number of individuals as in metadata.
-#' @param metadata an object of class `tfa_data` containing metadata on Group.IDs.
-#' @param source a vector of ancestral group ID's from `Group.IDs` (character).
-#' @param target a vector of target group ID's from Group.IDs (character).
-#' @param individual a logical indicating whether individual ancestry coefficients should be computed.
+#' @param model an object of class \code{tfa} with the same number of individuals as in metadata.
+#' @param metadata an object of class \code{tfa_data} containing metadata on Group.IDs.
+#' @param source a vector of ancestral group ID's from \code{Group.IDs} (character).
+#' @param target a vector of target group ID's from \code{Group.IDs} (character).
+#' @param individual a logical indicating whether individual ancestry coefficients
+#' should be computed.
 #' @return a matrix with coefficients equal to the ancestry proportions of each target population
 #' from each source.
 #' @export

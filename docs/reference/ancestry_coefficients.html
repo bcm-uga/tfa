@@ -34,7 +34,7 @@
 
 <meta property="og:title" content="Compute ancestry coefficients from specified source populations — ancestry_coefficients" />
 
-<meta property="og:description" content="ancestry_coefficients compute ancestry coefficients from sources populations for a target group" />
+<meta property="og:description" content="ancestry_coefficients compute the proportions of shared ancestry from specified source populations" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,7 +117,7 @@
 
     <div class="ref-description">
     
-    <p><code>ancestry_coefficients</code> compute ancestry coefficients from sources populations for a target group</p>
+    <p><code>ancestry_coefficients</code> compute the proportions of shared ancestry from specified source populations</p>
     
     </div>
 
@@ -128,23 +128,24 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>model</th>
-      <td><p>an object of class tfa with the same number of individuals as in metadata.</p></td>
+      <td><p>an object of class <code>tfa</code> with the same number of individuals as in metadata.</p></td>
     </tr>
     <tr>
       <th>metadata</th>
-      <td><p>an object of class tfa_data containing metadata on Group.IDs.</p></td>
+      <td><p>an object of class <code>tfa_data</code> containing metadata on Group.IDs.</p></td>
     </tr>
     <tr>
       <th>source</th>
-      <td><p>a vector of ancestral group ID's from Group.IDs (character).</p></td>
+      <td><p>a vector of ancestral group ID's from <code>Group.IDs</code> (character).</p></td>
     </tr>
     <tr>
       <th>target</th>
-      <td><p>a vector of target group ID's from Group.IDs (character).</p></td>
+      <td><p>a vector of target group ID's from <code>Group.IDs</code> (character).</p></td>
     </tr>
     <tr>
       <th>individual</th>
-      <td><p>a logical indicating whether individual ancestry coefficients should be computed.</p></td>
+      <td><p>a logical indicating whether individual ancestry coefficients
+should be computed.</p></td>
     </tr>
     </table>
     
