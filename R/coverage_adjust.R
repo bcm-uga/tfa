@@ -1,6 +1,6 @@
-#' Correct ancient genotypes for coverage effect
+#' Adjust ancient genotypes for coverage bias
 #'
-#' \code{coverage_adjust} corrects the matrix of genotypes for low and uneven coverage of
+#' \code{coverage_adjust} adjusts the matrix of genotypes for low and uneven coverage of
 #' individual genomes.
 #'
 #' @param Y an nxp numeric data matrix containing genetic information for n individuals recorded in p columns.

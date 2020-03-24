@@ -1,4 +1,4 @@
-#' Convert a data frame as an object of class tfa_data
+#' Convert a data frame into an object of class 'tfa_data'
 #'
 #' \code{as.tfa_data} checks the contents of a metadata file for the presence of group IDs, and
 #' convert the data frame as an object of class tfa_data.
@@ -39,14 +39,14 @@ as.tfa_data <- function(dataframe){
   return(obj)
 }
 
-#' Compute ancestry coefficients from sources populations for a target group
+#' Compute ancestry coefficients from specified source populations
 #'
 #' \code{ancestry_coefficients} compute ancestry coefficients from sources populations for a target group
 #'
 #' @param model an object of class tfa with the same number of individuals as in metadata.
 #' @param metadata an object of class tfa_data containing metadata on Group.IDs.
-#' @param source a vector of (two or three) ancestral group ID's (character).
-#' @param target a vector of target group ID's (character).
+#' @param source a vector of ancestral group ID's from Group.IDs (character).
+#' @param target a vector of target group ID's from Group.IDs (character).
 #' @param individual a logical indicating whether individual ancestry coefficients should be computed.
 #' @return a matrix with coefficients equal to the ancestry proportions of each target population
 #' from each source.

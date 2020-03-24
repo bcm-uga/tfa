@@ -2,7 +2,7 @@
 % Please edit documentation in R/coverage_adjust.R
 \name{coverage_adjust}
 \alias{coverage_adjust}
-\title{Correct ancient genotypes for coverage effect}
+\title{Adjust ancient genotypes for coverage bias}
 \usage{
 coverage_adjust(Y = NULL, coverage = NULL, K, lambda = 1e-05,
   log = FALSE)
@@ -25,7 +25,7 @@ It could be obtained from a PCA of the data matrix.}
 an nxp numeric matrix containing the n corrected genotypes
 }
 \description{
-\code{coverage_adjust} corrects the matrix of genotypes for low and uneven coverage of
+\code{coverage_adjust} adjusts the matrix of genotypes for low and uneven coverage of
 individual genomes.
 }
 \examples{

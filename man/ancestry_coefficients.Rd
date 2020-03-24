@@ -2,7 +2,7 @@
 % Please edit documentation in R/ancestry_coefficients.r
 \name{ancestry_coefficients}
 \alias{ancestry_coefficients}
-\title{Compute ancestry coefficients from sources populations for a target group}
+\title{Compute ancestry coefficients from specified source populations}
 \usage{
 ancestry_coefficients(model, metadata, source, target, individual = FALSE)
 }
@@ -11,9 +11,9 @@ ancestry_coefficients(model, metadata, source, target, individual = FALSE)
 
 \item{metadata}{an object of class tfa_data containing metadata on Group.IDs.}
 
-\item{source}{a vector of (two or three) ancestral group ID's (character).}
+\item{source}{a vector of ancestral group ID's from Group.IDs (character).}
 
-\item{target}{a vector of target group ID's (character).}
+\item{target}{a vector of target group ID's from Group.IDs (character).}
 
 \item{individual}{a logical indicating whether individual ancestry coefficients should be computed.}
 }

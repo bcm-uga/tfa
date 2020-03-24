@@ -2,7 +2,7 @@
 % Please edit documentation in R/tfa.R
 \name{tfa}
 \alias{tfa}
-\title{Factor analysis of temporal and ancient individual genotypes}
+\title{Factor analysis of temporal or ancient DNA samples}
 \usage{
 tfa(sample_ages, Y, k = 2, lambda = 0.001, cov_matrix = NULL,
   center = TRUE, coverage = NULL, log = TRUE)

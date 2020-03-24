@@ -2,7 +2,7 @@
 % Please edit documentation in R/ancestry_coefficients.r
 \name{as.tfa_data}
 \alias{as.tfa_data}
-\title{Convert a data frame as an object of class tfa_data}
+\title{Convert a data frame into an object of class 'tfa_data'}
 \usage{
 as.tfa_data(dataframe)
 }

@@ -1,4 +1,4 @@
-#' Factor analysis of temporal and ancient individual genotypes
+#' Factor analysis of temporal or ancient DNA samples
 #'
 #' \code{tfa} estimates factors describing population structure for temporal samples
 #' of DNA, correcting individual scores for the effect of allele frequency drift through time
