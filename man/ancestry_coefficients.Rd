@@ -7,11 +7,11 @@
 ancestry_coefficients(model, metadata, source, target, individual = FALSE)
 }
 \arguments{
-\item{model}{an object of class tfa with the same number of individuals as in metadata.}
+\item{model}{an object of class `tfa` with the same number of individuals as in metadata.}
 
-\item{metadata}{an object of class tfa_data containing metadata on Group.IDs.}
+\item{metadata}{an object of class `tfa_data` containing metadata on Group.IDs.}
 
-\item{source}{a vector of ancestral group ID's from Group.IDs (character).}
+\item{source}{a vector of ancestral group ID's from `Group.IDs` (character).}
 
 \item{target}{a vector of target group ID's from Group.IDs (character).}
 
@@ -22,7 +22,7 @@ a matrix with coefficients equal to the ancestry proportions of each target popu
 from each source.
 }
 \description{
-\code{ancestry_coefficients} compute ancestry coefficients from sources populations for a target group
+\code{ancestry_coefficients} compute the proportions of shared ancestry from specified source populations
 }
 \examples{
 library(tfa)
