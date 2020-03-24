@@ -4,8 +4,8 @@
 #' convert the data frame as an object of class tfa_data.
 #'
 #' @param dataframe a dataframe containing metadata for a factor analysis of ancient DNA. The meta
-#' data could contain information on sample IDs, Group.IDs, country of origin, sample age, etc. Only
-#' the column with name 'Group.ID' is mandatory.
+#' data could contain information on sample IDs, Group.IDs, country of origin, sample age, etc. Columns
+#' with names 'Instance.ID' and 'Group.ID' are mandatory.
 #' @return an object of class tfa_data
 #' @export
 #' @examples
@@ -31,6 +31,9 @@ as.tfa_data <- function(dataframe){
   if (!is.character(dataframe[,"Group.ID"])){
     stop("Group.ID is not character")
   }
+  if ("Instance.ID" %in% cnames == FALSE){
+    stop("dataframe has no column named Instance.ID")
+  }
   obj <- dataframe
   class(obj) <- "tfa_data"
   return(obj)
@@ -42,8 +45,9 @@ as.tfa_data <- function(dataframe){
 #'
 #' @param model an object of class tfa with the same number of individuals as in metadata.
 #' @param metadata an object of class tfa_data containing metadata on Group.IDs.
-#' @param source a vector of (two or three) ancestral group IDs (character).
-#' @param target a target group ID.
+#' @param source a vector of (two or three) ancestral group ID's (character).
+#' @param target a vector of target group ID's (character).
+#' @param individual a logical indicating whether individual ancestry coefficients should be computed.
 #' @return a matrix with coefficients equal to the ancestry proportions of each target population
 #' from each source.
 #' @export
@@ -83,7 +87,7 @@ as.tfa_data <- function(dataframe){
 #' @references François, O., Jay, F. (2020). Factor analysis of ancient DNA samples.
 #' @author Olivier Francois, \email{olivier.francois@@univ-grenoble-alpes.fr}
 #' @seealso \code{\link{England_BA}}, \code{\link{tfa}}
-ancestry_coefficients <- function(model, metadata, source, target){
+ancestry_coefficients <- function(model, metadata, source, target, individual = FALSE){
 
   if (class(model) != "tfa") {
     stop("Argument 'model' not of class 'tfa'.")
@@ -128,31 +132,82 @@ ancestry_coefficients <- function(model, metadata, source, target){
        M[,j] <- apply(model$u[metadata$Group.ID == source[j], 1:(k-1)], 2, mean)
       }
 
-      Z <- apply(model$u[metadata$Group.ID == targ, 1:(k-1)], 2, mean)
-      Z <- t(as.matrix(Z))
+     if (!individual){
 
+      if (sum(metadata$Group.ID == targ) > 1){
+        Z <- apply(model$u[metadata$Group.ID == targ, 1:(k-1)], 2, mean)
+      } else {
+        Z <- model$u[metadata$Group.ID == targ, 1:(k-1)]
+      }
+
+      Z <- t(as.matrix(Z))
       A <- M - M[,1]
       a <- solve(A[,-1]) %*% t(Z - M[,1])
       a <- t(a)
       a <- cbind(1 - sum(a), a)
+
+     } else {
+       Z_target <- model$u[metadata$Group.ID == targ, 1:(k-1)]
+       nt <- nrow(Z_target)
+       a_target <- NULL
+       A <- M - M[,1]
+       for (i in 1:nt){
+         Z <- t(as.matrix(Z_target[i,]))
+         ai <- solve(A[,-1]) %*% t(Z - M[,1])
+         ai <- t(ai)
+         ai <- cbind(1 - sum(ai), ai)
+         a_target <- rbind(a_target, ai)
+       }
+       a <- a_target
+     }
     } else {
 
       M <- matrix(NA,  nrow = k, ncol = k)
       for (j in 1:k){
        M[,j] <- apply(model$u[metadata$Group.ID == source[j], 1:k], 2, mean)
-     }
+      }
 
-      Z <- apply(model$u[metadata$Group.ID == targ, 1:k], 2, mean)
+      if (!individual){
+      if (sum(metadata$Group.ID == targ) > 1){
+        Z <- apply(model$u[metadata$Group.ID == targ, 1:k], 2, mean)
+      } else {
+        Z <- model$u[metadata$Group.ID == targ, 1:k]
+      }
       Z <- t(as.matrix(Z))
+
+      # computes coordinates in vector basis
       A <- M - M[,1]
       a <- (Z - M[,1]) %*% A[,-1]
       a <- a / t(A[,-1]) %*% A[,-1]
       a <- cbind(1 - a, a)
+      } else {
+        Z_target <- model$u[metadata$Group.ID == targ, 1:k]
+        nt <- nrow(Z_target)
+        a_target <- NULL
+        A <- M - M[,1]
+        for (i in 1:nt){
+          Z <- t(as.matrix(Z_target[i,]))
+          ai <- solve(A[,-1]) %*% t(Z - M[,1])
+          ai <- t(ai)
+          ai <- cbind(1 - sum(ai), ai)
+          a_target <- rbind(a_target, ai)
+        }
+        a <- a_target
+       }
     }
+
+
+
     ancestry <- rbind(ancestry, a)
   }
 
   colnames(ancestry) <- source
-  rownames(ancestry) <- target
+
+  if (!individual){
+    rownames(ancestry) <- target
+  } else {
+    rownames(ancestry) <- metadata$Instance.ID[metadata$Group.ID %in% target]
+  }
+
   return(ancestry)
 }

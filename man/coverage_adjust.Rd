@@ -45,3 +45,6 @@ François, O., Jay, F. (2020). Factor analysis of ancient DNA samples.
 \seealso{
 \code{\link{England_BA}}, \code{\link{tfa}}
 }
+\author{
+Olivier Francois, \email{olivier.francois@univ-grenoble-alpes.fr}
+}

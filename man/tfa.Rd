@@ -110,6 +110,7 @@ legend(x = 10, y = 20.5, cex = .6,
        legend = c("Neolithic GB", "Bronze Age GB", "Bell Beaker"),
        col = c("salmon1", "yellow3", "yellow4"), pch = 19)
 detach(England_BA)
+# rm(list = ls())
 }
 \references{
 François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of population genetic structure from temporal samples

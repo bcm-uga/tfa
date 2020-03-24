@@ -4,16 +4,18 @@
 \alias{ancestry_coefficients}
 \title{Compute ancestry coefficients from sources populations for a target group}
 \usage{
-ancestry_coefficients(model, metadata, source, target)
+ancestry_coefficients(model, metadata, source, target, individual = FALSE)
 }
 \arguments{
 \item{model}{an object of class tfa with the same number of individuals as in metadata.}
 
 \item{metadata}{an object of class tfa_data containing metadata on Group.IDs.}
 
-\item{source}{a vector of (two or three) ancestral group IDs (character).}
+\item{source}{a vector of (two or three) ancestral group ID's (character).}
 
-\item{target}{a target group ID.}
+\item{target}{a vector of target group ID's (character).}
+
+\item{individual}{a logical indicating whether individual ancestry coefficients should be computed.}
 }
 \value{
 a matrix with coefficients equal to the ancestry proportions of each target population
@@ -61,4 +63,7 @@ François, O., Jay, F. (2020). Factor analysis of ancient DNA samples.
 }
 \seealso{
 \code{\link{England_BA}}, \code{\link{tfa}}
+}
+\author{
+Olivier Francois, \email{olivier.francois@univ-grenoble-alpes.fr}
 }

@@ -8,8 +8,8 @@ as.tfa_data(dataframe)
 }
 \arguments{
 \item{dataframe}{a dataframe containing metadata for a factor analysis of ancient DNA. The meta
-data could contain information on sample IDs, Group.IDs, country of origin, sample age, etc. Only
-the column with name 'Group.ID' is mandatory.}
+data could contain information on sample IDs, Group.IDs, country of origin, sample age, etc. Columns
+with names 'Instance.ID' and 'Group.ID' are mandatory.}
 }
 \value{
 an object of class tfa_data
