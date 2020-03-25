@@ -132,7 +132,7 @@
     </tr>
     <tr>
       <th>metadata</th>
-      <td><p>an object of class <code>tfa_data</code> containing metadata on Group.IDs.</p></td>
+      <td><p>an object of class <code>tfa_metadata</code> containing metadata on Group.IDs.</p></td>
     </tr>
     <tr>
       <th>source</th>
@@ -160,7 +160,7 @@ from each source.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='england_ba.html'>England_BA</a></code>, <code><a href='tfa.html'>tfa</a></code></p></div>
+    <div class='dont-index'><p><code>England_BA</code>, <code><a href='tfa.html'>tfa</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -170,7 +170,7 @@ from each source.</p>
 <span class='co'># including Steppe (Yamnaya), hunter gatherers, and early farmers from Anatolia</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>england_ba</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/attach.html'>attach</a></span>(<span class='no'>England_BA</span>)
-<span class='no'>metadata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.tfa_data.html'>as.tfa_data</a></span>(<span class='no'>meta</span>)
+<span class='no'>metadata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.tfa_metadata.html'>as.tfa_metadata</a></span>(<span class='no'>meta</span>)
 <span class='no'>coverage</span> <span class='kw'>&lt;-</span> <span class='no'>meta</span>$<span class='no'>Coverage</span>
 <span class='no'>geno</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='coverage_adjust.html'>coverage_adjust</a></span>(<span class='no'>genotype</span>, <span class='no'>coverage</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 

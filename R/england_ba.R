@@ -1,24 +1,4 @@
 #' Ancient human DNA samples from David Reich's lab
-#' @description {The data include 10,000 filtered SNP genotypes from 118 samples, from Neolithic and Bronze Age Great Britain,
-#' Steppe (Yamnaya), early farmers from Anatolia, and hunter-gatherers from Serbia. The data set is structured as a list
-#' named 'England_BA'
-#'
-#'$age: a numeric vector containing the sample ages, where age is measured in year cal BP.
-#'
-#'$genotype: a numeric matrix containing 118 genotypes. The 10,000 filtered SNPs were randomly selected from a large set of
-#'variants. The matrix contains no missing genotypes.
-#'
-#'$meta: metadata on \code{Instance.ID}, \code{Group.ID}, \code{Country} of origin and \code{coverage}.
-#'
-#'}
-#' @name england_ba
-#' @docType data
-#'
-NULL
-
-
-
-#' Ancient human DNA samples from David Reich's lab
 #'
 #' A dataset containing 10,000 filtered SNP genotypes from 118 samples, from Neolithic and Bronze Age Great Britain,
 #' Steppe (Yamnaya), early farmers from Anatolia, and hunter-gatherers from Serbia. Metadata and sample

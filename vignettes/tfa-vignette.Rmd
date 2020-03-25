@@ -19,24 +19,35 @@ knitr::opts_chunk$set(
 )
 ```
 
-**Summary:** The R package `tfa` performs factor analyses of temporal DNA or ancient DNA (aDNA) samples, correcting individual scores for the effect of allele frequency drift through time. The package implements a fast algorithm that computes $K$ corrected factors, and it can provide estimates of ancestry proportions for a target individual or a target population given a set of source populations.
+**Summary:** The R package `tfa` implements a factor analysis (FA) algorithm for temporal DNA or ancient DNA (aDNA) samples, ajusting individual scores for the effect of allele frequency drift through time. Based on the adjusted factors, the program can estimate ancestry proportions for a target population or a subset of target individuals given specified source populations. This vignette illustrates the use of `tfa` with samples of Eurasian individual aDNA from the David Reich's lab database. 
+
 
 
 ```{r setup}
   library(tfa)
 ```
 
+#### Principle of the method
+
+The FA model uses a decomposition of the data matrix into a product of factor and loading matrices plus correction factors and residual noise. The correction factors represented the main improvement over classical FA or principal component analysis (PCA). In `tfa` the correction factors are related to the covariance function of the stochastic drift process. The default model for the covariance function is the Brownian model. This default corresponds to the diffusion approximation of allele frequency drift in a random mating population conditional on the non-fixation of alleles in the population. The approach is flexible and allows expert users to customize their own model and implement other covariance functions. The correction factors are obtained after a spectral decomposition of the covariance matrix, and the corresponding effect size estimates are obtained in a Bayesian framework. Explicit solutions are obtained for the effect size estimates and corrected factors. The hyperparameters for the FA model are the drift parameter and the number of latent factors. 
+
 
 #### Factor analysis of aDNA samples  
 
-This section runs the main function of the `tfa` package on an example data set containing aDNA samples. The samples were extracted from a database available from [David Reich's lab](https://reich.hms.harvard.edu/). In this example, the data matrix contains 10,000 filtered SNP genotypes from 118 samples, from Neolithic and Bronze Age Great Britain, Steppe (Yamnaya), Anatolia (Early Farmers), and from Serbia (Hunter-Gatherers). Metadata and sample ages are also provided as separate objects. The command below shows how to load the data and which groups are included.
+This section will illustrate the use of the `tfa` function to display a geometric representation of 118 aDNA samples from prehistoric Eurasia. This example data set was extracted from a database available from [David Reich's lab](https://reich.hms.harvard.edu/) considering individuals from Neolithic and Bronze Age Great Britain, Steppe (Yamnaya), Anatolia (Early Farmers), and from Serbia (Western Hunter-Gatherers). 
+
+Ten thousands SNP genotypes were filtered for high-quality, relatively high coverage and low number of missing values. Individual metadata and sample ages are provided as separate objects. The command below shows how to load the data in the R environment and which groups have been included in the data set.
+
 
 ```{r}
 data(england_ba)
 # Ancient DNA from Bronze Age Great Britain samples
 # including Yamnaya, early farmers (Anatolia) and hunter-gatherers (Serbia)
   attach(England_BA)
-  table(meta$Group.ID)  
+```
+
+```{r}
+  plot(table(meta$Group.ID), las = 3, cex.axis = .5, ylab = "Count", lwd = 5, col = "blue")
 ```
 
 Prehistoric dates for each sample are provided in years cal BP. 
@@ -46,27 +57,30 @@ Prehistoric dates for each sample are provided in years cal BP.
 hist(age, col = "lightblue", xlab = "Age cal BP")
 ```
 
-The data contain no missing genotypes. The missing values were imputed from a much larger data set. This was done in a preliminary analysis by using a nonnegative matrix factorization completion algorithm implemented in the R package `LEA`. Running a standard PCA on the data matrix clearly shows there are three main axes of variation in the genotypic data. 
+
+The data set contains no missing genotypes. The missing values were imputed from a much larger database. This was done in a preliminary analysis by using a completion algorithm implemented in the R package `LEA`. Running a standard PCA on the data matrix clearly shows there are three main axes of variation in the genotypic data. 
+
 
 ```{r}
   pca <- prcomp(genotype)
   plot(pca, col = "palegreen")
 ```
 
-A first step of analysis consists of removing coverage bias from the genotypic data. The impact of coverage on analyses on those particular samples is not very large. In general, coverage bias may however strongly influence the results of factor analyses. To correct for coverage,a latent factor regression model implemented in the function `coverage_adjust` can be used as follows. 
+
+A first step of analysis consists of adjusting the genotypic data for coverage. For those particular filtered genotypes, the impact of coverage bias on analyses is not substantial. In general, coverage may strongly bias the results of factor analyses, and this important to consider adjusting for it. To adjust for coverage, the `tfa` package has the function `coverage_adjust` which implements a correction based on a latent factor regression model. According to the PCA, there are $K = 3$ main axes of variation in the data. based on this result, three factors are used in the latent factor  regression model.
+
 
 ```{r}
 coverage <- meta$Coverage
 geno <- coverage_adjust(genotype, coverage, K = 3, log = TRUE)
 ```
 
-According to the PCA, $K = 3$ factors were used in the regression model. A factor analysis of the corrected data matrix `geno` can be performed as follows. The factor model has two main hyper-parameters:
-- the number of factors (`k`),
-- the drift parameter (`lambda`). 
 
-The number of factors could be determined by PCA or other methods for analysis of population structure. Here it could be taken equal to the number of axes in the PCA. Since the `tfa` method is based low rank approximation of data matrices, lower values such as `k = 2` can be accepted.
+For running FA of the corrected data matrix (`geno`), the number of factors (`k`), and the drift parameter (`lambda`) must be specified. 
 
-The drift parameter (`lambda`) was determined by a grid search procedure. It was chosen as the value for which the effect of age was removed from the **third** factor of the `tfa` analysis, repeated several times.
+The number of factors could be determined by PCA or other methods for analysis of population structure. It could be taken equal to the number of axes in the PCA of the `geno` matrix. Since the `tfa` method is based low-rank approximation, a lower value such as `k = 2` can be accepted. The values `k = 2` may be useful to explore the relationships of samples with two pre-specified ancestral populations.  
+
+The drift parameter (`lambda`) can be determined by a grid search procedure. Here, it was chosen as the value for which the effect of age was removed from the **third** factor of the `tfa` analysis performed below, and repeated several times.
 
 
 ```{r}
@@ -76,7 +90,14 @@ The drift parameter (`lambda`) was determined by a grid search procedure. It was
               lambda = 5e-1)
 ```
 
-The results look like a PC plot showing the relative positions of Great Britain samples with respect to their putative sources of ancestry.  
+The object `mod` contains `k` factors adjusted for temporal drift in allele frequency in its argument `mod$u`. The argument `mod$sing` contains the variance associated with each factor 
+
+```{r}
+ var_explained <- mod$singular.values[1:3]/(sum(mod$singular.values))
+ var_explained
+```
+
+The object `mod$u` can be used to visualize the samples in their first axes. The result looks like a PC plot showing the relative positions of Great Britain samples with respect to their putative sources of ancestry.  
 
 
 ```{r}
@@ -108,16 +129,16 @@ The results look like a PC plot showing the relative positions of Great Britain 
 
 #### Ancestry coefficients
 
-The R package `tfa` can provide estimates of ancestry proportions for a target individual or a target population given a set of source populations. The number of sources must be less or equal than the number of factors plus one. For this analysis, the metadata object must contain a column named **Instance.ID** indicating the ID of each individual and another column  named **Group.ID** indicating the group ID of each individual.
+In addition to geometric representations, the R package `tfa` can provide estimates of ancestry proportions for a target population or for a list of target individuals given specified source population samples. The number of sources must be less or equal than the number of factors plus one. For this analysis, the metadata object must contain a column named **Instance.ID** indicating the ID of each individual and another column  named **Group.ID** indicating the group ID of each individual in the study.
 
 ```{r}
   colnames(meta)
 ```
 
-Since the data.frame `meta` contains the correct information, it can be converted into an object of class `tfa_data`.
+Since the data.frame `meta` contains the correct information, it can be converted into an object of class `tfa_metadata`.
 
 ```{r}
-metadata <- as.tfa_data(meta)
+metadata <- as.tfa_metadata(meta)
 ```
 
 Now consider `England_Bell_Beaker` and `England_BA` as target populations and `Anatolia_N` (Early Farmers), `Russia_Yamnaya` (Steppe Pastoralists), `Serbia_HG` (Western Hunter-Gatherers) as potential source populations.
@@ -127,7 +148,7 @@ Now consider `England_Bell_Beaker` and `England_BA` as target populations and `A
   source = c("Anatolia_N", "Russia_Yamnaya", "Serbia_HG")
 ```
 
-The function `ancestry_coefficients` uses basic linear algebra to compute the coordinates of each target population 
+The function `ancestry_coefficients` uses basic linear algebra to compute the coordinates of each target population in the system formed by the centers of source populations. 
 
 
 ```{r}
@@ -137,7 +158,7 @@ The function `ancestry_coefficients` uses basic linear algebra to compute the co
                         target = target)
 ```
 
-We see that Bell Beaker samples share a large fraction of their ancestry with the steppe pastoralists. Changing the Anatolian population for another population of early farmers confirms this result.  
+The Bell Beaker samples share a large fraction of their ancestry with steppe pastoralists. Changing the Anatolian population for another population of Early Farmers (`England_N`) can confirm this result.  
 
 
 ```{r}
@@ -147,7 +168,8 @@ We see that Bell Beaker samples share a large fraction of their ancestry with th
                         target = target)
 ```
 
-The result shows that the shared ancestry with Serbian hunter-gatherers reduces when farmers were from a closer geographic source. This could also suggest that the hunter-gatherer contribution to the England Neolithic gene pool may be substantial. To check this hypothesis, consider the sample from England with the first considered set of sources. 
+The result shows that the amount of ancestry shared with the hunter-gatherers reduces when farmers are sampled from a closer geographic source. This suggests that the hunter-gatherer contribution to the England Neolithic gene pool may be substantial. To check this hypothesis, consider `England_N` as the target with the set of sources considered at the start.
+
 
 ```{r}
   ancestry_coefficients(model = mod,
@@ -156,7 +178,7 @@ The result shows that the shared ancestry with Serbian hunter-gatherers reduces 
                         target = "England_N")
 ```
 
-The negative value for the `Russia_Yamnaya` source suggests that this source did not contribute to the gene pool of Neolithic Scotland samples, and that it should be removed from the set of sources.
+A negative value for the `Russia_Yamnaya` source suggests that this source did not contribute to the gene pool of Neolithic England samples, and that it should be removed from the set of sources.
 
 ```{r}
   ancestry_coefficients(model = mod,
@@ -165,7 +187,8 @@ The negative value for the `Russia_Yamnaya` source suggests that this source did
                         target = "England_N")
 ```
 
-The result indeed suggests a substantial contribution of hunter-gatherers to Neolithic England farmers. The analysis can be summarized as follows
+After doing this, the result indeed suggests a substantial contribution of hunter-gatherers to Neolithic England farmers. The analysis can be summarized in a table of ancestry coefficients as follows.
+
 
 ```{r}
 ancestry.B <- ancestry_coefficients(model = mod,
@@ -183,7 +206,7 @@ ancestry <- rbind(ancestry.B, ancestry.N)
 ancestry
 ```
 
-The results can be represented by a barplot as follows.
+The results can be represented by a barplot as follows. The green, salmon and blue colors correspond to hunter-gatherers, early farmers and steppe pastoralists respectively.
 
 ```{r}
   barplot(t(ancestry), 
@@ -194,7 +217,7 @@ The results can be represented by a barplot as follows.
 
 #### Individual ancestry coefficients
 
-Since factor analysis is an individual-based, the geometric approach can be used to compute individual ancestry coefficients, looking like a popular STRUCTURE barplot.
+Since FA is an individual-based method, a geometric approach can be used to compute  ancestry coefficients for each individual, and to display results looking like a popular STRUCTURE barplot. For Bronze Age and Bell Beaker samples, this can be done as follows. 
 
 
 ```{r}
@@ -222,5 +245,5 @@ detach(England_BA)
 rm(list = ls())
 ```
 
-
+The levels of ancestry are consistent across the samples from Bell Beaker and Bronze Age samples. 
 

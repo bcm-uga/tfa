@@ -9,7 +9,7 @@ ancestry_coefficients(model, metadata, source, target, individual = FALSE)
 \arguments{
 \item{model}{an object of class \code{tfa} with the same number of individuals as in metadata.}
 
-\item{metadata}{an object of class \code{tfa_data} containing metadata on Group.IDs.}
+\item{metadata}{an object of class \code{tfa_metadata} containing metadata on Group.IDs.}
 
 \item{source}{a vector of ancestral group ID's from the list of \code{Group.IDs} (character).}
 
@@ -32,7 +32,7 @@ library(tfa)
 # including Steppe (Yamnaya), hunter gatherers, and early farmers from Anatolia
 data(england_ba)
 attach(England_BA)
-metadata <- as.tfa_data(meta)
+metadata <- as.tfa_metadata(meta)
 coverage <- meta$Coverage
 geno <- coverage_adjust(genotype, coverage, K = 3, log = TRUE)
 

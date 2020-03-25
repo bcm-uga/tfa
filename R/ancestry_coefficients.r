@@ -1,12 +1,12 @@
-#' Convert a data frame into an object of class \code{tfa_data}
+#' Convert a data frame into an object of class \code{tfa_metadata}
 #'
-#' \code{as.tfa_data} checks the contents of a metadata file for the presence of group and instance IDs,
-#' and it convert the data frame as an object of class \code{tfa_data}.
+#' \code{as.tfa_metadata} checks the contents of a metadata file for the presence of group and instance IDs,
+#' and it convert the data frame as an object of class \code{tfa_metadata}.
 #'
 #' @param dataframe a dataframe containing metadata for a factor analysis of ancient DNA. The meta
 #' data could contain information on individual ID's, group ID's, country of origin, sample age, etc. Columns
 #' with names 'Instance.ID' and 'Group.ID' are mandatory.
-#' @return an object of class \code{tfa_data}
+#' @return an object of class \code{tfa_metadata}
 #' @export
 #' @examples
 #' library(tfa)
@@ -15,11 +15,11 @@
 #' # including Steppe (Yamnaya), hunter gatherers, and early farmers from Anatolia
 #' data(england_ba)
 #' attach(England_BA)
-#' metadata <- as.tfa_data(meta)
+#' metadata <- as.tfa_metadata(meta)
 #' detach(England_BA)
 #' @references François, O., Jay, F. (2020). Factor analysis of ancient DNA samples.
 #' @seealso \code{\link{England_BA}}, \code{\link{ancestry_coefficients}}
-as.tfa_data <- function(dataframe){
+as.tfa_metadata <- function(dataframe){
 
   if (class(dataframe) != "data.frame"){
    stop("Object dataframe not of class data.frame")
@@ -35,7 +35,7 @@ as.tfa_data <- function(dataframe){
     stop("dataframe has no column named Instance.ID")
   }
   obj <- dataframe
-  class(obj) <- "tfa_data"
+  class(obj) <- "tfa_metadata"
   return(obj)
 }
 
@@ -44,7 +44,7 @@ as.tfa_data <- function(dataframe){
 #' \code{ancestry_coefficients} compute the proportions of shared ancestry from specified source populations
 #'
 #' @param model an object of class \code{tfa} with the same number of individuals as in metadata.
-#' @param metadata an object of class \code{tfa_data} containing metadata on Group.IDs.
+#' @param metadata an object of class \code{tfa_metadata} containing metadata on Group.IDs.
 #' @param source a vector of ancestral group ID's from the list of \code{Group.IDs} (character).
 #' @param target a vector of target group ID's from the list of \code{Group.IDs} (character).
 #' @param individual a logical indicating whether individual ancestry coefficients
@@ -59,7 +59,7 @@ as.tfa_data <- function(dataframe){
 #' # including Steppe (Yamnaya), hunter gatherers, and early farmers from Anatolia
 #' data(england_ba)
 #' attach(England_BA)
-#' metadata <- as.tfa_data(meta)
+#' metadata <- as.tfa_metadata(meta)
 #' coverage <- meta$Coverage
 #' geno <- coverage_adjust(genotype, coverage, K = 3, log = TRUE)
 #'
@@ -94,8 +94,8 @@ ancestry_coefficients <- function(model, metadata, source, target, individual = 
     stop("Argument 'model' not of class 'tfa'.")
   }
 
-  if (class(metadata) != "tfa_data") {
-    stop("Argument 'metadata' not of class 'tfa_data'.")
+  if (class(metadata) != "tfa_metadata") {
+    stop("Argument 'metadata' not of class 'tfa_metadata'.")
   }
 
   if (!is.character(source)) {

@@ -1,5 +1,5 @@
 # tfa
-tfa is an R package for performing factor analyses of temporal or ancient DNA samples, correcting individual scores for the effect of allele frequency drift through time. The package implements a fast algorithm that computes $K$ corrected factors, and provides estimates of ancestry proportions for a target individual or a target population given a set of source populations. See a short [Overview](https://bcm-uga.github.io/tfa/articles/tfa-vignette.html).
+The R package `tfa` implements a factor analysis algorithm for temporal DNA or ancient DNA (aDNA) samples, ajusting individual scores for the effect of allele frequency drift through time. Based on the adjusted factors, the program can estimate ancestry proportions for a target population or a subset of target individuals given specified source populations. Check the following link for a short [Overview](https://bcm-uga.github.io/tfa/articles/tfa-vignette.html) of the package.
 
 ## Installation
 
