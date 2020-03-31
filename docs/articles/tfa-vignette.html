@@ -75,7 +75,7 @@
       <h1>Analyzing ancient DNA data with the R package tfa</h1>
                         <h4 class="author">Olivier François - Flora Jay</h4>
             
-            <h4 class="date">2020-03-25</h4>
+            <h4 class="date">2020-03-31</h4>
       
       
       <div class="hidden name"><code>tfa-vignette.Rmd</code></div>
@@ -84,7 +84,7 @@
 
     
     
-<p><strong>Summary:</strong> The R package <code>tfa</code> implements a factor analysis (FA) algorithm for temporal DNA or ancient DNA (aDNA) samples, ajusting individual scores for the effect of allele frequency drift through time. Based on the adjusted factors, the program can estimate ancestry proportions for a target population or a subset of target individuals given specified source populations. This vignette illustrates the use of <code>tfa</code> with samples of Eurasian individual aDNA from the David Reich’s lab database.</p>
+<p><strong>Summary:</strong> The R package <code>tfa</code> implements a factor analysis (FA) algorithm for temporal DNA or ancient DNA (aDNA) samples, ajusting individual scores for the effect of allele frequency drift through time. Based on the adjusted factors, the program can estimate ancestry proportions for a target population or a subset of target individuals given specified source populations. This vignette illustrates the use of <code>tfa</code> with samples of Eurasian aDNA extracted from <a href="https://reich.hms.harvard.edu/">David Reich’s lab</a> database.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tfa)</code></pre></div>
 <div id="principle-of-the-method" class="section level4">
 <h4 class="hasAnchor">
@@ -109,17 +109,15 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  pca &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/prcomp.html">prcomp</a></span>(genotype)
   <span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(pca, <span class="dt">col =</span> <span class="st">"palegreen"</span>)</code></pre></div>
 <p><img src="tfa-vignette_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<p>A first step of analysis consists of adjusting the genotypic data for coverage. For those particular filtered genotypes, the impact of coverage bias on analyses is not substantial. In general, coverage may strongly bias the results of factor analyses, and this important to consider adjusting for it. To adjust for coverage, the <code>tfa</code> package has the function <code>coverage_adjust</code> which implements a correction based on a latent factor regression model. According to the PCA, there are <span class="math inline">\(K = 3\)</span> main axes of variation in the data. based on this result, three factors are used in the latent factor regression model.</p>
+<p>A first step of analysis consists of adjusting the genotypic data for coverage. For those particular filtered genotypes, the impact of coverage bias on analyses is not substantial. In general, coverage may strongly bias the results of factor analyses, and this important to consider adjusting for it. To adjust for coverage, the <code>tfa</code> package contains the function <code><a href="../reference/coverage_adjust.html">coverage_adjust()</a></code> which implements a correction based on a latent factor regression model. According to the PCA result, three factors will be used in the latent factor regression model.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coverage &lt;-<span class="st"> </span>meta<span class="op">$</span>Coverage
 geno &lt;-<span class="st"> </span><span class="kw"><a href="../reference/coverage_adjust.html">coverage_adjust</a></span>(genotype, coverage, <span class="dt">K =</span> <span class="dv">3</span>, <span class="dt">log =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p>For running FA of the corrected data matrix (<code>geno</code>), the number of factors (<code>k</code>), and the drift parameter (<code>lambda</code>) must be specified.</p>
-<p>The number of factors could be determined by PCA or other methods for analysis of population structure. It could be taken equal to the number of axes in the PCA of the <code>geno</code> matrix. Since the <code>tfa</code> method is based low-rank approximation, a lower value such as <code>k = 2</code> can be accepted. The values <code>k = 2</code> may be useful to explore the relationships of samples with two pre-specified ancestral populations.</p>
-<p>The drift parameter (<code>lambda</code>) can be determined by a grid search procedure. Here, it was chosen as the value for which the effect of age was removed from the <strong>third</strong> factor of the <code>tfa</code> analysis performed below, and repeated several times.</p>
+<p>For running FA of the corrected data matrix (<code>geno</code>), the number of factors (<code>k</code>), and the drift parameter (<code>lambda</code>) must be specified. The <strong>number of factors</strong> could be determined by PCA or other methods for analysis of population structure. It could be taken equal to the number of axes in the PCA of the <code>geno</code> matrix. Since the <code><a href="../reference/tfa.html">tfa()</a></code> approach is based a low-rank approximation of the data matrix, a lower value such as <code>k = 2</code> could be accepted. The value <code>k = 2</code> could be useful to explore relationships of samples when two ancestral populations are specified. The <strong>drift parameter</strong> (<code>lambda</code>) can be determined by a grid search procedure. Here, this parameter was chosen as the value for which the effect of age was removed from the <strong>third</strong> factor of the <code>tfa</code> analysis performed below, which was repeated several times with different values of <code>lambda</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  mod  &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tfa.html">tfa</a></span>(<span class="dt">Y =</span> geno,
               <span class="dt">sample_ages =</span> age,
               <span class="dt">k =</span> <span class="dv">3</span>,
               <span class="dt">lambda =</span> <span class="fl">5e-1</span>)</code></pre></div>
-<p>The object <code>mod</code> contains <code>k</code> factors adjusted for temporal drift in allele frequency in its argument <code>mod$u</code>. The argument <code>mod$sing</code> contains the variance associated with each factor</p>
+<p>The object <code>mod</code> contains <code>k</code> factors adjusted for temporal drift in allele frequency. The results are contained in argument <code>mod$u</code>. The argument <code>mod$sing</code> contains the singular value (variance) associated with each factor.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> var_explained &lt;-<span class="st"> </span>mod<span class="op">$</span>singular.values[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]<span class="op">/</span>(<span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(mod<span class="op">$</span>singular.values))
  var_explained
 <span class="co">#&gt; [1] 0.4274355 0.3227561 0.2498085</span></code></pre></div>
@@ -146,7 +144,6 @@ geno &lt;-<span class="st"> </span><span class="kw"><a href="../reference/covera
          <span class="dt">legend =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Neolithic GB"</span>, <span class="st">"Bronze Age GB"</span>, <span class="st">"Bell Beaker"</span>), 
          <span class="dt">col =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"salmon1"</span>, <span class="st">"yellow3"</span>, <span class="st">"yellow4"</span>), <span class="dt">pch =</span> <span class="dv">19</span>)</code></pre></div>
 <p><img src="tfa-vignette_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># rm(list = ls())</span></code></pre></div>
 </div>
 <div id="ancestry-coefficients" class="section level4">
 <h4 class="hasAnchor">
@@ -240,7 +237,9 @@ ancestry
 <p><img src="tfa-vignette_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="https://rdrr.io/r/base/detach.html">detach</a></span>(England_BA)
-<span class="kw"><a href="https://rdrr.io/r/base/rm.html">rm</a></span>(<span class="dt">list =</span> <span class="kw"><a href="https://rdrr.io/r/base/ls.html">ls</a></span>())</code></pre></div>
+  
+<span class="co">#clear environment   </span>
+<span class="co">#rm(list = ls())</span></code></pre></div>
 <p>The levels of ancestry are consistent across the samples from Bell Beaker and Bronze Age samples.</p>
 </div>
   </div>
