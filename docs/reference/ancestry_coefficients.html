@@ -187,14 +187,16 @@ from each source.</p>
 <span class='fu'>ancestry_coefficients</span>(<span class='kw'>model</span> <span class='kw'>=</span> <span class='no'>mod</span>,
                       <span class='kw'>metadata</span> <span class='kw'>=</span> <span class='no'>metadata</span>,
                       <span class='kw'>source</span> <span class='kw'>=</span> <span class='no'>source</span>,
-                      <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>target</span>)</div><div class='output co'>#&gt;                     Anatolia_N Russia_Yamnaya Serbia_HG
+                      <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>target</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Number of sources equal to the number of factors in 'model'</span>
+#&gt; <span class='warning'>              may provide inconsistent estimates.</span></div><div class='output co'>#&gt;                     Anatolia_N Russia_Yamnaya Serbia_HG
 #&gt; England_Bell_Beaker  0.2810689      0.6149866 0.1039445
 #&gt; England_BA           0.3418138      0.5566906 0.1014955</div><div class='input'>
 <span class='no'>source</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Scotland_N"</span>, <span class='st'>"Russia_Yamnaya"</span>, <span class='st'>"Serbia_HG"</span>)
 <span class='fu'>ancestry_coefficients</span>(<span class='kw'>model</span> <span class='kw'>=</span> <span class='no'>mod</span>,
                       <span class='kw'>metadata</span> <span class='kw'>=</span> <span class='no'>metadata</span>,
                       <span class='kw'>source</span> <span class='kw'>=</span> <span class='no'>source</span>,
-                      <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>target</span>)</div><div class='output co'>#&gt;                     Scotland_N Russia_Yamnaya  Serbia_HG
+                      <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>target</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Number of sources equal to the number of factors in 'model'</span>
+#&gt; <span class='warning'>              may provide inconsistent estimates.</span></div><div class='output co'>#&gt;                     Scotland_N Russia_Yamnaya  Serbia_HG
 #&gt; England_Bell_Beaker  0.2979913      0.6644512 0.03755752
 #&gt; England_BA           0.3623935      0.6168456 0.02076090</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/detach.html'>detach</a></span>(<span class='no'>England_BA</span>)
 <span class='co'># rm(list = ls())</span></div></pre>

@@ -120,7 +120,13 @@ ancestry_coefficients <- function(model, metadata, source, target, individual = 
 
   if (k > ncol(model$u) + 1){
     stop("Number of sources greater than the number of factors + 1 in 'model'.")
+  } else {
+    if (k == ncol(model$u)){
+      warning("Number of sources equal to the number of factors in 'model'
+              may provide inconsistent estimates.")
+    }
   }
+
 
   ancestry <- NULL
 
@@ -130,7 +136,11 @@ ancestry_coefficients <- function(model, metadata, source, target, individual = 
      M <- matrix(NA,  nrow = k - 1, ncol = k)
 
       for (j in 1:k){
-       M[,j] <- apply(model$u[metadata$Group.ID == source[j], 1:(k-1)], 2, mean)
+       if (sum(metadata$Group.ID == source[j]) > 1){
+         M[,j] <- apply(model$u[metadata$Group.ID == source[j], 1:(k-1)], 2, mean)
+       } else {
+         M[,j] <- model$u[metadata$Group.ID == source[j], 1:(k-1)]
+       }
       }
 
      if (!individual){
@@ -165,7 +175,11 @@ ancestry_coefficients <- function(model, metadata, source, target, individual = 
 
       M <- matrix(NA,  nrow = k, ncol = k)
       for (j in 1:k){
-       M[,j] <- apply(model$u[metadata$Group.ID == source[j], 1:k], 2, mean)
+        if (sum(metadata$Group.ID == source[j]) > 1){
+          M[,j] <- apply(model$u[metadata$Group.ID == source[j], 1:k], 2, mean)
+        } else {
+          M[,j] <- model$u[metadata$Group.ID == source[j], 1:k]
+        }
       }
 
       if (!individual){
