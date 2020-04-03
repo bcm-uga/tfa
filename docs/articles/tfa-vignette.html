@@ -75,7 +75,7 @@
       <h1>Analyzing ancient DNA data with the R package tfa</h1>
                         <h4 class="author">Olivier François - Flora Jay</h4>
             
-            <h4 class="date">2020-04-02</h4>
+            <h4 class="date">2020-04-03</h4>
       
       
       <div class="hidden name"><code>tfa-vignette.Rmd</code></div>
@@ -161,8 +161,6 @@ geno &lt;-<span class="st"> </span><span class="kw"><a href="../reference/covera
                         <span class="dt">metadata =</span> metadata,
                         <span class="dt">source =</span> source,
                         <span class="dt">target =</span> target)
-<span class="co">#&gt; Warning in ancestry_coefficients(model = mod, metadata = metadata, source = source, : Number of sources equal to the number of factors in 'model'</span>
-<span class="co">#&gt;               may provide inconsistent estimates.</span>
 <span class="co">#&gt;                     Anatolia_N Russia_Yamnaya  Serbia_HG</span>
 <span class="co">#&gt; England_Bell_Beaker  0.2673478      0.6309998 0.10165241</span>
 <span class="co">#&gt; England_BA           0.3283689      0.5723816 0.09924954</span></code></pre></div>
@@ -171,8 +169,6 @@ geno &lt;-<span class="st"> </span><span class="kw"><a href="../reference/covera
                         <span class="dt">metadata =</span> metadata,
                         <span class="dt">source =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"England_N"</span>, <span class="st">"Russia_Yamnaya"</span>, <span class="st">"Serbia_HG"</span>),
                         <span class="dt">target =</span> target)
-<span class="co">#&gt; Warning in ancestry_coefficients(model = mod, metadata = metadata, source = c("England_N", : Number of sources equal to the number of factors in 'model'</span>
-<span class="co">#&gt;               may provide inconsistent estimates.</span>
 <span class="co">#&gt;                     England_N Russia_Yamnaya  Serbia_HG</span>
 <span class="co">#&gt; England_Bell_Beaker 0.2844837      0.6732371 0.04227924</span>
 <span class="co">#&gt; England_BA          0.3494159      0.6242594 0.02632469</span></code></pre></div>
@@ -181,8 +177,6 @@ geno &lt;-<span class="st"> </span><span class="kw"><a href="../reference/covera
                         <span class="dt">metadata =</span> metadata,
                         <span class="dt">source =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Anatolia_N"</span>, <span class="st">"Russia_Yamnaya"</span>, <span class="st">"Serbia_HG"</span>),
                         <span class="dt">target =</span> <span class="st">"England_N"</span>)
-<span class="co">#&gt; Warning in ancestry_coefficients(model = mod, metadata = metadata, source = c("Anatolia_N", : Number of sources equal to the number of factors in 'model'</span>
-<span class="co">#&gt;               may provide inconsistent estimates.</span>
 <span class="co">#&gt;           Anatolia_N Russia_Yamnaya Serbia_HG</span>
 <span class="co">#&gt; England_N  0.9397651     -0.1484701  0.208705</span></code></pre></div>
 <p>A negative value for the <code>Russia_Yamnaya</code> source suggests that this source did not contribute to the gene pool of Neolithic England samples, and that it should be removed from the set of sources.</p>
@@ -197,8 +191,6 @@ geno &lt;-<span class="st"> </span><span class="kw"><a href="../reference/covera
                                   <span class="dt">metadata =</span> metadata,
                                   <span class="dt">source =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Serbia_HG"</span>, <span class="st">"Anatolia_N"</span>, <span class="st">"Russia_Yamnaya"</span>),
                                   <span class="dt">target =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"England_Bell_Beaker"</span>, <span class="st">"England_BA"</span>))
-<span class="co">#&gt; Warning in ancestry_coefficients(model = mod, metadata = metadata, source = c("Serbia_HG", : Number of sources equal to the number of factors in 'model'</span>
-<span class="co">#&gt;               may provide inconsistent estimates.</span>
 
 ancestry.N &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="dt">model =</span> mod,
                                   <span class="dt">metadata =</span> metadata,
@@ -231,8 +223,6 @@ ancestry
                                      <span class="dt">source =</span> source,
                                      <span class="dt">target =</span> target,
                                      <span class="dt">individual =</span> <span class="ot">TRUE</span>)
-<span class="co">#&gt; Warning in ancestry_coefficients(model = mod, metadata = metadata, source = source, : Number of sources equal to the number of factors in 'model'</span>
-<span class="co">#&gt;               may provide inconsistent estimates.</span>
   
   <span class="kw"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(Q_matrix), 
           <span class="dt">border =</span> <span class="ot">NA</span>, 

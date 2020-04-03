@@ -121,9 +121,8 @@ ancestry_coefficients <- function(model, metadata, source, target, individual = 
   if (k > ncol(model$u) + 1){
     stop("Number of sources greater than the number of factors + 1 in 'model'.")
   } else {
-    if (k == ncol(model$u)){
-      warning("Number of sources equal to the number of factors in 'model'
-              may provide inconsistent estimates.")
+    if (k == ncol(model$u) + 1){
+      warning("Number of sources equal to number of factor + 1 may provide inconsistent estimates.")
     }
   }
 
