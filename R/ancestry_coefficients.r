@@ -109,7 +109,11 @@ ancestry_coefficients <- function(model, metadata, source, target, individual = 
   group_ID <- unique(metadata$Group.ID)
 
   if (sum(target %in% group_ID) != length(target)) {
-    stop("'target' population not found.")
+    stop("a target population was not found. Check target group IDs.")
+  }
+
+  if (sum(source %in% group_ID) != length(source)) {
+    stop("a source population was not found. Check source group IDs")
   }
 
   k = length(source)
