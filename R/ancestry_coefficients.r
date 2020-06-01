@@ -174,12 +174,13 @@ ancestry_coefficients <- function(model, metadata, source, target, individual = 
        }
        a <- a_target
      }
-    } else {
+    } else { #if nb of sources = 2
 
-      M <- matrix(NA,  nrow = k, ncol = k)
+      M <- matrix(NA,  nrow = k, ncol = k) # columns are group means (2 groups)
       for (j in 1:k){
         if (sum(metadata$Group.ID == source[j]) > 1){
-          M[,j] <- apply(model$u[metadata$Group.ID == source[j], 1:k], 2, mean)
+          M[,j] <- apply(model$u[metadata$Group.ID == source[j], 1:k], 2,
+                         mean)
         } else {
           M[,j] <- model$u[metadata$Group.ID == source[j], 1:k]
         }
@@ -199,23 +200,23 @@ ancestry_coefficients <- function(model, metadata, source, target, individual = 
       a <- a / t(A[,-1]) %*% A[,-1]
       a <- cbind(1 - a, a)
       } else {
-        Z_target <- model$u[metadata$Group.ID == targ, 1:k]
-        nt <- nrow(Z_target)
+        ## individuals / bug needs correction /done
+        Z_target <- model$u[metadata$Group.ID == targ, 1:k] #factors 1:2 for target indiv
+        nt <- nrow(Z_target) #number of target indiv
+        Z_target <- as.matrix(Z_target)
         a_target <- NULL
+
         A <- M - M[,1]
+
         for (i in 1:nt){
-          Z <- t(as.matrix(Z_target[i,]))
-          ai <- solve(A[,-1]) %*% t(Z - M[,1])
-          ai <- t(ai)
+          ai <- (Z_target[i,] - M[,1]) %*% A[,-1]
+          ai <- ai / t(A[,-1]) %*% A[,-1]
           ai <- cbind(1 - sum(ai), ai)
           a_target <- rbind(a_target, ai)
         }
         a <- a_target
        }
     }
-
-
-
     ancestry <- rbind(ancestry, a)
   }
 
