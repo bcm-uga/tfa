@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Factor analysis of temporal or ancient DNA samples — tfa • tfa</title>
+<title>Pour l'instant ne fait rien
+Compute proportions of variance explained by temporal distorsions and population structure — prop_variance • tfa</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +33,10 @@
 
 
 
-<meta property="og:title" content="Factor analysis of temporal or ancient DNA samples — tfa" />
+<meta property="og:title" content="Pour l'instant ne fait rien
+Compute proportions of variance explained by temporal distorsions and population structure — prop_variance" />
 
-<meta property="og:description" content="tfa estimates factors describing population structure for temporal samples
+<meta property="og:description" content="prop_variance estimates factors describing population structure for temporal samples
 of DNA, correcting individual scores for the effect of allele frequency drift through time" />
 <meta name="twitter:card" content="summary" />
 
@@ -111,19 +113,20 @@ of DNA, correcting individual scores for the effect of allele frequency drift th
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Factor analysis of temporal or ancient DNA samples</h1>
+    <h1>Pour l'instant ne fait rien
+Compute proportions of variance explained by temporal distorsions and population structure</h1>
     
-    <div class="hidden name"><code>tfa.Rd</code></div>
+    <div class="hidden name"><code>prop_variance.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>tfa</code> estimates factors describing population structure for temporal samples
+    <p><code>prop_variance</code> estimates factors describing population structure for temporal samples
 of DNA, correcting individual scores for the effect of allele frequency drift through time</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>tfa</span>(<span class='no'>sample_ages</span>, <span class='no'>Y</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fl'>0.001</span>, <span class='kw'>cov_matrix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>prop_variance</span>(<span class='no'>sample_ages</span>, <span class='no'>Y</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fl'>0.001</span>, <span class='kw'>cov_matrix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>center</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>coverage</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -208,7 +211,7 @@ of DNA. bioRxiv, 801324. <a href='https://www.biorxiv.org/content/10.1101/801324
 <span class='no'>coverage</span> <span class='kw'>&lt;-</span> <span class='no'>meta</span>$<span class='no'>Coverage</span>
 <span class='no'>geno</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='coverage_adjust.html'>coverage_adjust</a></span>(<span class='no'>genotype</span>, <span class='no'>coverage</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='no'>mod</span>  <span class='kw'>&lt;-</span> <span class='fu'>tfa</span>(<span class='no'>age</span>,
+<span class='no'>mod</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='tfa.html'>tfa</a></span>(<span class='no'>age</span>,
             <span class='no'>geno</span>,
             <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>2</span>,
             <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fl'>5e-1</span>,
@@ -245,7 +248,7 @@ of DNA. bioRxiv, 801324. <a href='https://www.biorxiv.org/content/10.1101/801324
        <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"salmon3"</span>, <span class='st'>"olivedrab"</span>, <span class='st'>"darkblue"</span>), <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>8</span>)</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>20.5</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.6</span>,
        <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Neolithic GB"</span>, <span class='st'>"Bronze Age GB"</span>, <span class='st'>"Bell Beaker"</span>),
-       <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"salmon1"</span>, <span class='st'>"yellow3"</span>, <span class='st'>"yellow4"</span>), <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>)</div><div class='img'><img src='tfa-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/detach.html'>detach</a></span>(<span class='no'>England_BA</span>)
+       <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"salmon1"</span>, <span class='st'>"yellow3"</span>, <span class='st'>"yellow4"</span>), <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>)</div><div class='img'><img src='prop_variance-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/detach.html'>detach</a></span>(<span class='no'>England_BA</span>)
 <span class='co'># rm(list = ls())</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

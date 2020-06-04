@@ -11,7 +11,7 @@ The main functions of the package are
 - coverage_adjust(): Adjust ancient genotypes for coverage bias
 - tfa(): Factor analysis of temporal or ancient DNA samples
 
-Check the following link to access the package web)site and a short [Tutorial](https://bcm-uga.github.io/tfa/articles/tfa-vignette.html)
+Check the following link to access the package website and a short [tutorial](https://bcm-uga.github.io/tfa/articles/tfa-vignette.html)
 
 ## Installation
 

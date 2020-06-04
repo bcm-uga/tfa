@@ -71,10 +71,25 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="tfa" class="section level1">
+<div id="tfa-factor-analysis-of-temporal-samples" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#tfa" class="anchor"></a>tfa</h1></div>
-<p>The R package <code>tfa</code> implements a factor analysis algorithm for temporal DNA or ancient DNA (aDNA) samples, ajusting individual scores for the effect of allele frequency drift through time. Based on the adjusted factors, the program can estimate ancestry proportions for a target population or a subset of target individuals given specified source populations. Check the following link for a short <a href="https://bcm-uga.github.io/tfa/articles/tfa-vignette.html">Overview</a> of the package.</p>
+<a href="#tfa-factor-analysis-of-temporal-samples" class="anchor"></a>tfa: factor analysis of temporal samples</h1></div>
+<div id="summary" class="section level2">
+<h2 class="hasAnchor">
+<a href="#summary" class="anchor"></a>Summary</h2>
+<p>The R package <code>tfa</code> implements a factor analysis algorithm for temporal DNA or ancient DNA samples, ajusting individual scores for the effect of allele frequency drift through time. The adjusted scores provide geometric representations of temporal samples consistent with estimates of ancestry proportions and have interpretation similar to principal component analysis. Based on the adjusted factors, the program can also estimate ancestry proportions for a target population or a subset of target individuals given specified source populations.</p>
+</div>
+<div id="package-overview" class="section level2">
+<h2 class="hasAnchor">
+<a href="#package-overview" class="anchor"></a>Package overview</h2>
+<p>The main functions of the package are</p>
+<ul>
+<li>ancestry_coefficients(): Compute ancestry coefficients from specified source populations</li>
+<li>coverage_adjust(): Adjust ancient genotypes for coverage bias</li>
+<li>tfa(): Factor analysis of temporal or ancient DNA samples</li>
+</ul>
+<p>Check the following link to access the package website and a short <a href="https://bcm-uga.github.io/tfa/articles/tfa-vignette.html">tutorial</a></p>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
