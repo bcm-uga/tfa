@@ -3,7 +3,7 @@
 \name{prop_variance}
 \alias{prop_variance}
 \title{Compute proportions of variance explained by temporal
-distorsion at each locus}
+distortion at each locus}
 \usage{
 prop_variance(model, Y)
 }

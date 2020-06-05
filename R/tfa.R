@@ -297,7 +297,7 @@ choose_lambda <- function(model,
 
 
 #' Compute proportions of variance explained by temporal
-#' distorsion at each locus
+#' distortion at each locus
 #'
 #' \code{prop_variance} returns a vector of squared correlation coefficients representing the
 #' proportion of variation captured by the specified covariance model at each locus.
