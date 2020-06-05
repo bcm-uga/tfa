@@ -2,114 +2,52 @@
 % Please edit documentation in R/tfa.R
 \name{prop_variance}
 \alias{prop_variance}
-\title{Pour l'instant ne fait rien
-Compute proportions of variance explained by temporal distorsions and population structure}
+\title{Compute proportions of variance explained by temporal
+distorsion at each locus}
 \usage{
-prop_variance(sample_ages, Y, k = 2, lambda = 0.001, cov_matrix = NULL,
-  center = TRUE, coverage = NULL, log = TRUE)
+prop_variance(model, Y)
 }
 \arguments{
-\item{sample_ages}{a numeric vector corresponding to the age of each sample where age = 0 is for
-present-day individuals. By default, ages are converted into normalized dates between 0 and 1
-(date = 1 for present-day individuals).}
+\item{model}{an object of class 'tfa' adjusted with \code{tfa()}.}
 
 \item{Y}{an nxp numeric matrix containing genetic information for n individuals recorded in p columns.
-Genetic information could be encoded by any numeric value, not necessarily an integer value. Missing data are not allowed.}
-
-\item{k}{an integer value for the number of factor to compute. The default value is k = 2.}
-
-\item{lambda}{a nonnegative numeric value which corresponds to the drift parameter (noise-to-temporal-signal ratio).}
-
-\item{cov_matrix}{a user-specified prior covariance matrix for the n samples. If \code{NULL},
-the prior matrix is computed as
-\code{C[i,j] = min(t_i, t_j)},
-where \code{t_i} and \code{t_j} are the normalized sample dates, taking values between 0 and 1. The option is
-useful when the sample size is large, and when the user wants to use a pre-computed covariance matrix
-to save time.}
-
-\item{center}{a logical value indicating whether the genetic values should be centered by substracting
-their row mean.}
-
-\item{coverage}{a numerical vector containing information on DNA sample coverage. Note that
-coverage differences might strongly bias factor analysis results. Including coverage information
-allows the program to adjust for coverage bias by using a local regression (\code{loess}).
-We also suggest that correction of the data for low coverage should be performed before analysis by using the function \code{coverage_adjust}.}
-
-\item{log}{a logical value indicating that corrections are performed from \code{log(coverage)}
-instead of \code{coverage}.}
+Genetic information could be encoded by any numeric value, not necessarily an integer value.
+Missing data are not allowed. The matrix should have the same number of rows as in the adjusted model.}
 }
 \value{
-A list with the following attributes:
-\describe{
-   \item{u}{an nxk numeric matrix containing the k corrected factors}
-   \item{singular.values}{a vector of size n containing the singular values (std dev) for the adjusted factors}
-   \item{tn}{a vector containing the normalized sample dates}
-   \item{cov}{the covariance matrix C used for correction (default: Brownian covariance matrix)}
-}
+A vector of probabilities representing the proportion of variation captured the specified
+covariance model at each locus.
 }
 \description{
-\code{prop_variance} estimates factors describing population structure for temporal samples
-of DNA, correcting individual scores for the effect of allele frequency drift through time
+\code{prop_variance} returns a vector of squared correlation coefficients representing the
+proportion of variation captured by the specified covariance model at each locus.
+}
+\details{
+This function requires that a preliminary model has been adjusted with K factors, where K is
+the number of source populations.
 }
 \examples{
 library(tfa)
 
 # Ancient DNA from Bronze Age Great Britain samples
-# including Yamnaya, early farmers (Anatolia) and hunter-gatherers (Serbia)
 data(england_ba)
 
 attach(England_BA)
-coverage <- meta$Coverage
-geno <- coverage_adjust(genotype, coverage, K = 3, log = TRUE)
 
+# Remove HG from Serbia to keep k = 2 ancestral populations
+age <- age[meta$Group.ID != "Serbia_HG"]
+geno <- genotype[meta$Group.ID != "Serbia_HG",]
+
+# Adjust an FA model
 mod  <- tfa(age,
             geno,
             k = 2,
-            lambda = 5e-1,
-            center = TRUE,
-            coverage = coverage,
-            log = TRUE)
+            lambda = 1e-3,
+            center = TRUE)
 
-plot(mod$u, pch = 19, cex = 2, col = "grey90",
-     xlab = "Factor 1", ylab = "Factor 2",
-     main = "FA")
-
-m_yamnaya <- apply(mod$u[meta$Group.ID == "Russia_Yamnaya",],
-                   2, mean)
-m_anatolia <- apply(mod$u[meta$Group.ID == "Anatolia_N",],
-                    2, mean)
-m_hg <- apply(mod$u[meta$Group.ID == "Serbia_HG",],
-              2, mean)
-
-points(rbind(m_yamnaya, m_anatolia, m_hg), lwd = 2)
-
-lines(rbind(m_yamnaya, m_anatolia, m_hg, m_yamnaya))
-
-points(mod$u[meta$Group.ID == "Russia_Yamnaya",],
-       pch = 8, cex = .6, col = "darkblue")
-
-points(mod$u[meta$Group.ID == "Anatolia_N",],
-       pch = 8, cex = .6, col = "salmon3")
-
-points(mod$u[meta$Group.ID ==  "Serbia_HG",],
-       pch = 8, cex = .6, col = "olivedrab")
-
-points(mod$u[meta$Group.ID == "England_Bell_Beaker",],
-       pch = 19, cex = .6, col = "yellow4")
-
-points(mod$u[meta$Group.ID == "England_BA",],
-       pch = 19, cex = .6, col = "yellow3")
-
-points(mod$u[meta$Group.ID \%in\% c("England_N", "Scotland_N"),],
-       pch = 19, cex = .6, col = "salmon1")
-
-legend(x = 10, y = -15, cex = .6,
-       legend = c("Early Farmers", "Hunter Gatherers", "Steppe"),
-       col = c("salmon3", "olivedrab", "darkblue"), pch = 8)
-
-legend(x = 10, y = 20.5, cex = .6,
-       legend = c("Neolithic GB", "Bronze Age GB", "Bell Beaker"),
-       col = c("salmon1", "yellow3", "yellow4"), pch = 19)
+r_squared <- prop_variance(mod, geno)
+summary(r_squared)
+hist(r_squared, col = "darkviolet")
 detach(England_BA)
 # rm(list = ls())
 }
@@ -118,7 +56,7 @@ François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of populat
 of DNA. bioRxiv, 801324. \url{https://www.biorxiv.org/content/10.1101/801324v3}
 }
 \seealso{
-\code{\link{England_BA}}, \code{\link{coverage_adjust}}
+\code{\link{England_BA}}, \code{\link{tfa}}
 }
 \author{
 Olivier Francois, \email{olivier.francois@univ-grenoble-alpes.fr}

@@ -6,8 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pour l'instant ne fait rien
-Compute proportions of variance explained by temporal distorsions and population structure — prop_variance • tfa</title>
+<title>Compute proportions of variance explained by temporal
+distorsion at each locus — prop_variance • tfa</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -33,11 +33,11 @@ Compute proportions of variance explained by temporal distorsions and population
 
 
 
-<meta property="og:title" content="Pour l'instant ne fait rien
-Compute proportions of variance explained by temporal distorsions and population structure — prop_variance" />
+<meta property="og:title" content="Compute proportions of variance explained by temporal
+distorsion at each locus — prop_variance" />
 
-<meta property="og:description" content="prop_variance estimates factors describing population structure for temporal samples
-of DNA, correcting individual scores for the effect of allele frequency drift through time" />
+<meta property="og:description" content="prop_variance returns a vector of squared correlation coefficients representing the
+proportion of variation captured by the specified covariance model at each locus." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -69,7 +69,7 @@ of DNA, correcting individual scores for the effect of allele frequency drift th
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tfa</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -113,82 +113,45 @@ of DNA, correcting individual scores for the effect of allele frequency drift th
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pour l'instant ne fait rien
-Compute proportions of variance explained by temporal distorsions and population structure</h1>
+    <h1>Compute proportions of variance explained by temporal
+distorsion at each locus</h1>
     
     <div class="hidden name"><code>prop_variance.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>prop_variance</code> estimates factors describing population structure for temporal samples
-of DNA, correcting individual scores for the effect of allele frequency drift through time</p>
+    <p><code>prop_variance</code> returns a vector of squared correlation coefficients representing the
+proportion of variation captured by the specified covariance model at each locus.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>prop_variance</span>(<span class='no'>sample_ages</span>, <span class='no'>Y</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fl'>0.001</span>, <span class='kw'>cov_matrix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>center</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>coverage</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>prop_variance</span>(<span class='no'>model</span>, <span class='no'>Y</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>sample_ages</th>
-      <td><p>a numeric vector corresponding to the age of each sample where age = 0 is for
-present-day individuals. By default, ages are converted into normalized dates between 0 and 1
-(date = 1 for present-day individuals).</p></td>
+      <th>model</th>
+      <td><p>an object of class 'tfa' adjusted with <code><a href='tfa.html'>tfa()</a></code>.</p></td>
     </tr>
     <tr>
       <th>Y</th>
       <td><p>an nxp numeric matrix containing genetic information for n individuals recorded in p columns.
-Genetic information could be encoded by any numeric value, not necessarily an integer value. Missing data are not allowed.</p></td>
-    </tr>
-    <tr>
-      <th>k</th>
-      <td><p>an integer value for the number of factor to compute. The default value is k = 2.</p></td>
-    </tr>
-    <tr>
-      <th>lambda</th>
-      <td><p>a nonnegative numeric value which corresponds to the drift parameter (noise-to-temporal-signal ratio).</p></td>
-    </tr>
-    <tr>
-      <th>cov_matrix</th>
-      <td><p>a user-specified prior covariance matrix for the n samples. If <code>NULL</code>,
-the prior matrix is computed as
-<code>C[i,j] = min(t_i, t_j)</code>,
-where <code>t_i</code> and <code>t_j</code> are the normalized sample dates, taking values between 0 and 1. The option is
-useful when the sample size is large, and when the user wants to use a pre-computed covariance matrix
-to save time.</p></td>
-    </tr>
-    <tr>
-      <th>center</th>
-      <td><p>a logical value indicating whether the genetic values should be centered by substracting
-their row mean.</p></td>
-    </tr>
-    <tr>
-      <th>coverage</th>
-      <td><p>a numerical vector containing information on DNA sample coverage. Note that
-coverage differences might strongly bias factor analysis results. Including coverage information
-allows the program to adjust for coverage bias by using a local regression (<code>loess</code>).
-We also suggest that correction of the data for low coverage should be performed before analysis by using the function <code>coverage_adjust</code>.</p></td>
-    </tr>
-    <tr>
-      <th>log</th>
-      <td><p>a logical value indicating that corrections are performed from <code><a href='https://rdrr.io/r/base/Log.html'>log(coverage)</a></code>
-instead of <code>coverage</code>.</p></td>
+Genetic information could be encoded by any numeric value, not necessarily an integer value.
+Missing data are not allowed. The matrix should have the same number of rows as in the adjusted model.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list with the following attributes:</p><dl class='dl-horizontal'>
-   <dt>u</dt><dd><p>an nxk numeric matrix containing the k corrected factors</p></dd>
-   <dt>singular.values</dt><dd><p>a vector of size n containing the singular values (std dev) for the adjusted factors</p></dd>
-   <dt>tn</dt><dd><p>a vector containing the normalized sample dates</p></dd>
-   <dt>cov</dt><dd><p>the covariance matrix C used for correction (default: Brownian covariance matrix)</p></dd>
+    <p>A vector of probabilities representing the proportion of variation captured the specified
+covariance model at each locus.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-</dl>
-
+    <p>This function requires that a preliminary model has been adjusted with K factors, where K is
+the number of source populations.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -197,58 +160,31 @@ of DNA. bioRxiv, 801324. <a href='https://www.biorxiv.org/content/10.1101/801324
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='England_BA.html'>England_BA</a></code>, <code><a href='coverage_adjust.html'>coverage_adjust</a></code></p></div>
+    <div class='dont-index'><p><code><a href='England_BA.html'>England_BA</a></code>, <code><a href='tfa.html'>tfa</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tfa</span>)
 
 <span class='co'># Ancient DNA from Bronze Age Great Britain samples</span>
-<span class='co'># including Yamnaya, early farmers (Anatolia) and hunter-gatherers (Serbia)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>england_ba</span>)
 
 <span class='fu'><a href='https://rdrr.io/r/base/attach.html'>attach</a></span>(<span class='no'>England_BA</span>)
-<span class='no'>coverage</span> <span class='kw'>&lt;-</span> <span class='no'>meta</span>$<span class='no'>Coverage</span>
-<span class='no'>geno</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='coverage_adjust.html'>coverage_adjust</a></span>(<span class='no'>genotype</span>, <span class='no'>coverage</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
+<span class='co'># Remove HG from Serbia to keep k = 2 ancestral populations</span>
+<span class='no'>age</span> <span class='kw'>&lt;-</span> <span class='no'>age</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>!=</span> <span class='st'>"Serbia_HG"</span>]
+<span class='no'>geno</span> <span class='kw'>&lt;-</span> <span class='no'>genotype</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>!=</span> <span class='st'>"Serbia_HG"</span>,]
+
+<span class='co'># Adjust an FA model</span>
 <span class='no'>mod</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='tfa.html'>tfa</a></span>(<span class='no'>age</span>,
             <span class='no'>geno</span>,
             <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-            <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fl'>5e-1</span>,
-            <span class='kw'>center</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-            <span class='kw'>coverage</span> <span class='kw'>=</span> <span class='no'>coverage</span>,
-            <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+            <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fl'>1e-3</span>,
+            <span class='kw'>center</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>mod</span>$<span class='no'>u</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"grey90"</span>,
-     <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Factor 1"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Factor 2"</span>,
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"FA"</span>)</div><div class='input'>
-<span class='no'>m_yamnaya</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>mod</span>$<span class='no'>u</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>==</span> <span class='st'>"Russia_Yamnaya"</span>,],
-                   <span class='fl'>2</span>, <span class='no'>mean</span>)
-<span class='no'>m_anatolia</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>mod</span>$<span class='no'>u</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>==</span> <span class='st'>"Anatolia_N"</span>,],
-                    <span class='fl'>2</span>, <span class='no'>mean</span>)
-<span class='no'>m_hg</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>mod</span>$<span class='no'>u</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>==</span> <span class='st'>"Serbia_HG"</span>,],
-              <span class='fl'>2</span>, <span class='no'>mean</span>)
-
-<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='no'>m_yamnaya</span>, <span class='no'>m_anatolia</span>, <span class='no'>m_hg</span>), <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='no'>m_yamnaya</span>, <span class='no'>m_anatolia</span>, <span class='no'>m_hg</span>, <span class='no'>m_yamnaya</span>))</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(<span class='no'>mod</span>$<span class='no'>u</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>==</span> <span class='st'>"Russia_Yamnaya"</span>,],
-       <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.6</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkblue"</span>)</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(<span class='no'>mod</span>$<span class='no'>u</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>==</span> <span class='st'>"Anatolia_N"</span>,],
-       <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.6</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"salmon3"</span>)</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(<span class='no'>mod</span>$<span class='no'>u</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>==</span>  <span class='st'>"Serbia_HG"</span>,],
-       <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.6</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"olivedrab"</span>)</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(<span class='no'>mod</span>$<span class='no'>u</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>==</span> <span class='st'>"England_Bell_Beaker"</span>,],
-       <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.6</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"yellow4"</span>)</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(<span class='no'>mod</span>$<span class='no'>u</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>==</span> <span class='st'>"England_BA"</span>,],
-       <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.6</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"yellow3"</span>)</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(<span class='no'>mod</span>$<span class='no'>u</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"England_N"</span>, <span class='st'>"Scotland_N"</span>),],
-       <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.6</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"salmon1"</span>)</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>y</span> <span class='kw'>=</span> -<span class='fl'>15</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.6</span>,
-       <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Early Farmers"</span>, <span class='st'>"Hunter Gatherers"</span>, <span class='st'>"Steppe"</span>),
-       <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"salmon3"</span>, <span class='st'>"olivedrab"</span>, <span class='st'>"darkblue"</span>), <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>8</span>)</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>20.5</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.6</span>,
-       <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Neolithic GB"</span>, <span class='st'>"Bronze Age GB"</span>, <span class='st'>"Bell Beaker"</span>),
-       <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"salmon1"</span>, <span class='st'>"yellow3"</span>, <span class='st'>"yellow4"</span>), <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>)</div><div class='img'><img src='prop_variance-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/detach.html'>detach</a></span>(<span class='no'>England_BA</span>)
+<span class='no'>r_squared</span> <span class='kw'>&lt;-</span> <span class='fu'>prop_variance</span>(<span class='no'>mod</span>, <span class='no'>geno</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>r_squared</span>)</div><div class='output co'>#&gt;     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+#&gt; 0.000000 0.001443 0.006550 0.031449 0.023697 0.726151 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(<span class='no'>r_squared</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkviolet"</span>)</div><div class='img'><img src='prop_variance-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/detach.html'>detach</a></span>(<span class='no'>England_BA</span>)
 <span class='co'># rm(list = ls())</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -257,6 +193,8 @@ of DNA. bioRxiv, 801324. <a href='https://www.biorxiv.org/content/10.1101/801324
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#references">References</a></li>
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/tfa.R
 \name{choose_lambda}
 \alias{choose_lambda}
-\title{Graphical heuristic for choosing the drift parameter in tfa}
+\title{Graphical heuristic for choosing the drift parameter in \code{tfa()}}
 \usage{
 choose_lambda(model, Y, min_range = -5, max_range = 0.1, grid_size = 10,
   plot_res = TRUE)
@@ -11,7 +11,8 @@ choose_lambda(model, Y, min_range = -5, max_range = 0.1, grid_size = 10,
 \item{model}{an object of class 'tfa' adjusted with \code{tfa()}.}
 
 \item{Y}{an nxp numeric matrix containing genetic information for n individuals recorded in p columns.
-Genetic information could be encoded by any numeric value, not necessarily an integer value. Missing data are not allowed.}
+Genetic information could be encoded by any numeric value, not necessarily an integer value.
+Missing data are not allowed.}
 
 \item{min_range}{a numeric value for the minimal range of drift parameter tested. Log 10 scale.
 The default value is \code{min_range = -5}.}
@@ -30,8 +31,8 @@ A vector of percentages of variance of sample time explained by factors for each
 the drift parameter in the specified range.
 }
 \description{
-\code{choose_lambda} runs temporal factor analyses for drift coefficient values in a specified
-range, and ouputs the percentage of variance of sample time explained by the factors for each value.
+\code{choose_lambda} runs temporal factor analyses for drift parameters in a specified
+range, and ouputs the percentage of variance of sample time explained by all factors for each value.
 }
 \details{
 This function requires that a preliminary model has been adjusted with K factors, where K is

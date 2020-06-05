@@ -1,7 +1,7 @@
 Package: tfa
 Type: Package
 Title: Factor Analysis of Temporal Population Genetic Samples
-Version: 0.1.0
+Version: 1.1.0
 Author: Olivier Francois, Flora Jay
 Maintainer: Olivier Francois <olivier.francois@univ-grenoble-alpes.fr>
 Description: tfa is an R package for performing factor analyses of temporal or ancient DNA samples, correcting individual scores for the effect of allele frequency drift through time. 
