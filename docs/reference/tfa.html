@@ -67,7 +67,7 @@ of DNA, correcting individual scores for the effect of allele frequency drift th
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tfa</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
       </span>
     </div>
 
@@ -191,10 +191,11 @@ instead of <code>coverage</code>.</p></td>
 
     <p>François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of population genetic structure from temporal samples
 of DNA. bioRxiv, 801324. <a href='https://www.biorxiv.org/content/10.1101/801324v3'>https://www.biorxiv.org/content/10.1101/801324v3</a></p>
+<p>François, O., Jay, F. (2020). Factor analysis of ancient DNA samples. Under review.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='England_BA.html'>England_BA</a></code>, <code><a href='coverage_adjust.html'>coverage_adjust</a></code></p></div>
+    <div class='dont-index'><p><code><a href='England_BA.html'>England_BA</a></code>, <code><a href='coverage_adjust.html'>coverage_adjust</a></code>, <code><a href='choose_lambda.html'>choose_lambda</a></code>, <code><a href='ancestry_coefficients.html'>ancestry_coefficients</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -206,11 +207,11 @@ of DNA. bioRxiv, 801324. <a href='https://www.biorxiv.org/content/10.1101/801324
 
 <span class='fu'><a href='https://rdrr.io/r/base/attach.html'>attach</a></span>(<span class='no'>England_BA</span>)
 <span class='no'>coverage</span> <span class='kw'>&lt;-</span> <span class='no'>meta</span>$<span class='no'>Coverage</span>
-<span class='no'>geno</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='coverage_adjust.html'>coverage_adjust</a></span>(<span class='no'>genotype</span>, <span class='no'>coverage</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>geno</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='coverage_adjust.html'>coverage_adjust</a></span>(<span class='no'>genotype</span>, <span class='no'>coverage</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='no'>mod</span>  <span class='kw'>&lt;-</span> <span class='fu'>tfa</span>(<span class='no'>age</span>,
             <span class='no'>geno</span>,
-            <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+            <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>3</span>,
             <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fl'>5e-1</span>,
             <span class='kw'>center</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
             <span class='kw'>coverage</span> <span class='kw'>=</span> <span class='no'>coverage</span>,
@@ -240,10 +241,9 @@ of DNA. bioRxiv, 801324. <a href='https://www.biorxiv.org/content/10.1101/801324
        <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.6</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"yellow3"</span>)</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(<span class='no'>mod</span>$<span class='no'>u</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"England_N"</span>, <span class='st'>"Scotland_N"</span>),],
        <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.6</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"salmon1"</span>)</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>y</span> <span class='kw'>=</span> -<span class='fl'>15</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.6</span>,
-       <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Early Farmers"</span>, <span class='st'>"Hunter Gatherers"</span>, <span class='st'>"Steppe"</span>),
-       <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"salmon3"</span>, <span class='st'>"olivedrab"</span>, <span class='st'>"darkblue"</span>), <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>8</span>)</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>20.5</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.6</span>,
+<span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>y</span> <span class='kw'>=</span> -<span class='fl'>19</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.6</span>,
+      <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Early Farmers"</span>, <span class='st'>"Hunter Gatherers"</span>, <span class='st'>"Steppe"</span>),
+      <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"salmon3"</span>, <span class='st'>"olivedrab"</span>, <span class='st'>"darkblue"</span>), <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>8</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> -<span class='fl'>24</span>, <span class='kw'>y</span> <span class='kw'>=</span> -<span class='fl'>19</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.6</span>,
        <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Neolithic GB"</span>, <span class='st'>"Bronze Age GB"</span>, <span class='st'>"Bell Beaker"</span>),
        <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"salmon1"</span>, <span class='st'>"yellow3"</span>, <span class='st'>"yellow4"</span>), <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>)</div><div class='img'><img src='tfa-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/detach.html'>detach</a></span>(<span class='no'>England_BA</span>)
 <span class='co'># rm(list = ls())</span></div></pre>

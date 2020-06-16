@@ -21,11 +21,11 @@
 #' data(england_ba)
 #' attach(England_BA)
 #' coverage <- meta$Coverage
-#' geno <- coverage_adjust(genotype, coverage, K = 3, log = TRUE)
+#' geno <- coverage_adjust(genotype, coverage, K = 4, log = TRUE)
 #' detach(England_BA)
-#' @references François, O., Jay, F. (2020). Factor analysis of ancient DNA samples.
+#' @references François, O., Jay, F. (2020). Factor analysis of ancient DNA samples. Under review.
 #' @author Olivier Francois, \email{olivier.francois@@univ-grenoble-alpes.fr}
-#' @seealso \code{\link{England_BA}}, \code{\link{tfa}}
+#' @seealso \code{\link{England_BA}}, \code{\link{tfa}}, \code{\link{choose_lambda}}
 coverage_adjust <- function(
                   Y = NULL,
                   coverage = NULL,

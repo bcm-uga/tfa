@@ -59,11 +59,11 @@ data(england_ba)
 
 attach(England_BA)
 coverage <- meta$Coverage
-geno <- coverage_adjust(genotype, coverage, K = 3, log = TRUE)
+geno <- coverage_adjust(genotype, coverage, K = 4, log = TRUE)
 
 mod  <- tfa(age,
             geno,
-            k = 2,
+            k = 3,
             lambda = 5e-1,
             center = TRUE,
             coverage = coverage,
@@ -102,11 +102,10 @@ points(mod$u[meta$Group.ID == "England_BA",],
 points(mod$u[meta$Group.ID \%in\% c("England_N", "Scotland_N"),],
        pch = 19, cex = .6, col = "salmon1")
 
-legend(x = 10, y = -15, cex = .6,
-       legend = c("Early Farmers", "Hunter Gatherers", "Steppe"),
-       col = c("salmon3", "olivedrab", "darkblue"), pch = 8)
-
-legend(x = 10, y = 20.5, cex = .6,
+legend(x = 10, y = -19, cex = .6,
+      legend = c("Early Farmers", "Hunter Gatherers", "Steppe"),
+      col = c("salmon3", "olivedrab", "darkblue"), pch = 8)
+legend(x = -24, y = -19, cex = .6,
        legend = c("Neolithic GB", "Bronze Age GB", "Bell Beaker"),
        col = c("salmon1", "yellow3", "yellow4"), pch = 19)
 detach(England_BA)
@@ -115,9 +114,11 @@ detach(England_BA)
 \references{
 François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of population genetic structure from temporal samples
 of DNA. bioRxiv, 801324. \url{https://www.biorxiv.org/content/10.1101/801324v3}
+
+François, O., Jay, F. (2020). Factor analysis of ancient DNA samples. Under review.
 }
 \seealso{
-\code{\link{England_BA}}, \code{\link{coverage_adjust}}
+\code{\link{England_BA}}, \code{\link{coverage_adjust}}, \code{\link{choose_lambda}}, \code{\link{ancestry_coefficients}}
 }
 \author{
 Olivier Francois, \email{olivier.francois@univ-grenoble-alpes.fr}

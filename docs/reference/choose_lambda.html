@@ -67,7 +67,7 @@ range, and ouputs the percentage of variance of sample time explained by all fac
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tfa</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
       </span>
     </div>
 
@@ -123,7 +123,7 @@ range, and ouputs the percentage of variance of sample time explained by all fac
     
     </div>
 
-    <pre class="usage"><span class='fu'>choose_lambda</span>(<span class='no'>model</span>, <span class='no'>Y</span>, <span class='kw'>min_range</span> <span class='kw'>=</span> -<span class='fl'>5</span>, <span class='kw'>max_range</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>grid_size</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+    <pre class="usage"><span class='fu'>choose_lambda</span>(<span class='no'>model</span>, <span class='no'>Y</span>, <span class='kw'>min_range</span> <span class='kw'>=</span> -<span class='fl'>5</span>, <span class='kw'>max_range</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>grid_size</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>plot_res</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -187,21 +187,40 @@ of DNA. bioRxiv, 801324. <a href='https://www.biorxiv.org/content/10.1101/801324
 
 <span class='co'># Ancient DNA from Bronze Age Great Britain samples</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>england_ba</span>)
-
 <span class='fu'><a href='https://rdrr.io/r/base/attach.html'>attach</a></span>(<span class='no'>England_BA</span>)
 
-<span class='co'># Remove HG from Serbia to keep k = 2 ancestral populations</span>
-<span class='no'>age</span> <span class='kw'>&lt;-</span> <span class='no'>age</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>!=</span> <span class='st'>"Serbia_HG"</span>]
-<span class='no'>geno</span> <span class='kw'>&lt;-</span> <span class='no'>genotype</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>!=</span> <span class='st'>"Serbia_HG"</span>,]
+<span class='no'>coverage</span> <span class='kw'>&lt;-</span> <span class='no'>meta</span>$<span class='no'>Coverage</span>
+<span class='no'>geno</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='coverage_adjust.html'>coverage_adjust</a></span>(<span class='no'>genotype</span>, <span class='no'>coverage</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># Adjust an FA model</span>
 <span class='no'>mod</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='tfa.html'>tfa</a></span>(<span class='no'>age</span>,
             <span class='no'>geno</span>,
+            <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+            <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fl'>5e-1</span>,
+            <span class='kw'>center</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+            <span class='kw'>coverage</span> <span class='kw'>=</span> <span class='no'>coverage</span>,
+            <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='no'>r_2</span> <span class='kw'>&lt;-</span> <span class='fu'>choose_lambda</span>(<span class='no'>mod</span>,
+                     <span class='no'>geno</span>,
+                     <span class='kw'>min_range</span> <span class='kw'>=</span> -<span class='fl'>4</span>,
+                     <span class='kw'>max_range</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(<span class='kw'>v</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='fl'>5e-1</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"orange"</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='img'><img src='choose_lambda-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Remove HG from Serbia to keep k = 2 ancestral populations</span>
+
+<span class='no'>age2</span> <span class='kw'>&lt;-</span> <span class='no'>age</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>!=</span> <span class='st'>"Serbia_HG"</span>]
+<span class='no'>geno2</span> <span class='kw'>&lt;-</span> <span class='no'>geno</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>!=</span> <span class='st'>"Serbia_HG"</span>,]
+
+<span class='co'># Adjust an FA model</span>
+<span class='no'>mod</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='tfa.html'>tfa</a></span>(<span class='no'>age2</span>,
+            <span class='no'>geno2</span>,
             <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-            <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fl'>1e-3</span>,
+            <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fl'>5e-2</span>,
             <span class='kw'>center</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='no'>r_2</span> <span class='kw'>&lt;-</span> <span class='fu'>choose_lambda</span>(<span class='no'>mod</span>, <span class='no'>geno</span>)</div><div class='img'><img src='choose_lambda-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/detach.html'>detach</a></span>(<span class='no'>England_BA</span>)
+<span class='no'>r_2</span> <span class='kw'>&lt;-</span> <span class='fu'>choose_lambda</span>(<span class='no'>mod</span>,
+                     <span class='no'>geno2</span>,
+                     <span class='kw'>min_range</span> <span class='kw'>=</span> -<span class='fl'>3</span>,
+                     <span class='kw'>max_range</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(<span class='kw'>v</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='fl'>5e-2</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"orange"</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='img'><img src='choose_lambda-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/detach.html'>detach</a></span>(<span class='no'>England_BA</span>)
 <span class='co'># rm(list = ls())</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

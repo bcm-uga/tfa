@@ -67,7 +67,7 @@ individual genomes." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tfa</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
       </span>
     </div>
 
@@ -160,11 +160,11 @@ It could be obtained from a PCA of the data matrix.</p></td>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>François, O., Jay, F. (2020). Factor analysis of ancient DNA samples.</p>
+    <p>François, O., Jay, F. (2020). Factor analysis of ancient DNA samples. Under review.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='England_BA.html'>England_BA</a></code>, <code><a href='tfa.html'>tfa</a></code></p></div>
+    <div class='dont-index'><p><code><a href='England_BA.html'>England_BA</a></code>, <code><a href='tfa.html'>tfa</a></code>, <code><a href='choose_lambda.html'>choose_lambda</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -175,7 +175,7 @@ It could be obtained from a PCA of the data matrix.</p></td>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>england_ba</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/attach.html'>attach</a></span>(<span class='no'>England_BA</span>)
 <span class='no'>coverage</span> <span class='kw'>&lt;-</span> <span class='no'>meta</span>$<span class='no'>Coverage</span>
-<span class='no'>geno</span> <span class='kw'>&lt;-</span> <span class='fu'>coverage_adjust</span>(<span class='no'>genotype</span>, <span class='no'>coverage</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>geno</span> <span class='kw'>&lt;-</span> <span class='fu'>coverage_adjust</span>(<span class='no'>genotype</span>, <span class='no'>coverage</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/detach.html'>detach</a></span>(<span class='no'>England_BA</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

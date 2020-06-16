@@ -66,7 +66,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tfa</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
       </span>
     </div>
 
@@ -156,11 +156,11 @@ from each source.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>François, O., Jay, F. (2020). Factor analysis of ancient DNA samples.</p>
+    <p>François, O., Jay, F. (2020). Factor analysis of ancient DNA samples. Under review.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='England_BA.html'>England_BA</a></code>, <code><a href='tfa.html'>tfa</a></code></p></div>
+    <div class='dont-index'><p><code><a href='England_BA.html'>England_BA</a></code>, <code><a href='tfa.html'>tfa</a></code>, <code><a href='coverage_adjust.html'>coverage_adjust</a></code>, <code><a href='choose_lambda.html'>choose_lambda</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -172,7 +172,7 @@ from each source.</p>
 <span class='fu'><a href='https://rdrr.io/r/base/attach.html'>attach</a></span>(<span class='no'>England_BA</span>)
 <span class='no'>metadata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.tfa_metadata.html'>as.tfa_metadata</a></span>(<span class='no'>meta</span>)
 <span class='no'>coverage</span> <span class='kw'>&lt;-</span> <span class='no'>meta</span>$<span class='no'>Coverage</span>
-<span class='no'>geno</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='coverage_adjust.html'>coverage_adjust</a></span>(<span class='no'>genotype</span>, <span class='no'>coverage</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>geno</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='coverage_adjust.html'>coverage_adjust</a></span>(<span class='no'>genotype</span>, <span class='no'>coverage</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='no'>mod</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='tfa.html'>tfa</a></span>(<span class='no'>age</span>,
             <span class='no'>geno</span>,
@@ -188,15 +188,15 @@ from each source.</p>
                       <span class='kw'>metadata</span> <span class='kw'>=</span> <span class='no'>metadata</span>,
                       <span class='kw'>source</span> <span class='kw'>=</span> <span class='no'>source</span>,
                       <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>target</span>)</div><div class='output co'>#&gt;                     Anatolia_N Russia_Yamnaya Serbia_HG
-#&gt; England_Bell_Beaker  0.2810689      0.6149866 0.1039445
-#&gt; England_BA           0.3418138      0.5566906 0.1014955</div><div class='input'>
+#&gt; England_Bell_Beaker  0.3554118      0.4070175 0.2375707
+#&gt; England_BA           0.4163061      0.3768669 0.2068270</div><div class='input'>
 <span class='no'>source</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Scotland_N"</span>, <span class='st'>"Russia_Yamnaya"</span>, <span class='st'>"Serbia_HG"</span>)
 <span class='fu'>ancestry_coefficients</span>(<span class='kw'>model</span> <span class='kw'>=</span> <span class='no'>mod</span>,
                       <span class='kw'>metadata</span> <span class='kw'>=</span> <span class='no'>metadata</span>,
                       <span class='kw'>source</span> <span class='kw'>=</span> <span class='no'>source</span>,
                       <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>target</span>)</div><div class='output co'>#&gt;                     Scotland_N Russia_Yamnaya  Serbia_HG
-#&gt; England_Bell_Beaker  0.2979913      0.6644512 0.03755752
-#&gt; England_BA           0.3623935      0.6168456 0.02076090</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/detach.html'>detach</a></span>(<span class='no'>England_BA</span>)
+#&gt; England_Bell_Beaker  0.3332864      0.5830761 0.08363752
+#&gt; England_BA           0.3903898      0.5830904 0.02651977</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/detach.html'>detach</a></span>(<span class='no'>England_BA</span>)
 <span class='co'># rm(list = ls())</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

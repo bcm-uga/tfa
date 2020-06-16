@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tfa</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
       </span>
     </div>
 
@@ -75,7 +75,7 @@
       <h1>Analyzing ancient DNA data with the R package tfa</h1>
                         <h4 class="author">Olivier François - Flora Jay</h4>
             
-            <h4 class="date">2020-06-05</h4>
+            <h4 class="date">2020-06-16</h4>
       
       
       <div class="hidden name"><code>tfa-vignette.Rmd</code></div>
@@ -111,7 +111,7 @@
 <p><img src="tfa-vignette_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <p>A first step of analysis consists of adjusting the genotypic data for coverage. For those particular filtered genotypes, the impact of coverage bias on analyses is not substantial. In general, coverage may strongly bias the results of factor analyses, and this important to consider adjusting for it. To adjust for coverage, the <code>tfa</code> package contains the function <code><a href="../reference/coverage_adjust.html">coverage_adjust()</a></code> which implements a correction based on a latent factor regression model. According to the PCA result, three factors will be used in the latent factor regression model.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coverage &lt;-<span class="st"> </span>meta<span class="op">$</span>Coverage
-geno &lt;-<span class="st"> </span><span class="kw"><a href="../reference/coverage_adjust.html">coverage_adjust</a></span>(genotype, coverage, <span class="dt">K =</span> <span class="dv">3</span>, <span class="dt">log =</span> <span class="ot">TRUE</span>)</code></pre></div>
+geno &lt;-<span class="st"> </span><span class="kw"><a href="../reference/coverage_adjust.html">coverage_adjust</a></span>(genotype, coverage, <span class="dt">K =</span> <span class="dv">4</span>, <span class="dt">log =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p>For running FA of the corrected data matrix (<code>geno</code>), the number of factors (<code>k</code>), and the drift parameter (<code>lambda</code>) must be specified. The <strong>number of factors</strong> could be determined by PCA or other methods for analysis of population structure. It could be taken equal to the number of axes in the PCA of the <code>geno</code> matrix. Since the <code><a href="../reference/tfa.html">tfa()</a></code> approach is based a low-rank approximation of the data matrix, a lower value such as <code>k = 2</code> could be accepted. The value <code>k = 2</code> could be useful to explore relationships of samples when two ancestral populations are specified. The <strong>drift parameter</strong> (<code>lambda</code>) can be determined by a grid search procedure. Here, this parameter was chosen as the value for which the effect of age was removed from the <strong>third</strong> factor of the <code>tfa</code> analysis performed below, which was repeated several times with different values of <code>lambda</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  mod  &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tfa.html">tfa</a></span>(<span class="dt">Y =</span> geno,
               <span class="dt">sample_ages =</span> age,
@@ -120,7 +120,7 @@ geno &lt;-<span class="st"> </span><span class="kw"><a href="../reference/covera
 <p>The object <code>mod</code> contains <code>k</code> factors adjusted for temporal drift in allele frequency. The results are contained in argument <code>mod$u</code>. The argument <code>mod$sing</code> contains the singular value (variance) associated with each factor.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> var_explained &lt;-<span class="st"> </span>mod<span class="op">$</span>singular.values[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]<span class="op">^</span><span class="dv">2</span><span class="op">/</span>(<span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(mod<span class="op">$</span>singular.values<span class="op">^</span><span class="dv">2</span>))
  <span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(var_explained, <span class="dv">3</span>)
-<span class="co">#&gt; [1] 0.523 0.298 0.179</span></code></pre></div>
+<span class="co">#&gt; [1] 0.539 0.284 0.176</span></code></pre></div>
 <p>The object <code>mod$u</code> can be used to visualize the samples in their first axes. The result looks like a PC plot showing the relative positions of Great Britain samples with respect to their putative sources of ancestry.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(mod<span class="op">$</span>u, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="st">"grey90"</span>, <span class="dt">xlab =</span> <span class="st">"Factor 1"</span>, <span class="dt">ylab =</span> <span class="st">"Factor 2"</span>)
 
@@ -161,31 +161,31 @@ geno &lt;-<span class="st"> </span><span class="kw"><a href="../reference/covera
                         <span class="dt">metadata =</span> metadata,
                         <span class="dt">source =</span> source,
                         <span class="dt">target =</span> target)
-<span class="co">#&gt;                     Anatolia_N Russia_Yamnaya  Serbia_HG</span>
-<span class="co">#&gt; England_Bell_Beaker  0.2673478      0.6309998 0.10165241</span>
-<span class="co">#&gt; England_BA           0.3283689      0.5723816 0.09924954</span></code></pre></div>
+<span class="co">#&gt;                     Anatolia_N Russia_Yamnaya Serbia_HG</span>
+<span class="co">#&gt; England_Bell_Beaker  0.3542780      0.3996619 0.2460601</span>
+<span class="co">#&gt; England_BA           0.4159021      0.3742463 0.2098515</span></code></pre></div>
 <p>The Bell Beaker samples share a large fraction of their ancestry with steppe pastoralists. Changing the Anatolian population for another population of Early Farmers (<code>England_N</code>) can confirm this result.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="dt">model =</span> mod,
                         <span class="dt">metadata =</span> metadata,
                         <span class="dt">source =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"England_N"</span>, <span class="st">"Russia_Yamnaya"</span>, <span class="st">"Serbia_HG"</span>),
                         <span class="dt">target =</span> target)
 <span class="co">#&gt;                     England_N Russia_Yamnaya  Serbia_HG</span>
-<span class="co">#&gt; England_Bell_Beaker 0.2844837      0.6732371 0.04227924</span>
-<span class="co">#&gt; England_BA          0.3494159      0.6242594 0.02632469</span></code></pre></div>
+<span class="co">#&gt; England_Bell_Beaker 0.3458747      0.5497641 0.10436118</span>
+<span class="co">#&gt; England_BA          0.4060372      0.5504578 0.04350508</span></code></pre></div>
 <p>The result shows that the amount of ancestry shared with the hunter-gatherers reduces when farmers are sampled from a closer geographic source. This suggests that the hunter-gatherer contribution to the England Neolithic gene pool may be substantial. To check this hypothesis, consider <code>England_N</code> as the target with the set of sources considered at the start.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="dt">model =</span> mod,
                         <span class="dt">metadata =</span> metadata,
                         <span class="dt">source =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Anatolia_N"</span>, <span class="st">"Russia_Yamnaya"</span>, <span class="st">"Serbia_HG"</span>),
                         <span class="dt">target =</span> <span class="st">"England_N"</span>)
 <span class="co">#&gt;           Anatolia_N Russia_Yamnaya Serbia_HG</span>
-<span class="co">#&gt; England_N  0.9397651     -0.1484701  0.208705</span></code></pre></div>
+<span class="co">#&gt; England_N   1.024296     -0.4339785 0.4096828</span></code></pre></div>
 <p>A negative value for the <code>Russia_Yamnaya</code> source suggests that this source did not contribute to the gene pool of Neolithic England samples, and that it should be removed from the set of sources.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="dt">model =</span> mod,
                         <span class="dt">metadata =</span> metadata,
                         <span class="dt">source =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Anatolia_N"</span>, <span class="st">"Serbia_HG"</span>),
                         <span class="dt">target =</span> <span class="st">"England_N"</span>)
 <span class="co">#&gt;           Anatolia_N Serbia_HG</span>
-<span class="co">#&gt; England_N  0.8480804 0.1519196</span></code></pre></div>
+<span class="co">#&gt; England_N  0.7555439 0.2444561</span></code></pre></div>
 <p>After doing this, the result indeed suggests a substantial contribution of hunter-gatherers to Neolithic England farmers. The analysis can be summarized in a table of ancestry coefficients as follows.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ancestry.B &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="dt">model =</span> mod,
                                   <span class="dt">metadata =</span> metadata,
@@ -200,11 +200,11 @@ ancestry.N &lt;-<span class="st"> </span><span class="kw"><a href="../reference/
 ancestry.N &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(ancestry.N, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>))
 ancestry &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(ancestry.B, ancestry.N)
 ancestry
-<span class="co">#&gt;                      Serbia_HG Anatolia_N Russia_Yamnaya</span>
-<span class="co">#&gt; England_Bell_Beaker 0.10165241  0.2673478      0.6309998</span>
-<span class="co">#&gt; England_BA          0.09924954  0.3283689      0.5723816</span>
-<span class="co">#&gt; England_N           0.15191961  0.8480804      0.0000000</span>
-<span class="co">#&gt; Scotland_N          0.17030362  0.8296964      0.0000000</span></code></pre></div>
+<span class="co">#&gt;                     Serbia_HG Anatolia_N Russia_Yamnaya</span>
+<span class="co">#&gt; England_Bell_Beaker 0.2460601  0.3542780      0.3996619</span>
+<span class="co">#&gt; England_BA          0.2098515  0.4159021      0.3742463</span>
+<span class="co">#&gt; England_N           0.2444561  0.7555439      0.0000000</span>
+<span class="co">#&gt; Scotland_N          0.2566750  0.7433250      0.0000000</span></code></pre></div>
 <p>The results can be represented by a barplot as follows. The green, salmon and blue colors correspond to hunter-gatherers, early farmers and steppe pastoralists respectively.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(ancestry), 
           <span class="dt">col =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"olivedrab"</span>, <span class="st">"salmon3"</span>, <span class="st">"darkblue"</span>), 
@@ -279,7 +279,7 @@ ancestry
                        <span class="dt">source =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Anatolia_N"</span>, <span class="st">"Russia_Yamnaya"</span>),
                        <span class="dt">target =</span> <span class="st">"England_Bell_Beaker"</span>)
 <span class="co">#&gt;                     Anatolia_N Russia_Yamnaya</span>
-<span class="co">#&gt; England_Bell_Beaker  0.2379498      0.7620502</span>
+<span class="co">#&gt; England_Bell_Beaker  0.7303787      0.2696213</span>
 
 <span class="kw"><a href="https://rdrr.io/r/base/detach.html">detach</a></span>(England_BA)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># clear everything</span>

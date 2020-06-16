@@ -44,11 +44,11 @@
 #'
 #' attach(England_BA)
 #' coverage <- meta$Coverage
-#' geno <- coverage_adjust(genotype, coverage, K = 3, log = TRUE)
+#' geno <- coverage_adjust(genotype, coverage, K = 4, log = TRUE)
 #'
 #' mod  <- tfa(age,
 #'             geno,
-#'             k = 2,
+#'             k = 3,
 #'             lambda = 5e-1,
 #'             center = TRUE,
 #'             coverage = coverage,
@@ -87,18 +87,20 @@
 #' points(mod$u[meta$Group.ID %in% c("England_N", "Scotland_N"),],
 #'        pch = 19, cex = .6, col = "salmon1")
 #'
-#' legend(x = 10, y = -15, cex = .6,
-#'        legend = c("Early Farmers", "Hunter Gatherers", "Steppe"),
-#'        col = c("salmon3", "olivedrab", "darkblue"), pch = 8)
-#'
-#' legend(x = 10, y = 20.5, cex = .6,
+#' legend(x = 10, y = -19, cex = .6,
+#'       legend = c("Early Farmers", "Hunter Gatherers", "Steppe"),
+#'       col = c("salmon3", "olivedrab", "darkblue"), pch = 8)
+#' legend(x = -24, y = -19, cex = .6,
 #'        legend = c("Neolithic GB", "Bronze Age GB", "Bell Beaker"),
 #'        col = c("salmon1", "yellow3", "yellow4"), pch = 19)
 #' detach(England_BA)
 #' # rm(list = ls())
 #' @references François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of population genetic structure from temporal samples
 #' of DNA. bioRxiv, 801324. \url{https://www.biorxiv.org/content/10.1101/801324v3}
-#' @seealso \code{\link{England_BA}}, \code{\link{coverage_adjust}}
+#'
+#' François, O., Jay, F. (2020). Factor analysis of ancient DNA samples. Under review.
+#'
+#' @seealso \code{\link{England_BA}}, \code{\link{coverage_adjust}}, \code{\link{choose_lambda}}, \code{\link{ancestry_coefficients}}
 tfa <- function(sample_ages,
                 Y,
                 k = 2,
@@ -216,21 +218,43 @@ tfa <- function(sample_ages,
 #'
 #' # Ancient DNA from Bronze Age Great Britain samples
 #' data(england_ba)
-#'
 #' attach(England_BA)
 #'
-#' # Remove HG from Serbia to keep k = 2 ancestral populations
-#' age <- age[meta$Group.ID != "Serbia_HG"]
-#' geno <- genotype[meta$Group.ID != "Serbia_HG",]
+#' coverage <- meta$Coverage
+#' geno <- coverage_adjust(genotype, coverage, K = 4, log = TRUE)
 #'
 #' # Adjust an FA model
 #' mod  <- tfa(age,
 #'             geno,
+#'             k = 3,
+#'             lambda = 5e-1,
+#'             center = TRUE,
+#'             coverage = coverage,
+#'             log = TRUE)
+#'
+#' r_2 <- choose_lambda(mod,
+#'                      geno,
+#'                      min_range = -4,
+#'                      max_range = 3)
+#' abline(v=log10(5e-1), col = "orange", lty = 2)
+#'
+#' # Remove HG from Serbia to keep k = 2 ancestral populations
+#'
+#' age2 <- age[meta$Group.ID != "Serbia_HG"]
+#' geno2 <- geno[meta$Group.ID != "Serbia_HG",]
+#'
+#' # Adjust an FA model
+#' mod  <- tfa(age2,
+#'             geno2,
 #'             k = 2,
-#'             lambda = 1e-3,
+#'             lambda = 5e-2,
 #'             center = TRUE)
 #'
-#' r_2 <- choose_lambda(mod, geno)
+#' r_2 <- choose_lambda(mod,
+#'                      geno2,
+#'                      min_range = -3,
+#'                      max_range = 2)
+#' abline(v=log10(5e-2), col = "orange", lty = 2)
 #' detach(England_BA)
 #' # rm(list = ls())
 #' @references François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of population genetic structure from temporal samples
@@ -239,7 +263,7 @@ tfa <- function(sample_ages,
 choose_lambda <- function(model,
                           Y,
                           min_range = -5,
-                          max_range = 0.1,
+                          max_range =  1,
                           grid_size = 10,
                           plot_res = TRUE){
 

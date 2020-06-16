@@ -67,16 +67,16 @@ The data set contains no missing genotypes. The missing values were imputed from
 ```
 
 
-A first step of analysis consists of adjusting the genotypic data for coverage. For those particular filtered genotypes, the impact of coverage bias on analyses is not substantial. In general, coverage may strongly bias the results of factor analyses, and this important to consider adjusting for it. To adjust for coverage, the `tfa` package contains the function `coverage_adjust()` which implements a correction based on a latent factor regression model. According to the PCA result, three factors will be used in the latent factor regression model. 
+A first step of analysis consists of adjusting the genotypic data for coverage. For those particular filtered genotypes, the impact of coverage bias on analyses is not substantial. In general, coverage may strongly bias the results of factor analyses, and this important to consider adjusting for it. To adjust for coverage, the `tfa` package contains the function `coverage_adjust()` which implements a correction based on a latent factor regression model. According to the PCA result, four factors could be used in the latent factor regression model. 
 
 
 ```{r}
 coverage <- meta$Coverage
-geno <- coverage_adjust(genotype, coverage, K = 3, log = TRUE)
+geno <- coverage_adjust(genotype, coverage, K = 4, log = TRUE)
 ```
 
 
-For running FA of the corrected data matrix (`geno`), the number of factors (`k`), and the drift parameter (`lambda`) must be specified. The **number of factors** could be determined by PCA or other methods for analysis of population structure. It could be taken equal to the number of axes in the PCA of the `geno` matrix. Since the `tfa()` approach is based a low-rank approximation of the data matrix, a lower value such as `k = 2` could be accepted. The value `k = 2` could be useful to explore relationships of samples when two ancestral populations are specified. The **drift parameter** (`lambda`) can be determined by a grid search procedure. Here, this parameter was chosen as the value for which the effect of age was removed from the **third** factor of the `tfa` analysis performed below, which was repeated several times with different values of `lambda`.
+For running FA of the corrected data matrix (`geno`), the number of factors (`k`), and the drift parameter (`lambda`) must be specified. The **number of factors** could be determined by PCA or other methods for analysis of population structure. It could be taken equal to the number of axes in the PCA of the `geno` matrix. Since the `tfa()` approach is based a low-rank approximation of the data matrix, a lower value such as `k = 3` could be accepted. The value `k = 3` could be useful to explore relationships of samples when three ancestral populations are specified. The **drift parameter** (`lambda`) can be determined by a grid search procedure (see `choose_lambda`). Here, this parameter was chosen as the value for which the effect of age was removed from the **third** factor of the `tfa` analysis performed below, which was repeated several times with different values of `lambda`.
 
 
 ```{r}
@@ -247,27 +247,25 @@ The **drift parameter** (`lambda`) can be determined by a grid search procedure.
 
 ```{r}
 # Ancient DNA from Bronze Age Great Britain samples
-data(england_ba)
-attach(England_BA)
-
 # To keep k = 2 ancestral populations 
 # Remove hunter-gatherers from the data 
-  age <- age[meta$Group.ID != "Serbia_HG"]
-  geno <- genotype[meta$Group.ID != "Serbia_HG",]
+
+  age2 <- age[meta$Group.ID != "Serbia_HG"]
+  geno2 <- genotype[meta$Group.ID != "Serbia_HG",]
   
 # Run a preliminary FA model with k = 2
- mod  <- tfa(age,
-             geno,
+ mod  <- tfa(age2,
+             geno2,
              k = 2,
-             lambda = 5e-1,
+             lambda = 5e-2,
              center = TRUE)
 ```
  
 We want to choose a value of `lambda` for which dependency on time is removed from the second factor. To this objective, we use a grid of values in the function `choose_lambda()`. 
 
 ```{r}
- r_2 <- choose_lambda(mod, geno)
- abline(v = -2.7, col = "orange", lty = 2)
+ r_2 <- choose_lambda(mod, geno2)
+ abline(v = log10(5e-2), col = "orange", lty = 2)
 ```
 
 
@@ -276,10 +274,10 @@ The result can be interpreted as the proportion of temporal variance explained b
 We eventually rerun the main function with the selected value
 ```{r}
 # Run the final FA model with k = 2
- mod  <- tfa(age,
-             geno,
+ mod  <- tfa(age2,
+             geno2,
              k = 2,
-             lambda = 2e-3,
+             lambda = 1e-1,
              center = TRUE)
 
  # Re-evaluate ancestry coefficients

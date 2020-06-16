@@ -4,7 +4,7 @@
 \alias{choose_lambda}
 \title{Graphical heuristic for choosing the drift parameter in \code{tfa()}}
 \usage{
-choose_lambda(model, Y, min_range = -5, max_range = 0.1, grid_size = 10,
+choose_lambda(model, Y, min_range = -5, max_range = 1, grid_size = 10,
   plot_res = TRUE)
 }
 \arguments{
@@ -44,21 +44,43 @@ library(tfa)
 
 # Ancient DNA from Bronze Age Great Britain samples
 data(england_ba)
-
 attach(England_BA)
 
-# Remove HG from Serbia to keep k = 2 ancestral populations
-age <- age[meta$Group.ID != "Serbia_HG"]
-geno <- genotype[meta$Group.ID != "Serbia_HG",]
+coverage <- meta$Coverage
+geno <- coverage_adjust(genotype, coverage, K = 4, log = TRUE)
 
 # Adjust an FA model
 mod  <- tfa(age,
             geno,
+            k = 3,
+            lambda = 5e-1,
+            center = TRUE,
+            coverage = coverage,
+            log = TRUE)
+
+r_2 <- choose_lambda(mod,
+                     geno,
+                     min_range = -4,
+                     max_range = 3)
+abline(v=log10(5e-1), col = "orange", lty = 2)
+
+# Remove HG from Serbia to keep k = 2 ancestral populations
+
+age2 <- age[meta$Group.ID != "Serbia_HG"]
+geno2 <- geno[meta$Group.ID != "Serbia_HG",]
+
+# Adjust an FA model
+mod  <- tfa(age2,
+            geno2,
             k = 2,
-            lambda = 1e-3,
+            lambda = 5e-2,
             center = TRUE)
 
-r_2 <- choose_lambda(mod, geno)
+r_2 <- choose_lambda(mod,
+                     geno2,
+                     min_range = -3,
+                     max_range = 2)
+abline(v=log10(5e-2), col = "orange", lty = 2)
 detach(England_BA)
 # rm(list = ls())
 }

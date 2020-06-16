@@ -61,7 +61,7 @@ as.tfa_metadata <- function(dataframe){
 #' attach(England_BA)
 #' metadata <- as.tfa_metadata(meta)
 #' coverage <- meta$Coverage
-#' geno <- coverage_adjust(genotype, coverage, K = 3, log = TRUE)
+#' geno <- coverage_adjust(genotype, coverage, K = 4, log = TRUE)
 #'
 #' mod  <- tfa(age,
 #'             geno,
@@ -85,9 +85,9 @@ as.tfa_metadata <- function(dataframe){
 #'                       target = target)
 #' detach(England_BA)
 #' # rm(list = ls())
-#' @references François, O., Jay, F. (2020). Factor analysis of ancient DNA samples.
+#' @references François, O., Jay, F. (2020). Factor analysis of ancient DNA samples. Under review.
 #' @author Olivier Francois, \email{olivier.francois@@univ-grenoble-alpes.fr}
-#' @seealso \code{\link{England_BA}}, \code{\link{tfa}}
+#' @seealso \code{\link{England_BA}}, \code{\link{tfa}}, \code{\link{coverage_adjust}}, \code{\link{choose_lambda}}
 ancestry_coefficients <- function(model, metadata, source, target, individual = FALSE){
 
   if (class(model) != "tfa") {
