@@ -4,7 +4,8 @@
 \alias{ancestry_coefficients}
 \title{Compute ancestry coefficients from specified source populations}
 \usage{
-ancestry_coefficients(model, metadata, source, target, individual = FALSE)
+ancestry_coefficients(model, metadata, source, target,
+  individual = FALSE)
 }
 \arguments{
 \item{model}{an object of class \code{tfa} with the same number of individuals as in metadata.}

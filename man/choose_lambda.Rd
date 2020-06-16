@@ -4,8 +4,8 @@
 \alias{choose_lambda}
 \title{Graphical heuristic for choosing the drift parameter in \code{tfa()}}
 \usage{
-choose_lambda(model, Y, min_range = -5, max_range = 0.1, grid_size = 10,
-  plot_res = TRUE)
+choose_lambda(model, Y, min_range = -5, max_range = 0.1,
+  grid_size = 10, plot_res = TRUE)
 }
 \arguments{
 \item{model}{an object of class 'tfa' adjusted with \code{tfa()}.}

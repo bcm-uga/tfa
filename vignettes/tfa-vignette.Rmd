@@ -279,10 +279,6 @@ age <- England_BA$age
 We want to choose a value of `lambda` for which dependency on time is removed from the second factor. To this objective, we use a grid of values in the function `choose_lambda()`. 
 
 ```{r}
-
-```
-
-```{r}
  r_2 <- choose_lambda(mod, geno)
  abline(v = -2.7, col = "orange", lty = 2)
 ```
@@ -296,7 +292,7 @@ We eventually rerun the main function with the selected value
  mod  <- tfa(age,
              geno,
              k = 2,
-             lambda = 2e-3,
+             lambda = 10**(-2.7), 
              center = TRUE)
 
  # Re-evaluate ancestry coefficients
