@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-**Summary:** The R package `tfa` implements a factor analysis (FA) algorithm for temporal DNA or ancient DNA (aDNA) samples, ajusting individual scores for the effect of allele frequency drift through time. Based on the adjusted factors, the program can estimate ancestry proportions for a target population or a subset of target individuals given specified source populations. This vignette illustrates the use of `tfa` with samples of Eurasian aDNA extracted from [David Reich's lab](https://reich.hms.harvard.edu/) database. 
+**Summary:** The R package `tfa` implements a factor analysis (FA) algorithm for temporal DNA or ancient DNA (aDNA) samples, ajusting individual scores for the effect of allele frequency drift through time. Similarly to PCA, tfa projects individuals into a lower dimensional space allowing a visual investigation of population structure corrected for temporal drift. Based on the adjusted factors, the program can estimate ancestry proportions for a target population or a subset of target individuals given specified source populations. This vignette illustrates the use of `tfa` with samples of Eurasian aDNA extracted from [David Reich's lab](https://reich.hms.harvard.edu/) database. 
 
 
 
@@ -36,18 +36,21 @@ The FA model uses a decomposition of the data matrix into a product of factor an
 
 This section will illustrate the use of the `tfa` function to display a geometric representation of 118 aDNA samples from prehistoric Eurasia. This example data set was extracted from a database available from [David Reich's lab](https://reich.hms.harvard.edu/) considering individuals from Neolithic and Bronze Age Great Britain, Steppe (Yamnaya), Anatolia (Early Farmers), and from Serbia (Western Hunter-Gatherers). 
 
-Ten thousands SNP genotypes were filtered for high-quality, relatively high coverage and low number of missing values. Individual metadata and sample ages are provided as separate objects. The command below shows how to load the data in the R environment and which groups have been included in the data set.
+Ten thousands SNP genotypes were filtered for high-quality, relatively high coverage and low number of missing values. Individual metadata and sample ages are provided as separate objects. The ages were defined by the averages of 95.4% date range in calBP provided with the database. The command below shows how to load the data in the R environment and which groups have been included in the data set.
 
 
 ```{r}
 data(england_ba)
 # Ancient DNA from Bronze Age Great Britain samples
 # including Yamnaya, early farmers (Anatolia) and hunter-gatherers (Serbia)
-  attach(England_BA)
+genotype <- England_BA$genotype
+meta <- England_BA$meta
+age <- England_BA$age
+
 ```
 
 ```{r}
-  plot(table(meta$Group.ID), las = 3, cex.axis = .5, ylab = "Count", lwd = 5, col = "blue")
+plot(table(meta$Group.ID), las = 3, cex.axis = .5, ylab = "Count", lwd = 5, col = "blue")
 ```
 
 Prehistoric dates for each sample are provided in years cal BP. 
@@ -58,7 +61,9 @@ hist(age, col = "lightblue", xlab = "Age cal BP")
 ```
 
 
-The data set contains no missing genotypes. The missing values were imputed from a much larger database. This was done in a preliminary analysis by using a completion algorithm implemented in the R package `LEA`. Running a standard PCA on the data matrix clearly shows there are three main axes of variation in the genotypic data. 
+The data set contains no missing genotypes. The missing values were imputed from a much larger database. This was done in a preliminary analysis by using a completion algorithm implemented in the R package `LEA`. We also centered both the rows and the columns of the genotype matrix.
+
+Running a standard PCA on the data matrix clearly shows there are three main axes of variation in the genotypic data. 
 
 
 ```{r}
@@ -67,7 +72,7 @@ The data set contains no missing genotypes. The missing values were imputed from
 ```
 
 
-A first step of analysis consists of adjusting the genotypic data for coverage. For those particular filtered genotypes, the impact of coverage bias on analyses is not substantial. In general, coverage may strongly bias the results of factor analyses, and this important to consider adjusting for it. To adjust for coverage, the `tfa` package contains the function `coverage_adjust()` which implements a correction based on a latent factor regression model. According to the PCA result, three factors will be used in the latent factor regression model. 
+A first step of analysis consists of adjusting the genotypic data for coverage. For those particular filtered genotypes, the impact of coverage bias on analyses is not substantial. In general however, coverage may strongly bias the results of principal component and factor analyses, and it is important to consider adjusting for it. To adjust for coverage, the `tfa` package provides the function `coverage_adjust()` which implements a correction based on a latent factor regression model. According to the PCA result, three factors will be used in the latent factor regression model. 
 
 
 ```{r}
@@ -76,7 +81,11 @@ geno <- coverage_adjust(genotype, coverage, K = 3, log = TRUE)
 ```
 
 
-For running FA of the corrected data matrix (`geno`), the number of factors (`k`), and the drift parameter (`lambda`) must be specified. The **number of factors** could be determined by PCA or other methods for analysis of population structure. It could be taken equal to the number of axes in the PCA of the `geno` matrix. Since the `tfa()` approach is based a low-rank approximation of the data matrix, a lower value such as `k = 2` could be accepted. The value `k = 2` could be useful to explore relationships of samples when two ancestral populations are specified. The **drift parameter** (`lambda`) can be determined by a grid search procedure. Here, this parameter was chosen as the value for which the effect of age was removed from the **third** factor of the `tfa` analysis performed below, which was repeated several times with different values of `lambda`.
+For running FA of the adjusted data matrix (`geno`), the number of factors (`k`), and the drift parameter (`lambda`) must be specified. 
+
+The **number of factors** could be determined by PCA or other methods for analysis of population structure. It could be taken equal to the number of axes specified in the previous coverage adjustement operation, or to the main axes of variation in a PCA of the `geno` matrix. Since the `tfa()` approach is based a low-rank approximation of the data matrix, a lower value such as `k = 2` could be accepted. For example, the value `k = 2` could be useful to explore relationships of samples when two ancestral populations are included in a dataset.
+
+The **drift parameter** (`lambda`) can be determined by a grid search procedure. The function `choose_lambda()` is provided to facilitate the search and repeat `tfa` analysis with multiple values of `lambda` (see [tutorial section](#anchorchooselambda) below). In the current example, we selected the value for which the effect of age was removed from the **third** factor (third column of `mod$u`).
 
 
 ```{r}
@@ -89,11 +98,12 @@ For running FA of the corrected data matrix (`geno`), the number of factors (`k`
 The  object `mod` contains `k` factors adjusted for temporal drift in allele frequency. The results are contained in argument `mod$u`. The argument `mod$sing` contains the singular value (variance) associated with each factor. 
 
 ```{r}
- var_explained <- mod$singular.values[1:3]^2/(sum(mod$singular.values^2))
+ k <- ncol(mod$u) 
+ var_explained <- mod$singular.values[1:k]^2/(sum(mod$singular.values^2))
  round(var_explained, 3)
 ```
 
-The object `mod$u` can be used to visualize the samples in their first axes. The result looks like a PC plot showing the relative positions of Great Britain samples with respect to their putative sources of ancestry.  
+The object `mod$u` can be used to visualize the samples in the space defined by the two first axes. The result looks like a PC plot showing the relative positions of Great Britain samples with respect to their putative sources of ancestry.  
 
 
 ```{r}
@@ -124,7 +134,7 @@ The object `mod$u` can be used to visualize the samples in their first axes. The
 
 #### Ancestry coefficients
 
-In addition to geometric representations, the R package `tfa` can provide estimates of ancestry proportions for a target population or for a list of target individuals given specified source population samples. The number of sources must be less or equal than the number of factors plus one. For this analysis, the metadata object must contain a column named **Instance.ID** indicating the ID of each individual and another column  named **Group.ID** indicating the group ID of each individual in the study.
+In addition to geometric representations, the R package `tfa` can provide estimates of ancestry proportions for a target population or for a list of target individuals given a list of source populations. The number of sources must be less or equal than the number of factors plus one (i.e. `k+1`). For this analysis, the metadata object must contain a column named **Instance.ID** indicating the ID of each individual and another column  named **Group.ID** indicating the group ID of each individual in the study.
 
 ```{r}
   colnames(meta)
@@ -240,7 +250,7 @@ Since FA is an individual-based method, a geometric approach can be used to comp
 The levels of ancestry are consistent across the samples from Bell Beaker and Bronze Age samples. 
 
 
-#### Choosing the drift parameter
+#### Choosing the drift parameter  {#anchorchooselambda} 
 
 The **drift parameter** (`lambda`) can be determined by a grid search procedure. We suggest to choose this parameter by using a simple heuristic requiring `tfa()` to be run multiple times. Let us consider a case with $k = 2$ source populations, for example with early farmers from Anatolia and Yamnaya herders from the Pontic steppe. 
 
@@ -248,7 +258,9 @@ The **drift parameter** (`lambda`) can be determined by a grid search procedure.
 ```{r}
 # Ancient DNA from Bronze Age Great Britain samples
 data(england_ba)
-attach(England_BA)
+genotype <- England_BA$genotype
+meta <- England_BA$meta
+age <- England_BA$age
 
 # To keep k = 2 ancestral populations 
 # Remove hunter-gatherers from the data 
@@ -256,14 +268,19 @@ attach(England_BA)
   geno <- genotype[meta$Group.ID != "Serbia_HG",]
   
 # Run a preliminary FA model with k = 2
+# The preliminary lambda value does not matter
  mod  <- tfa(age,
              geno,
              k = 2,
-             lambda = 5e-1,
+             lambda = 5e-1, 
              center = TRUE)
 ```
  
 We want to choose a value of `lambda` for which dependency on time is removed from the second factor. To this objective, we use a grid of values in the function `choose_lambda()`. 
+
+```{r}
+
+```
 
 ```{r}
  r_2 <- choose_lambda(mod, geno)
@@ -271,7 +288,7 @@ We want to choose a value of `lambda` for which dependency on time is removed fr
 ```
 
 
-The result can be interpreted as the proportion of temporal variance explained by each factor 1 and 2. The orange line is the value for the effect of age is removed from the **second** factor of the `tfa` analysis.
+The result can be interpreted as the proportion of temporal variance explained by the k factors. The orange line is the value for which the effect of age is removed from the **second** factor of the `tfa` analysis.
 
 We eventually rerun the main function with the selected value
 ```{r}
@@ -289,7 +306,6 @@ We eventually rerun the main function with the selected value
                        source = c("Anatolia_N", "Russia_Yamnaya"),
                        target = "England_Bell_Beaker")
 
-detach(England_BA)
 ```
 
 ```{r}
