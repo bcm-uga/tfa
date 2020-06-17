@@ -98,7 +98,7 @@
 #' @references François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of population genetic structure from temporal samples
 #' of DNA. bioRxiv, 801324. \url{https://www.biorxiv.org/content/10.1101/801324v3}
 #'
-#' François, O., Jay, F. (2020). Factor analysis of ancient DNA samples. Under review.
+#' François, O., Jay, F. (2020). Factor analysis of ancient population genomic samples. Under review.
 #'
 #' @seealso \code{\link{England_BA}}, \code{\link{coverage_adjust}}, \code{\link{choose_lambda}}, \code{\link{ancestry_coefficients}}
 tfa <- function(sample_ages,
@@ -200,7 +200,7 @@ tfa <- function(sample_ages,
 #' @param min_range a numeric value for the minimal range of drift parameter tested. Log 10 scale.
 #' The default value is \code{min_range = -5}.
 #' @param max_range a numeric value for the maximal range of drift parameter tested. Log 10 scale.
-#' The default value is \code{max_range = 0.1}.
+#' The default value is \code{max_range = 1}.
 #' @param grid_size an integer value for the number of drift parameter tested. The default is
 #' \code{grid_size = 10}.
 #' @param plot_res a logical indicating whether the results should be displayed graphically or not. The
@@ -259,6 +259,9 @@ tfa <- function(sample_ages,
 #' # rm(list = ls())
 #' @references François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of population genetic structure from temporal samples
 #' of DNA. bioRxiv, 801324. \url{https://www.biorxiv.org/content/10.1101/801324v3}
+#'
+#' François, O., Jay, F. (2020). Factor analysis of ancient population genomic samples. Under review.
+#'
 #' @seealso \code{\link{England_BA}}, \code{\link{tfa}}
 choose_lambda <- function(model,
                           Y,
@@ -277,7 +280,6 @@ choose_lambda <- function(model,
   if (anyNA(Y)) stop("NA not allowed in genetic data.")
   if (nrow(Y) != n) stop("Number of rows (samples) of Y not equal to the length of
                          sample ages.")
-
 
 
   r_squared <- NULL
@@ -346,23 +348,26 @@ choose_lambda <- function(model,
 #' attach(England_BA)
 #'
 #' # Remove HG from Serbia to keep k = 2 ancestral populations
-#' age <- age[meta$Group.ID != "Serbia_HG"]
-#' geno <- genotype[meta$Group.ID != "Serbia_HG",]
+#' age2 <- age[meta$Group.ID != "Serbia_HG"]
+#' geno2 <- genotype[meta$Group.ID != "Serbia_HG",]
 #'
 #' # Adjust an FA model
-#' mod  <- tfa(age,
-#'             geno,
+#' mod  <- tfa(age2,
+#'             geno2,
 #'             k = 2,
-#'             lambda = 1e-3,
+#'             lambda = 5e-2,
 #'             center = TRUE)
 #'
-#' r_squared <- prop_variance(mod, geno)
+#' r_squared <- prop_variance(mod, geno2)
 #' summary(r_squared)
 #' hist(r_squared, col = "darkviolet")
 #' detach(England_BA)
 #' # rm(list = ls())
 #' @references François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of population genetic structure from temporal samples
 #' of DNA. bioRxiv, 801324. \url{https://www.biorxiv.org/content/10.1101/801324v3}
+#'
+#' François, O., Jay, F. (2020). Factor analysis of ancient population genomic samples. Under review.
+#'
 #' @seealso \code{\link{England_BA}}, \code{\link{tfa}}
 prop_variance <- function(model,
                           Y){

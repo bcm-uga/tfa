@@ -18,7 +18,7 @@ Missing data are not allowed.}
 The default value is \code{min_range = -5}.}
 
 \item{max_range}{a numeric value for the maximal range of drift parameter tested. Log 10 scale.
-The default value is \code{max_range = 0.1}.}
+The default value is \code{max_range = 1}.}
 
 \item{grid_size}{an integer value for the number of drift parameter tested. The default is
 \code{grid_size = 10}.}
@@ -87,6 +87,8 @@ detach(England_BA)
 \references{
 François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of population genetic structure from temporal samples
 of DNA. bioRxiv, 801324. \url{https://www.biorxiv.org/content/10.1101/801324v3}
+
+François, O., Jay, F. (2020). Factor analysis of ancient population genomic samples. Under review.
 }
 \seealso{
 \code{\link{England_BA}}, \code{\link{tfa}}

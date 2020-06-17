@@ -58,7 +58,7 @@ hist(age, col = "lightblue", xlab = "Age cal BP")
 ```
 
 
-The data set contains no missing genotypes. The missing values were imputed from a much larger database. This was done in a preliminary analysis by using a completion algorithm implemented in the R package `LEA`. Running a standard PCA on the data matrix clearly shows there are three main axes of variation in the genotypic data. 
+The data set contains no missing genotypes. The missing values were imputed from a much larger database. This was done in a preliminary analysis by using a completion algorithm implemented in the R package `LEA`. Running a standard PCA on the data matrix shows there are at least two main axes of variation in the genotypic data. 
 
 
 ```{r}
@@ -67,7 +67,7 @@ The data set contains no missing genotypes. The missing values were imputed from
 ```
 
 
-A first step of analysis consists of adjusting the genotypic data for coverage. For those particular filtered genotypes, the impact of coverage bias on analyses is not substantial. In general, coverage may strongly bias the results of factor analyses, and this important to consider adjusting for it. To adjust for coverage, the `tfa` package contains the function `coverage_adjust()` which implements a correction based on a latent factor regression model. According to the PCA result, four factors could be used in the latent factor regression model. 
+A first step of analysis consists of adjusting the genotypic data for coverage. For those particular filtered genotypes, the impact of coverage bias on analyses is not substantial. In general, coverage may strongly bias the results of factor analyses, and this important to consider adjusting for it. To adjust for coverage, the `tfa` package contains the function `coverage_adjust()` which implements a correction based on a latent factor regression model. According to the PCA result, four factors could be used in the latent factor regression model. Note that it is better to choose more factors than the number of PC axes estimated from the original data.  
 
 
 ```{r}
@@ -76,7 +76,11 @@ geno <- coverage_adjust(genotype, coverage, K = 4, log = TRUE)
 ```
 
 
-For running FA of the corrected data matrix (`geno`), the number of factors (`k`), and the drift parameter (`lambda`) must be specified. The **number of factors** could be determined by PCA or other methods for analysis of population structure. It could be taken equal to the number of axes in the PCA of the `geno` matrix. Since the `tfa()` approach is based a low-rank approximation of the data matrix, a lower value such as `k = 3` could be accepted. The value `k = 3` could be useful to explore relationships of samples when three ancestral populations are specified. The **drift parameter** (`lambda`) can be determined by a grid search procedure (see `choose_lambda`). Here, this parameter was chosen as the value for which the effect of age was removed from the **third** factor of the `tfa` analysis performed below, which was repeated several times with different values of `lambda`.
+For performing an FA of the corrected data matrix (`geno`), the number of factors (`k`), and the drift parameter (`lambda`) must be specified. The **number of factors** could be determined by PCA or other methods for analysis of population structure. 
+
+We suggest `k` could be taken equal to the number of axes in the PCA of the `geno` matrix plus one. Since the `tfa()` approach is based a low-rank approximation of the data matrix, a lower value such as `k = 3` or `k = 2` could be useful. The value `k = 3` will explore relationships of samples when three ancestral populations are specified. The value `k = 2` will explore relationships of samples when three ancestral populations are specified. 
+
+The **drift parameter** (`lambda`) can be determined by a grid search procedure (see `choose_lambda()`). For `k = 3`, this parameter was chosen as the value for which the effect of age was removed from the **third** factor of the `tfa` analysis performed below, which was repeated several times with different values of `lambda`.
 
 
 ```{r}
@@ -86,7 +90,7 @@ For running FA of the corrected data matrix (`geno`), the number of factors (`k`
               lambda = 5e-1)
 ```
 
-The  object `mod` contains `k` factors adjusted for temporal drift in allele frequency. The results are contained in argument `mod$u`. The argument `mod$sing` contains the singular value (variance) associated with each factor. 
+The  object `mod` contains `k` factors adjusted for temporal drift in allele frequency. The results are contained in argument `mod$u`. The argument `mod$sing` contains the singular value (standard deviation) associated with each factor. 
 
 ```{r}
  var_explained <- mod$singular.values[1:3]^2/(sum(mod$singular.values^2))

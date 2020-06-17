@@ -35,17 +35,17 @@ data(england_ba)
 attach(England_BA)
 
 # Remove HG from Serbia to keep k = 2 ancestral populations
-age <- age[meta$Group.ID != "Serbia_HG"]
-geno <- genotype[meta$Group.ID != "Serbia_HG",]
+age2 <- age[meta$Group.ID != "Serbia_HG"]
+geno2 <- genotype[meta$Group.ID != "Serbia_HG",]
 
 # Adjust an FA model
-mod  <- tfa(age,
-            geno,
+mod  <- tfa(age2,
+            geno2,
             k = 2,
-            lambda = 1e-3,
+            lambda = 5e-2,
             center = TRUE)
 
-r_squared <- prop_variance(mod, geno)
+r_squared <- prop_variance(mod, geno2)
 summary(r_squared)
 hist(r_squared, col = "darkviolet")
 detach(England_BA)
@@ -54,6 +54,8 @@ detach(England_BA)
 \references{
 François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of population genetic structure from temporal samples
 of DNA. bioRxiv, 801324. \url{https://www.biorxiv.org/content/10.1101/801324v3}
+
+François, O., Jay, F. (2020). Factor analysis of ancient population genomic samples. Under review.
 }
 \seealso{
 \code{\link{England_BA}}, \code{\link{tfa}}

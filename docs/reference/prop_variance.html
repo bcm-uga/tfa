@@ -157,6 +157,7 @@ the number of source populations.</p>
 
     <p>François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of population genetic structure from temporal samples
 of DNA. bioRxiv, 801324. <a href='https://www.biorxiv.org/content/10.1101/801324v3'>https://www.biorxiv.org/content/10.1101/801324v3</a></p>
+<p>François, O., Jay, F. (2020). Factor analysis of ancient population genomic samples. Under review.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -172,19 +173,19 @@ of DNA. bioRxiv, 801324. <a href='https://www.biorxiv.org/content/10.1101/801324
 <span class='fu'><a href='https://rdrr.io/r/base/attach.html'>attach</a></span>(<span class='no'>England_BA</span>)
 
 <span class='co'># Remove HG from Serbia to keep k = 2 ancestral populations</span>
-<span class='no'>age</span> <span class='kw'>&lt;-</span> <span class='no'>age</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>!=</span> <span class='st'>"Serbia_HG"</span>]
-<span class='no'>geno</span> <span class='kw'>&lt;-</span> <span class='no'>genotype</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>!=</span> <span class='st'>"Serbia_HG"</span>,]
+<span class='no'>age2</span> <span class='kw'>&lt;-</span> <span class='no'>age</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>!=</span> <span class='st'>"Serbia_HG"</span>]
+<span class='no'>geno2</span> <span class='kw'>&lt;-</span> <span class='no'>genotype</span>[<span class='no'>meta</span>$<span class='no'>Group.ID</span> <span class='kw'>!=</span> <span class='st'>"Serbia_HG"</span>,]
 
 <span class='co'># Adjust an FA model</span>
-<span class='no'>mod</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='tfa.html'>tfa</a></span>(<span class='no'>age</span>,
-            <span class='no'>geno</span>,
+<span class='no'>mod</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='tfa.html'>tfa</a></span>(<span class='no'>age2</span>,
+            <span class='no'>geno2</span>,
             <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-            <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fl'>1e-3</span>,
+            <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fl'>5e-2</span>,
             <span class='kw'>center</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='no'>r_squared</span> <span class='kw'>&lt;-</span> <span class='fu'>prop_variance</span>(<span class='no'>mod</span>, <span class='no'>geno</span>)
+<span class='no'>r_squared</span> <span class='kw'>&lt;-</span> <span class='fu'>prop_variance</span>(<span class='no'>mod</span>, <span class='no'>geno2</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>r_squared</span>)</div><div class='output co'>#&gt;      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
-#&gt; 0.0000005 0.0088442 0.0211821 0.0298822 0.0418942 0.3320958 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(<span class='no'>r_squared</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkviolet"</span>)</div><div class='img'><img src='prop_variance-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/detach.html'>detach</a></span>(<span class='no'>England_BA</span>)
+#&gt; 0.0000017 0.0085017 0.0205287 0.0288081 0.0403540 0.3205529 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(<span class='no'>r_squared</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkviolet"</span>)</div><div class='img'><img src='prop_variance-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/detach.html'>detach</a></span>(<span class='no'>England_BA</span>)
 <span class='co'># rm(list = ls())</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

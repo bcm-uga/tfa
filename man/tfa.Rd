@@ -115,7 +115,7 @@ detach(England_BA)
 François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of population genetic structure from temporal samples
 of DNA. bioRxiv, 801324. \url{https://www.biorxiv.org/content/10.1101/801324v3}
 
-François, O., Jay, F. (2020). Factor analysis of ancient DNA samples. Under review.
+François, O., Jay, F. (2020). Factor analysis of ancient population genomic samples. Under review.
 }
 \seealso{
 \code{\link{England_BA}}, \code{\link{coverage_adjust}}, \code{\link{choose_lambda}}, \code{\link{ancestry_coefficients}}

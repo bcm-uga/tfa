@@ -40,7 +40,7 @@ geno <- coverage_adjust(genotype, coverage, K = 4, log = TRUE)
 detach(England_BA)
 }
 \references{
-François, O., Jay, F. (2020). Factor analysis of ancient DNA samples. Under review.
+François, O., Jay, F. (2020). Factor analysis of ancient population genomic samples. Under review.
 }
 \seealso{
 \code{\link{England_BA}}, \code{\link{tfa}}, \code{\link{choose_lambda}}
