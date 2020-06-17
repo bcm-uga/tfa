@@ -205,6 +205,8 @@ tfa <- function(sample_ages,
 #' \code{grid_size = 10}.
 #' @param plot_res a logical indicating whether the results should be displayed graphically or not. The
 #' default value is \code{TRUE}.
+#' #' @param detail_axis a logical indicating whether the results should also be
+#' displayed for each factor independently. The default value is \code{FALSE}.
 #' @return A vector of percentages of variance of sample time explained by factors for each value of
 #' the drift parameter in the specified range.
 #' @details This function requires that a preliminary model has been adjusted with K factors, where K is
@@ -268,7 +270,8 @@ choose_lambda <- function(model,
                           min_range = -5,
                           max_range =  1,
                           grid_size = 10,
-                          plot_res = TRUE){
+                          plot_res = TRUE,
+                          detail_axis = FALSE){
 
   if(!inherits(model, what = "tfa")){
     stop("Object 'model' not of class 'tfa'.")
@@ -292,9 +295,13 @@ choose_lambda <- function(model,
    C <- model$cov
    k <- ncol(model$u)
 
-
+  if (detail_axis) {
+    r_squared_axes = matrix(nrow = length(lambda), ncol=k)
+  }
+  it_la <- 0
   for (la in lambda){
-        fa <- tfa(sample_ages = 1 - tn,
+    it_la <-  it_la +1
+    fa <- tfa(sample_ages = 1 - tn,
                      Y,
                      k = k,
                      lambda = la,
@@ -303,8 +310,28 @@ choose_lambda <- function(model,
 
     mod_lm <- lm(tn ~ fa$u)
     r_squared <- c(r_squared, summary(mod_lm)$adj.r.squared)
+    
+    if (detail_axis) {
+      for (ax in 1:k) {
+        mod_lm <- lm(tn ~ fa$u[,ax])
+        r_squared_axes[it_la,ax] <- summary(mod_lm)$adj.r.squared
+      }
+    }
   }
   if (plot_res){
+    if (detail_axis){
+      par(mfrow = c(1, 2))
+      rownames(r_squared_axes) <- round(llambda,3)
+      barplot(t(r_squared_axes), 
+              beside=TRUE, 
+              xlab = "Log parameter",
+              ylab = "Var. explained",
+              legend.text = paste("Factor", 1:ncol(r_squared_axes)),
+              args.legend = list(x = "right", cex= .7, bty = "y", inset=c(0, 0))
+              )
+    }
+    
+    
     plot(llambda,
            r_squared,
            xlab = "Log parameter",
@@ -316,6 +343,7 @@ choose_lambda <- function(model,
            pch = 19,
            cex = .8)
   }
+  
   return(r_squared)
 }
 
