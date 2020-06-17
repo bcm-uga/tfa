@@ -257,7 +257,7 @@ ancestry
 <span class="co"># Remove hunter-gatherers from the data </span>
 
 age2 &lt;-<span class="st"> </span>age[meta<span class="op">$</span>Group.ID <span class="op">!=</span><span class="st"> "Serbia_HG"</span>]
-geno2 &lt;-<span class="st"> </span>genotype[meta<span class="op">$</span>Group.ID <span class="op">!=</span><span class="st"> "Serbia_HG"</span>,]
+geno2 &lt;-<span class="st"> </span>geno[meta<span class="op">$</span>Group.ID <span class="op">!=</span><span class="st"> "Serbia_HG"</span>,]
   
 <span class="co"># Run a preliminary FA model with k = 2</span>
 <span class="co"># The preliminary lambda value does not matter</span>
@@ -286,7 +286,7 @@ mod  &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tfa.ht
                        <span class="dt">source =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Anatolia_N"</span>, <span class="st">"Russia_Yamnaya"</span>),
                        <span class="dt">target =</span> <span class="st">"England_Bell_Beaker"</span>)
 <span class="co">#&gt;                     Anatolia_N Russia_Yamnaya</span>
-<span class="co">#&gt; England_Bell_Beaker  0.7302014      0.2697986</span></code></pre></div>
+<span class="co">#&gt; England_Bell_Beaker  0.6517483      0.3482517</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># clear everything</span>
 <span class="co"># rm(list = ls())</span></code></pre></div>
 </div>

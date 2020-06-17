@@ -261,7 +261,7 @@ The **drift parameter** (`lambda`) can be determined by a grid search procedure.
 # Remove hunter-gatherers from the data 
 
 age2 <- age[meta$Group.ID != "Serbia_HG"]
-geno2 <- genotype[meta$Group.ID != "Serbia_HG",]
+geno2 <- geno[meta$Group.ID != "Serbia_HG",]
   
 # Run a preliminary FA model with k = 2
 # The preliminary lambda value does not matter
