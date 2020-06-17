@@ -4,8 +4,8 @@
 \alias{choose_lambda}
 \title{Graphical heuristic for choosing the drift parameter in \code{tfa()}}
 \usage{
-choose_lambda(model, Y, min_range = -5, max_range = 1, grid_size = 10,
-  plot_res = TRUE)
+choose_lambda(model, Y, min_range = -5, max_range = 1,
+  grid_size = 10, plot_res = TRUE, detail_axis = FALSE)
 }
 \arguments{
 \item{model}{an object of class 'tfa' adjusted with \code{tfa()}.}
@@ -25,6 +25,9 @@ The default value is \code{max_range = 1}.}
 
 \item{plot_res}{a logical indicating whether the results should be displayed graphically or not. The
 default value is \code{TRUE}.}
+
+\item{detail_axis}{a logical indicating whether the results should also be
+displayed for each factor independently. The default value is \code{FALSE}.}
 }
 \value{
 A vector of percentages of variance of sample time explained by factors for each value of

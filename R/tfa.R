@@ -205,7 +205,7 @@ tfa <- function(sample_ages,
 #' \code{grid_size = 10}.
 #' @param plot_res a logical indicating whether the results should be displayed graphically or not. The
 #' default value is \code{TRUE}.
-#' #' @param detail_axis a logical indicating whether the results should also be
+#' @param detail_axis a logical indicating whether the results should also be
 #' displayed for each factor independently. The default value is \code{FALSE}.
 #' @return A vector of percentages of variance of sample time explained by factors for each value of
 #' the drift parameter in the specified range.
