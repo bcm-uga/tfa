@@ -8,29 +8,23 @@
 
 <title>Graphical heuristic for choosing the drift parameter in <code>tfa()</code> — choose_lambda • tfa</title>
 
-
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
-
-<!-- bootstrap-toc -->
-<link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -38,11 +32,11 @@
 
 
 
-
 <meta property="og:title" content="Graphical heuristic for choosing the drift parameter in <code>tfa()</code> — choose_lambda" />
+
 <meta property="og:description" content="choose_lambda runs temporal factor analyses for drift parameters in a specified
 range, and ouputs the percentage of variance of sample time explained by all factors for each value." />
-
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -59,7 +53,7 @@ range, and ouputs the percentage of variance of sample time explained by all fac
 
   </head>
 
-  <body data-spy="scroll" data-target="#toc">
+  <body>
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -73,7 +67,7 @@ range, and ouputs the percentage of variance of sample time explained by all fac
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tfa</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -101,6 +95,7 @@ range, and ouputs the percentage of variance of sample time explained by all fac
   </ul>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -122,13 +117,15 @@ range, and ouputs the percentage of variance of sample time explained by all fac
     </div>
 
     <div class="ref-description">
+    
     <p><code>choose_lambda</code> runs temporal factor analyses for drift parameters in a specified
 range, and ouputs the percentage of variance of sample time explained by all factors for each value.</p>
+    
     </div>
 
-    <pre class="usage"><span class='fu'>choose_lambda</span>(<span class='no'>model</span>, <span class='no'>Y</span>, <span class='kw'>min_range</span> <span class='kw'>=</span> -<span class='fl'>5</span>, <span class='kw'>max_range</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>grid_size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>plot_res</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>detail_axis</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-
+    <pre class="usage"><span class='fu'>choose_lambda</span>(<span class='no'>model</span>, <span class='no'>Y</span>, <span class='kw'>min_range</span> <span class='kw'>=</span> -<span class='fl'>5</span>, <span class='kw'>max_range</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>grid_size</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>plot_res</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>detail_axis</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -168,24 +165,28 @@ default value is <code>TRUE</code>.</p></td>
 displayed for each factor independently. The default value is <code>FALSE</code>.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A vector of percentages of variance of sample time explained by factors for each value of
 the drift parameter in the specified range.</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function requires that a preliminary model has been adjusted with K factors, where K is
 the number of source populations. The curve exhibits a drop for some value in the range, and the heuristic
 consists of choosing the largest values corresponding to removing time variation in factor K.</p>
+    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>François, O., Liégeois, S., Demaille, B., Jay, F. (2019). Inference of population genetic structure from temporal samples
 of DNA. bioRxiv, 801324. <a href='https://www.biorxiv.org/content/10.1101/801324v3'>https://www.biorxiv.org/content/10.1101/801324v3</a></p>
 <p>François, O., Jay, F. (2020). Factor analysis of ancient population genomic samples. Under review.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='England_BA.html'>England_BA</a></code>, <code><a href='tfa.html'>tfa</a></code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tfa</span>)
@@ -228,10 +229,24 @@ of DNA. bioRxiv, 801324. <a href='https://www.biorxiv.org/content/10.1101/801324
                      <span class='kw'>max_range</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(<span class='kw'>v</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='fl'>5e-2</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"orange"</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='img'><img src='choose_lambda-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/detach.html'>detach</a></span>(<span class='no'>England_BA</span>)
 <span class='co'># rm(list = ls())</span></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top">
-      <h2 data-toc-skip>Contents</h2>
-    </nav>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#references">References</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
+    <h2>Author</h2>
+    <p>Olivier Francois, <a href='mailto:olivier.francois@univ-grenoble-alpes.fr'>olivier.francois@univ-grenoble-alpes.fr</a></p>
   </div>
 </div>
 
@@ -242,7 +257,7 @@ of DNA. bioRxiv, 801324. <a href='https://www.biorxiv.org/content/10.1101/801324
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

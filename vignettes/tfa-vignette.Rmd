@@ -61,7 +61,7 @@ hist(age, col = "lightblue", xlab = "Age cal BP")
 ```
 
 
-The data set contains no missing genotypes. The missing values were imputed from a much larger database. This was done in a preliminary analysis by using a completion algorithm implemented in the R package `LEA`. We had also centered both the rows and the columns of the genotype matrix.
+The data set contains no missing genotypes. The missing values were imputed from a much larger database. This was done in a preliminary analysis by using a completion algorithm implemented in the `impute` function of the R package `LEA`.
 
 Running a standard PCA on the data matrix clearly shows there are three main axes of variation in the genotypic data. 
 
