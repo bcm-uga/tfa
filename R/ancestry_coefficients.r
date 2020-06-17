@@ -227,6 +227,12 @@ ancestry_coefficients <- function(model, metadata, source, target, individual = 
   } else {
     rownames(ancestry) <- metadata$Instance.ID[metadata$Group.ID %in% target]
   }
+  
+  if (any(ancestry<0)) {
+    warning("A negative ancestry coefficient might suggest that at least one source did not ",
+            "contribute to the gene pool of at least one targeted population. For this target ",
+            "relaunch ancestry_coefficients() after removing the superfluous source from the input vector.")
+  }
 
   return(ancestry)
 }
