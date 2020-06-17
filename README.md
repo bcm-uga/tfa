@@ -7,9 +7,9 @@ The R package `tfa` implements a factor analysis algorithm for temporal DNA or a
 ## Package overview
 
 The main functions of the package are 
-- ancestry_coefficients(): Compute ancestry coefficients from specified source populations
-- coverage_adjust(): Adjust ancient genotypes for coverage bias
-- tfa(): Factor analysis of temporal or ancient DNA samples
+- ancestry_coefficients: Compute ancestry coefficients from specified source populations
+- coverage_adjust: Adjust ancient genotypes for coverage bias
+- tfa: Factor analysis of temporal or ancient DNA samples
 
 Check the following link to access the package website and a short [tutorial](https://bcm-uga.github.io/tfa/articles/tfa-vignette.html)
 
