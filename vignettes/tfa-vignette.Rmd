@@ -63,7 +63,7 @@ hist(age, col = "lightblue", xlab = "Age cal BP")
 
 The data set contains no missing genotypes. The missing values were imputed from a much larger database. This was done in a preliminary analysis by using a completion algorithm implemented in the `impute` function of the R package `LEA`.
 
-Running a standard PCA on the data matrix clearly shows there are three main axes of variation in the genotypic data. 
+Running a standard PCA on the data matrix shows there are at least two or three main axes of variation in the genotypic data. 
 
 
 ```{r}
@@ -276,7 +276,7 @@ We want to choose a value of `lambda` for which dependency on time is removed fr
 
 ```{r}
 r_2 <- choose_lambda(mod, geno2)
-abline(v = -2.75, col = "orange", lty = 2)
+abline(v = -1, col = "orange", lty = 2)
 ```
 
 
@@ -288,7 +288,7 @@ We eventually rerun the main function with the selected value
  mod  <- tfa(age2,
              geno2,
              k = 2,
-             lambda = 10**(-2.75),
+             lambda = 10**(-1),
              center = TRUE)
 
  # Re-evaluate ancestry coefficients

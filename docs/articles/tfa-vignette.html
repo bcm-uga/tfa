@@ -6,19 +6,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Analyzing ancient DNA data with the R package tfa • tfa</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Analyzing ancient DNA data with the R package tfa">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="tfa">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -72,10 +72,10 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Analyzing ancient DNA data with the R package tfa</h1>
+      <h1 data-toc-skip>Analyzing ancient DNA data with the R package tfa</h1>
                         <h4 class="author">Olivier François - Flora Jay</h4>
             
-            <h4 class="date">2020-06-17</h4>
+            <h4 class="date">2020-06-22</h4>
       
       
       <div class="hidden name"><code>tfa-vignette.Rmd</code></div>
@@ -85,7 +85,7 @@
     
     
 <p><strong>Summary:</strong> The R package <code>tfa</code> implements a factor analysis (FA) algorithm for temporal DNA or ancient DNA (aDNA) samples, ajusting individual scores for the effect of allele frequency drift through time. Similarly to PCA, tfa projects individuals into a lower dimensional space allowing a visual investigation of population structure corrected for temporal drift. Based on the adjusted factors, the program can estimate ancestry proportions for a target population or a subset of target individuals given specified source populations. This vignette illustrates the use of <code>tfa</code> with samples of Eurasian aDNA extracted from <a href="https://reich.hms.harvard.edu/">David Reich’s lab</a> database.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tfa)</code></pre></div>
+<div class="sourceCode"><html><body><pre class="r">  <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tfa</span>)</pre></body></html></div>
 <div id="principle-of-the-method" class="section level4">
 <h4 class="hasAnchor">
 <a href="#principle-of-the-method" class="anchor"></a>Principle of the method</h4>
@@ -96,155 +96,155 @@
 <a href="#factor-analysis-of-adna-samples" class="anchor"></a>Factor analysis of aDNA samples</h4>
 <p>This section will illustrate the use of the <code>tfa</code> function to display a geometric representation of 118 aDNA samples from prehistoric Eurasia. This example data set was extracted from a database available from <a href="https://reich.hms.harvard.edu/">David Reich’s lab</a> considering individuals from Neolithic and Bronze Age Great Britain, Steppe (Yamnaya), Anatolia (Early Farmers), and from Serbia (Western Hunter-Gatherers).</p>
 <p>Ten thousands SNP genotypes were filtered for high-quality, relatively high coverage and low number of missing values. Individual metadata and sample ages are provided as separate objects. The ages were defined by the averages of 95.4% date range in calBP provided with the database. The command below shows how to load the data in the R environment and which groups have been included in the data set.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(england_ba)
+<div class="sourceCode"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">england_ba</span>)
 <span class="co"># Ancient DNA from Bronze Age Great Britain samples</span>
 <span class="co"># including Yamnaya, early farmers (Anatolia) and hunter-gatherers (Serbia)</span>
-genotype &lt;-<span class="st"> </span>England_BA<span class="op">$</span>genotype
-meta &lt;-<span class="st"> </span>England_BA<span class="op">$</span>meta
-age &lt;-<span class="st"> </span>England_BA<span class="op">$</span>age</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(meta<span class="op">$</span>Group.ID), <span class="dt">las =</span> <span class="dv">3</span>, <span class="dt">cex.axis =</span> .<span class="dv">5</span>, <span class="dt">ylab =</span> <span class="st">"Count"</span>, <span class="dt">lwd =</span> <span class="dv">5</span>, <span class="dt">col =</span> <span class="st">"blue"</span>)</code></pre></div>
+<span class="no">genotype</span> <span class="kw">&lt;-</span> <span class="no">England_BA</span>$<span class="no">genotype</span>
+<span class="no">meta</span> <span class="kw">&lt;-</span> <span class="no">England_BA</span>$<span class="no">meta</span>
+<span class="no">age</span> <span class="kw">&lt;-</span> <span class="no">England_BA</span>$<span class="no">age</span></pre></body></html></div>
+<div class="sourceCode"><html><body><pre class="r">  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="no">meta</span>$<span class="no">Group.ID</span>), <span class="kw">las</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">cex.axis</span> <span class="kw">=</span> <span class="fl">.5</span>, <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">"Count"</span>, <span class="kw">lwd</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"blue"</span>)</pre></body></html></div>
 <p><img src="tfa-vignette_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>Prehistoric dates for each sample are provided in years cal BP.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(age, <span class="dt">col =</span> <span class="st">"lightblue"</span>, <span class="dt">xlab =</span> <span class="st">"Age cal BP"</span>)</code></pre></div>
+<div class="sourceCode"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(<span class="no">age</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"lightblue"</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">"Age cal BP"</span>)</pre></body></html></div>
 <p><img src="tfa-vignette_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>The data set contains no missing genotypes. The missing values were imputed from a much larger database. This was done in a preliminary analysis by using a completion algorithm implemented in the <code>impute</code> function of the R package <code>LEA</code>.</p>
-<p>Running a standard PCA on the data matrix clearly shows there are three main axes of variation in the genotypic data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  pca &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/prcomp.html">prcomp</a></span>(genotype)
-  <span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(pca, <span class="dt">col =</span> <span class="st">"palegreen"</span>)</code></pre></div>
+<p>Running a standard PCA on the data matrix shows there are at least two or three main axes of variation in the genotypic data.</p>
+<div class="sourceCode"><html><body><pre class="r">  <span class="no">pca</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html">prcomp</a></span>(<span class="no">genotype</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">pca</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"palegreen"</span>)</pre></body></html></div>
 <p><img src="tfa-vignette_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <p>A first step of analysis consists of adjusting the genotypic data for coverage. For those particular filtered genotypes, the impact of coverage bias on analyses is not substantial. In general however, coverage may strongly bias the results of factor analyses, and it is important to consider adjusting for it. To adjust for coverage, the <code>tfa</code> package contains the function <code><a href="../reference/coverage_adjust.html">coverage_adjust()</a></code> which implements a correction based on a latent factor regression model. According to the PCA result, four factors could be used in the latent factor regression model. Note that it is better to choose more factors than the number of PC axes estimated from the original data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coverage &lt;-<span class="st"> </span>meta<span class="op">$</span>Coverage
-geno &lt;-<span class="st"> </span><span class="kw"><a href="../reference/coverage_adjust.html">coverage_adjust</a></span>(genotype, coverage, <span class="dt">K =</span> <span class="dv">4</span>, <span class="dt">log =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><html><body><pre class="r"><span class="no">coverage</span> <span class="kw">&lt;-</span> <span class="no">meta</span>$<span class="no">Coverage</span>
+<span class="no">geno</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/coverage_adjust.html">coverage_adjust</a></span>(<span class="no">genotype</span>, <span class="no">coverage</span>, <span class="kw">K</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">log</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p>For performing FA of the adjusted data matrix (<code>geno</code>), the number of factors (<code>k</code>), and the drift parameter (<code>lambda</code>) must be specified.</p>
 <p>The <strong>number of factors</strong> could be determined by PCA or other methods for analysis of population structure. We suggest <code>k</code> could be taken equal to the number of main axes in the PCA of the adjusted matrix plus one. Since the <code><a href="../reference/tfa.html">tfa()</a></code> approach is based a low-rank approximation of the data matrix, a lower value such as <code>k = 3</code> or <code>k = 2</code> could be useful. The value <code>k = 3</code> will explore relationships of samples when three ancestral populations are present in the dataset. The value <code>k = 2</code> will explore relationships of samples when two ancestral populations are present in the dataset.</p>
 <p>The <strong>drift parameter</strong> (<code>lambda</code>) can be determined by a grid search procedure. The function <code><a href="../reference/choose_lambda.html">choose_lambda()</a></code> is provided to facilitate the search and repeat <code>tfa</code> analysis with multiple values of <code>lambda</code> (see <a href="#anchorchooselambda">tutorial section</a> below). In the current example, we selected the value for which the effect of age was removed from the <strong>third</strong> factor (third column of <code>mod$u</code>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  mod  &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tfa.html">tfa</a></span>(<span class="dt">Y =</span> geno,
-              <span class="dt">sample_ages =</span> age,
-              <span class="dt">k =</span> <span class="dv">3</span>,
-              <span class="dt">lambda =</span> <span class="fl">5e-1</span>)</code></pre></div>
+<div class="sourceCode"><html><body><pre class="r">  <span class="no">mod</span>  <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tfa.html">tfa</a></span>(<span class="kw">Y</span> <span class="kw">=</span> <span class="no">geno</span>,
+              <span class="kw">sample_ages</span> <span class="kw">=</span> <span class="no">age</span>,
+              <span class="kw">k</span> <span class="kw">=</span> <span class="fl">3</span>,
+              <span class="kw">lambda</span> <span class="kw">=</span> <span class="fl">5e-1</span>)</pre></body></html></div>
 <p>The object <code>mod</code> contains <code>k</code> factors adjusted for temporal drift in allele frequency. The results are contained in argument <code>mod$u</code>. The argument <code>mod$sing</code> contains the singular value (standard deviation) associated with each factor.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> k &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(mod<span class="op">$</span>u) 
- var_explained &lt;-<span class="st"> </span>mod<span class="op">$</span>singular.values[<span class="dv">1</span><span class="op">:</span>k]<span class="op">^</span><span class="dv">2</span><span class="op">/</span>(<span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(mod<span class="op">$</span>singular.values<span class="op">^</span><span class="dv">2</span>))
- <span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(var_explained, <span class="dv">3</span>)
-<span class="co">#&gt; [1] 0.539 0.284 0.176</span></code></pre></div>
+<div class="sourceCode"><html><body><pre class="r"> <span class="no">k</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(<span class="no">mod</span>$<span class="no">u</span>)
+ <span class="no">var_explained</span> <span class="kw">&lt;-</span> <span class="no">mod</span>$<span class="no">singular.values</span>[<span class="fl">1</span>:<span class="no">k</span>]^<span class="fl">2</span>/(<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">mod</span>$<span class="no">singular.values</span>^<span class="fl">2</span>))
+ <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">var_explained</span>, <span class="fl">3</span>)
+<span class="co">#&gt; [1] 0.539 0.284 0.176</span></pre></body></html></div>
 <p>The object <code>mod$u</code> can be used to visualize the samples in the space defined by the first axes. The result looks like a PC plot showing the relative positions of Great Britain samples with respect to their putative sources of ancestry.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(mod<span class="op">$</span>u, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="st">"grey90"</span>, <span class="dt">xlab =</span> <span class="st">"Factor 1"</span>, <span class="dt">ylab =</span> <span class="st">"Factor 2"</span>)
+<div class="sourceCode"><html><body><pre class="r">  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">mod</span>$<span class="no">u</span>, <span class="kw">pch</span> <span class="kw">=</span> <span class="fl">19</span>, <span class="kw">cex</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"grey90"</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">"Factor 1"</span>, <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">"Factor 2"</span>)
 
-  center_yamnaya &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(mod<span class="op">$</span>u[meta<span class="op">$</span>Group.ID <span class="op">==</span><span class="st"> "Russia_Yamnaya"</span>,], <span class="dv">2</span>, mean)
-  center_anatolia &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(mod<span class="op">$</span>u[meta<span class="op">$</span>Group.ID <span class="op">==</span><span class="st"> "Anatolia_N"</span>,], <span class="dv">2</span>, mean) 
-  center_hg &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(mod<span class="op">$</span>u[meta<span class="op">$</span>Group.ID <span class="op">==</span><span class="st"> "Serbia_HG"</span>,], <span class="dv">2</span>, mean)
+  <span class="no">center_yamnaya</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(<span class="no">mod</span>$<span class="no">u</span>[<span class="no">meta</span>$<span class="no">Group.ID</span> <span class="kw">==</span> <span class="st">"Russia_Yamnaya"</span>,], <span class="fl">2</span>, <span class="no">mean</span>)
+  <span class="no">center_anatolia</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(<span class="no">mod</span>$<span class="no">u</span>[<span class="no">meta</span>$<span class="no">Group.ID</span> <span class="kw">==</span> <span class="st">"Anatolia_N"</span>,], <span class="fl">2</span>, <span class="no">mean</span>)
+  <span class="no">center_hg</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(<span class="no">mod</span>$<span class="no">u</span>[<span class="no">meta</span>$<span class="no">Group.ID</span> <span class="kw">==</span> <span class="st">"Serbia_HG"</span>,], <span class="fl">2</span>, <span class="no">mean</span>)
 
-  <span class="kw"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(center_yamnaya, center_anatolia, center_hg, center_yamnaya))
-  
-  <span class="kw"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(mod<span class="op">$</span>u[meta<span class="op">$</span>Group.ID <span class="op">==</span><span class="st"> "Russia_Yamnaya"</span>,], <span class="dt">pch =</span> <span class="dv">8</span>, <span class="dt">cex =</span> .<span class="dv">6</span>, <span class="dt">col =</span> <span class="st">"darkblue"</span>)
-  <span class="kw"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(mod<span class="op">$</span>u[meta<span class="op">$</span>Group.ID <span class="op">==</span><span class="st"> "Anatolia_N"</span>,], <span class="dt">pch =</span> <span class="dv">8</span>, <span class="dt">cex =</span> .<span class="dv">6</span>, <span class="dt">col =</span> <span class="st">"salmon3"</span>)
-  <span class="kw"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(mod<span class="op">$</span>u[meta<span class="op">$</span>Group.ID <span class="op">==</span><span class="st">  "Serbia_HG"</span>,], <span class="dt">pch =</span> <span class="dv">8</span>, <span class="dt">cex =</span> .<span class="dv">6</span>, <span class="dt">col =</span> <span class="st">"olivedrab"</span>)
-  <span class="kw"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(mod<span class="op">$</span>u[meta<span class="op">$</span>Group.ID <span class="op">==</span><span class="st"> "England_Bell_Beaker"</span>,], <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> .<span class="dv">6</span>, <span class="dt">col =</span> <span class="st">"yellow4"</span>)
-  <span class="kw"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(mod<span class="op">$</span>u[meta<span class="op">$</span>Group.ID <span class="op">==</span><span class="st"> "England_BA"</span>,], <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> .<span class="dv">6</span>, <span class="dt">col =</span> <span class="st">"yellow3"</span>)
-  <span class="kw"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(mod<span class="op">$</span>u[meta<span class="op">$</span>Group.ID <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"England_N"</span>, <span class="st">"Scotland_N"</span>),], <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> .<span class="dv">6</span>, <span class="dt">col =</span> <span class="st">"salmon1"</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="no">center_yamnaya</span>, <span class="no">center_anatolia</span>, <span class="no">center_hg</span>, <span class="no">center_yamnaya</span>))
 
-  <span class="kw"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span>(<span class="dt">x =</span> <span class="dv">20</span>, <span class="dt">y =</span> <span class="op">-</span><span class="dv">15</span>, <span class="dt">cex =</span> .<span class="dv">6</span>,
-         <span class="dt">legend =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Early Farmers"</span>, <span class="st">"Hunter Gatherers"</span>, <span class="st">"Steppe"</span>), 
-         <span class="dt">col =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"salmon3"</span>, <span class="st">"olivedrab"</span>, <span class="st">"darkblue"</span>), <span class="dt">pch =</span> <span class="dv">8</span>)
-  <span class="kw"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span>(<span class="dt">x =</span> <span class="dv">10</span>, <span class="dt">y =</span> <span class="op">-</span><span class="dv">15</span>, <span class="dt">cex =</span> .<span class="dv">6</span>,
-         <span class="dt">legend =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Neolithic GB"</span>, <span class="st">"Bronze Age GB"</span>, <span class="st">"Bell Beaker"</span>), 
-         <span class="dt">col =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"salmon1"</span>, <span class="st">"yellow3"</span>, <span class="st">"yellow4"</span>), <span class="dt">pch =</span> <span class="dv">19</span>)</code></pre></div>
+  <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(<span class="no">mod</span>$<span class="no">u</span>[<span class="no">meta</span>$<span class="no">Group.ID</span> <span class="kw">==</span> <span class="st">"Russia_Yamnaya"</span>,], <span class="kw">pch</span> <span class="kw">=</span> <span class="fl">8</span>, <span class="kw">cex</span> <span class="kw">=</span> <span class="fl">.6</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"darkblue"</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(<span class="no">mod</span>$<span class="no">u</span>[<span class="no">meta</span>$<span class="no">Group.ID</span> <span class="kw">==</span> <span class="st">"Anatolia_N"</span>,], <span class="kw">pch</span> <span class="kw">=</span> <span class="fl">8</span>, <span class="kw">cex</span> <span class="kw">=</span> <span class="fl">.6</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"salmon3"</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(<span class="no">mod</span>$<span class="no">u</span>[<span class="no">meta</span>$<span class="no">Group.ID</span> <span class="kw">==</span>  <span class="st">"Serbia_HG"</span>,], <span class="kw">pch</span> <span class="kw">=</span> <span class="fl">8</span>, <span class="kw">cex</span> <span class="kw">=</span> <span class="fl">.6</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"olivedrab"</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(<span class="no">mod</span>$<span class="no">u</span>[<span class="no">meta</span>$<span class="no">Group.ID</span> <span class="kw">==</span> <span class="st">"England_Bell_Beaker"</span>,], <span class="kw">pch</span> <span class="kw">=</span> <span class="fl">19</span>, <span class="kw">cex</span> <span class="kw">=</span> <span class="fl">.6</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"yellow4"</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(<span class="no">mod</span>$<span class="no">u</span>[<span class="no">meta</span>$<span class="no">Group.ID</span> <span class="kw">==</span> <span class="st">"England_BA"</span>,], <span class="kw">pch</span> <span class="kw">=</span> <span class="fl">19</span>, <span class="kw">cex</span> <span class="kw">=</span> <span class="fl">.6</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"yellow3"</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(<span class="no">mod</span>$<span class="no">u</span>[<span class="no">meta</span>$<span class="no">Group.ID</span> <span class="kw">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"England_N"</span>, <span class="st">"Scotland_N"</span>),], <span class="kw">pch</span> <span class="kw">=</span> <span class="fl">19</span>, <span class="kw">cex</span> <span class="kw">=</span> <span class="fl">.6</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"salmon1"</span>)
+
+  <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="fl">20</span>, <span class="kw">y</span> <span class="kw">=</span> -<span class="fl">15</span>, <span class="kw">cex</span> <span class="kw">=</span> <span class="fl">.6</span>,
+         <span class="kw">legend</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Early Farmers"</span>, <span class="st">"Hunter Gatherers"</span>, <span class="st">"Steppe"</span>),
+         <span class="kw">col</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"salmon3"</span>, <span class="st">"olivedrab"</span>, <span class="st">"darkblue"</span>), <span class="kw">pch</span> <span class="kw">=</span> <span class="fl">8</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="fl">10</span>, <span class="kw">y</span> <span class="kw">=</span> -<span class="fl">15</span>, <span class="kw">cex</span> <span class="kw">=</span> <span class="fl">.6</span>,
+         <span class="kw">legend</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Neolithic GB"</span>, <span class="st">"Bronze Age GB"</span>, <span class="st">"Bell Beaker"</span>),
+         <span class="kw">col</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"salmon1"</span>, <span class="st">"yellow3"</span>, <span class="st">"yellow4"</span>), <span class="kw">pch</span> <span class="kw">=</span> <span class="fl">19</span>)</pre></body></html></div>
 <p><img src="tfa-vignette_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 </div>
 <div id="ancestry-coefficients" class="section level4">
 <h4 class="hasAnchor">
 <a href="#ancestry-coefficients" class="anchor"></a>Ancestry coefficients</h4>
 <p>In addition to geometric representations, the R package <code>tfa</code> can provide estimates of ancestry proportions for a target population or for a list of target individuals given a list of source populations. The number of sources must be less or equal than the number of factors plus one (i.e. <code>k+1</code>). For this analysis, the metadata object must contain a column named <strong>Instance.ID</strong> indicating the ID of each individual and another column named <strong>Group.ID</strong> indicating the group ID of each individual in the study.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(meta)
-<span class="co">#&gt; [1] "Instance.ID" "Group.ID"    "Country"     "Coverage"</span></code></pre></div>
+<div class="sourceCode"><html><body><pre class="r">  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">meta</span>)
+<span class="co">#&gt; [1] "Instance.ID" "Group.ID"    "Country"     "Coverage"</span></pre></body></html></div>
 <p>Since the data.frame <code>meta</code> contains the correct information, it can be converted into an object of class <code>tfa_metadata</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">metadata &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as.tfa_metadata.html">as.tfa_metadata</a></span>(meta)</code></pre></div>
+<div class="sourceCode"><html><body><pre class="r"><span class="no">metadata</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/as.tfa_metadata.html">as.tfa_metadata</a></span>(<span class="no">meta</span>)</pre></body></html></div>
 <p>Now consider <code>England_Bell_Beaker</code> and <code>England_BA</code> as target populations and <code>Anatolia_N</code> (Early Farmers), <code>Russia_Yamnaya</code> (Steppe Pastoralists), <code>Serbia_HG</code> (Western Hunter-Gatherers) as potential source populations.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  target =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"England_Bell_Beaker"</span>, <span class="st">"England_BA"</span>)
-  source =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Anatolia_N"</span>, <span class="st">"Russia_Yamnaya"</span>, <span class="st">"Serbia_HG"</span>)</code></pre></div>
+<div class="sourceCode"><html><body><pre class="r">  <span class="no">target</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"England_Bell_Beaker"</span>, <span class="st">"England_BA"</span>)
+  <span class="no">source</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Anatolia_N"</span>, <span class="st">"Russia_Yamnaya"</span>, <span class="st">"Serbia_HG"</span>)</pre></body></html></div>
 <p>The function <code>ancestry_coefficients</code> uses basic linear algebra to compute the coordinates of each target population in the system formed by the centers of source populations.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="dt">model =</span> mod,
-                        <span class="dt">metadata =</span> metadata,
-                        <span class="dt">source =</span> source,
-                        <span class="dt">target =</span> target)
+<div class="sourceCode"><html><body><pre class="r">  <span class="fu"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="kw">model</span> <span class="kw">=</span> <span class="no">mod</span>,
+                        <span class="kw">metadata</span> <span class="kw">=</span> <span class="no">metadata</span>,
+                        <span class="kw">source</span> <span class="kw">=</span> <span class="no">source</span>,
+                        <span class="kw">target</span> <span class="kw">=</span> <span class="no">target</span>)
 <span class="co">#&gt;                     Anatolia_N Russia_Yamnaya Serbia_HG</span>
 <span class="co">#&gt; England_Bell_Beaker  0.3542780      0.3996619 0.2460601</span>
-<span class="co">#&gt; England_BA           0.4159021      0.3742463 0.2098515</span></code></pre></div>
+<span class="co">#&gt; England_BA           0.4159021      0.3742463 0.2098515</span></pre></body></html></div>
 <p>The Bell Beaker samples share a large fraction of their ancestry with steppe pastoralists. Changing the Anatolian population for another population of Early Farmers (<code>England_N</code>) can confirm this result.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="dt">model =</span> mod,
-                        <span class="dt">metadata =</span> metadata,
-                        <span class="dt">source =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"England_N"</span>, <span class="st">"Russia_Yamnaya"</span>, <span class="st">"Serbia_HG"</span>),
-                        <span class="dt">target =</span> target)
+<div class="sourceCode"><html><body><pre class="r">  <span class="fu"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="kw">model</span> <span class="kw">=</span> <span class="no">mod</span>,
+                        <span class="kw">metadata</span> <span class="kw">=</span> <span class="no">metadata</span>,
+                        <span class="kw">source</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"England_N"</span>, <span class="st">"Russia_Yamnaya"</span>, <span class="st">"Serbia_HG"</span>),
+                        <span class="kw">target</span> <span class="kw">=</span> <span class="no">target</span>)
 <span class="co">#&gt;                     England_N Russia_Yamnaya  Serbia_HG</span>
 <span class="co">#&gt; England_Bell_Beaker 0.3458747      0.5497641 0.10436118</span>
-<span class="co">#&gt; England_BA          0.4060372      0.5504578 0.04350508</span></code></pre></div>
+<span class="co">#&gt; England_BA          0.4060372      0.5504578 0.04350508</span></pre></body></html></div>
 <p>The result shows that the amount of ancestry shared with the hunter-gatherers reduces when farmers are sampled from a closer geographic source. This suggests that the hunter-gatherer contribution to the England Neolithic gene pool may be substantial. To check this hypothesis, consider <code>England_N</code> as the target with the set of sources considered at the start.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="dt">model =</span> mod,
-                        <span class="dt">metadata =</span> metadata,
-                        <span class="dt">source =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Anatolia_N"</span>, <span class="st">"Russia_Yamnaya"</span>, <span class="st">"Serbia_HG"</span>),
-                        <span class="dt">target =</span> <span class="st">"England_N"</span>)
+<div class="sourceCode"><html><body><pre class="r">  <span class="fu"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="kw">model</span> <span class="kw">=</span> <span class="no">mod</span>,
+                        <span class="kw">metadata</span> <span class="kw">=</span> <span class="no">metadata</span>,
+                        <span class="kw">source</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Anatolia_N"</span>, <span class="st">"Russia_Yamnaya"</span>, <span class="st">"Serbia_HG"</span>),
+                        <span class="kw">target</span> <span class="kw">=</span> <span class="st">"England_N"</span>)
 <span class="co">#&gt; Warning in ancestry_coefficients(model = mod, metadata = metadata, source</span>
-<span class="co">#&gt; = c("Anatolia_N", : A negative ancestry coefficient might suggest that at</span>
-<span class="co">#&gt; least one source did not contribute to the gene pool of at least one targeted</span>
-<span class="co">#&gt; population. For this target relaunch ancestry_coefficients() after removing the</span>
-<span class="co">#&gt; superfluous source from the input vector.</span>
+<span class="co">#&gt; = c("Anatolia_N", : A negative ancestry coefficient might suggest that</span>
+<span class="co">#&gt; at least one source did not contribute to the gene pool of at least one</span>
+<span class="co">#&gt; targeted population. For this target relaunch ancestry_coefficients() after</span>
+<span class="co">#&gt; removing the superfluous source from the input vector.</span>
 <span class="co">#&gt;           Anatolia_N Russia_Yamnaya Serbia_HG</span>
-<span class="co">#&gt; England_N   1.024296     -0.4339785 0.4096828</span></code></pre></div>
+<span class="co">#&gt; England_N   1.024296     -0.4339785 0.4096828</span></pre></body></html></div>
 <p>A negative value for the <code>Russia_Yamnaya</code> source suggests that this source did not contribute to the gene pool of Neolithic England samples, and that it should be removed from the set of sources.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="dt">model =</span> mod,
-                        <span class="dt">metadata =</span> metadata,
-                        <span class="dt">source =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Anatolia_N"</span>, <span class="st">"Serbia_HG"</span>),
-                        <span class="dt">target =</span> <span class="st">"England_N"</span>)
+<div class="sourceCode"><html><body><pre class="r">  <span class="fu"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="kw">model</span> <span class="kw">=</span> <span class="no">mod</span>,
+                        <span class="kw">metadata</span> <span class="kw">=</span> <span class="no">metadata</span>,
+                        <span class="kw">source</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Anatolia_N"</span>, <span class="st">"Serbia_HG"</span>),
+                        <span class="kw">target</span> <span class="kw">=</span> <span class="st">"England_N"</span>)
 <span class="co">#&gt;           Anatolia_N Serbia_HG</span>
-<span class="co">#&gt; England_N  0.7555439 0.2444561</span></code></pre></div>
+<span class="co">#&gt; England_N  0.7555439 0.2444561</span></pre></body></html></div>
 <p>After doing this, the result indeed suggests a substantial contribution of hunter-gatherers to Neolithic England farmers. The analysis can be summarized in a table of ancestry coefficients as follows.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ancestry.B &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="dt">model =</span> mod,
-                                  <span class="dt">metadata =</span> metadata,
-                                  <span class="dt">source =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Serbia_HG"</span>, <span class="st">"Anatolia_N"</span>, <span class="st">"Russia_Yamnaya"</span>),
-                                  <span class="dt">target =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"England_Bell_Beaker"</span>, <span class="st">"England_BA"</span>))
+<div class="sourceCode"><html><body><pre class="r"><span class="no">ancestry.B</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="kw">model</span> <span class="kw">=</span> <span class="no">mod</span>,
+                                  <span class="kw">metadata</span> <span class="kw">=</span> <span class="no">metadata</span>,
+                                  <span class="kw">source</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Serbia_HG"</span>, <span class="st">"Anatolia_N"</span>, <span class="st">"Russia_Yamnaya"</span>),
+                                  <span class="kw">target</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"England_Bell_Beaker"</span>, <span class="st">"England_BA"</span>))
 
-ancestry.N &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="dt">model =</span> mod,
-                                  <span class="dt">metadata =</span> metadata,
-                                  <span class="dt">source =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Serbia_HG"</span>, <span class="st">"Anatolia_N"</span>),
-                                  <span class="dt">target =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"England_N"</span>, <span class="st">"Scotland_N"</span>))
+<span class="no">ancestry.N</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="kw">model</span> <span class="kw">=</span> <span class="no">mod</span>,
+                                  <span class="kw">metadata</span> <span class="kw">=</span> <span class="no">metadata</span>,
+                                  <span class="kw">source</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Serbia_HG"</span>, <span class="st">"Anatolia_N"</span>),
+                                  <span class="kw">target</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"England_N"</span>, <span class="st">"Scotland_N"</span>))
 
-ancestry.N &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(ancestry.N, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>))
-ancestry &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(ancestry.B, ancestry.N)
-ancestry
+<span class="no">ancestry.N</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">ancestry.N</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,<span class="fl">0</span>))
+<span class="no">ancestry</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="no">ancestry.B</span>, <span class="no">ancestry.N</span>)
+<span class="no">ancestry</span>
 <span class="co">#&gt;                     Serbia_HG Anatolia_N Russia_Yamnaya</span>
 <span class="co">#&gt; England_Bell_Beaker 0.2460601  0.3542780      0.3996619</span>
 <span class="co">#&gt; England_BA          0.2098515  0.4159021      0.3742463</span>
 <span class="co">#&gt; England_N           0.2444561  0.7555439      0.0000000</span>
-<span class="co">#&gt; Scotland_N          0.2566750  0.7433250      0.0000000</span></code></pre></div>
+<span class="co">#&gt; Scotland_N          0.2566750  0.7433250      0.0000000</span></pre></body></html></div>
 <p>The results can be represented by a barplot as follows. The green, salmon and blue colors correspond to hunter-gatherers, early farmers and steppe pastoralists respectively.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(ancestry), 
-          <span class="dt">col =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"olivedrab"</span>, <span class="st">"salmon3"</span>, <span class="st">"darkblue"</span>), 
-          <span class="dt">main =</span> <span class="st">"Ancestry coefficients"</span>)</code></pre></div>
+<div class="sourceCode"><html><body><pre class="r">  <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span>(<span class="no">ancestry</span>),
+          <span class="kw">col</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"olivedrab"</span>, <span class="st">"salmon3"</span>, <span class="st">"darkblue"</span>),
+          <span class="kw">main</span> <span class="kw">=</span> <span class="st">"Ancestry coefficients"</span>)</pre></body></html></div>
 <p><img src="tfa-vignette_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
 </div>
 <div id="individual-ancestry-coefficients" class="section level4">
 <h4 class="hasAnchor">
 <a href="#individual-ancestry-coefficients" class="anchor"></a>Individual ancestry coefficients</h4>
 <p>Since FA is an individual-based method, a geometric approach can be used to compute ancestry coefficients for each individual, and to display results looking like a popular STRUCTURE barplot. For Bronze Age and Bell Beaker samples, this can be done as follows.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  source =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Anatolia_N"</span>, <span class="st">"Russia_Yamnaya"</span>, <span class="st">"Serbia_HG"</span>)
-  target =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"England_Bell_Beaker"</span>, <span class="st">"England_BA"</span>)
+<div class="sourceCode"><html><body><pre class="r">  <span class="no">source</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Anatolia_N"</span>, <span class="st">"Russia_Yamnaya"</span>, <span class="st">"Serbia_HG"</span>)
+  <span class="no">target</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"England_Bell_Beaker"</span>, <span class="st">"England_BA"</span>)
 
-  Q_matrix &lt;-<span class="st">  </span><span class="kw"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="dt">model =</span> mod,
-                                     <span class="dt">metadata =</span> metadata,
-                                     <span class="dt">source =</span> source,
-                                     <span class="dt">target =</span> target,
-                                     <span class="dt">individual =</span> <span class="ot">TRUE</span>)
-  
-  <span class="kw"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(Q_matrix), 
-          <span class="dt">border =</span> <span class="ot">NA</span>, 
-          <span class="dt">space =</span> <span class="dv">0</span>, 
-          <span class="dt">axisnames =</span> <span class="ot">FALSE</span>, 
-          <span class="dt">col =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"salmon3"</span>, <span class="st">"darkblue"</span>, <span class="st">"olivedrab"</span>),
-          <span class="dt">legend.text =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Anatolia"</span>, <span class="st">"Steppe"</span>, <span class="st">"WHG"</span>),
-          <span class="dt">args.legend =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">y =</span> <span class="fl">0.8</span>, <span class="dt">cex =</span> .<span class="dv">6</span>),
-          <span class="dt">ylab =</span> <span class="st">"Ancestry proportions"</span>)
-  
-  <span class="kw"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span>(<span class="dv">1</span>, <span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(Q_matrix), <span class="dt">labels =</span> <span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(Q_matrix), <span class="dt">las =</span> <span class="dv">3</span>, <span class="dt">cex.axis =</span> .<span class="dv">4</span>)</code></pre></div>
+  <span class="no">Q_matrix</span> <span class="kw">&lt;-</span>  <span class="fu"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="kw">model</span> <span class="kw">=</span> <span class="no">mod</span>,
+                                     <span class="kw">metadata</span> <span class="kw">=</span> <span class="no">metadata</span>,
+                                     <span class="kw">source</span> <span class="kw">=</span> <span class="no">source</span>,
+                                     <span class="kw">target</span> <span class="kw">=</span> <span class="no">target</span>,
+                                     <span class="kw">individual</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+
+  <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span>(<span class="no">Q_matrix</span>),
+          <span class="kw">border</span> <span class="kw">=</span> <span class="fl">NA</span>,
+          <span class="kw">space</span> <span class="kw">=</span> <span class="fl">0</span>,
+          <span class="kw">axisnames</span> <span class="kw">=</span> <span class="fl">FALSE</span>,
+          <span class="kw">col</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"salmon3"</span>, <span class="st">"darkblue"</span>, <span class="st">"olivedrab"</span>),
+          <span class="kw">legend.text</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Anatolia"</span>, <span class="st">"Steppe"</span>, <span class="st">"WHG"</span>),
+          <span class="kw">args.legend</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">y</span> <span class="kw">=</span> <span class="fl">0.8</span>, <span class="kw">cex</span> <span class="kw">=</span> <span class="fl">.6</span>),
+          <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">"Ancestry proportions"</span>)
+
+  <span class="fu"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span>(<span class="fl">1</span>, <span class="kw">at</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">Q_matrix</span>), <span class="kw">labels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">Q_matrix</span>), <span class="kw">las</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">cex.axis</span> <span class="kw">=</span> <span class="fl">.4</span>)</pre></body></html></div>
 <p><img src="tfa-vignette_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
 <p>The levels of ancestry are consistent across the samples from Bell Beaker and Bronze Age samples.</p>
 </div>
@@ -252,47 +252,48 @@ ancestry
 <h4 class="hasAnchor">
 <a href="#anchorchooselambda" class="anchor"></a>Choosing the drift parameter</h4>
 <p>The <strong>drift parameter</strong> (<code>lambda</code>) can be determined by a grid search procedure. We suggest to choose this parameter by using a simple heuristic requiring <code><a href="../reference/tfa.html">tfa()</a></code> to be run multiple times. Let us consider a case with <span class="math inline">\(k = 2\)</span> source populations, for example with early farmers from Anatolia and Yamnaya herders from the Pontic steppe.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Ancient DNA from Bronze Age Great Britain samples</span>
+<div class="sourceCode"><html><body><pre class="r"><span class="co"># Ancient DNA from Bronze Age Great Britain samples</span>
 <span class="co"># To keep k = 2 ancestral populations </span>
 <span class="co"># Remove hunter-gatherers from the data </span>
 
-age2 &lt;-<span class="st"> </span>age[meta<span class="op">$</span>Group.ID <span class="op">!=</span><span class="st"> "Serbia_HG"</span>]
-geno2 &lt;-<span class="st"> </span>geno[meta<span class="op">$</span>Group.ID <span class="op">!=</span><span class="st"> "Serbia_HG"</span>,]
-  
+<span class="no">age2</span> <span class="kw">&lt;-</span> <span class="no">age</span>[<span class="no">meta</span>$<span class="no">Group.ID</span> <span class="kw">!=</span> <span class="st">"Serbia_HG"</span>]
+<span class="no">geno2</span> <span class="kw">&lt;-</span> <span class="no">geno</span>[<span class="no">meta</span>$<span class="no">Group.ID</span> <span class="kw">!=</span> <span class="st">"Serbia_HG"</span>,]
+
 <span class="co"># Run a preliminary FA model with k = 2</span>
 <span class="co"># The preliminary lambda value does not matter</span>
-mod  &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tfa.html">tfa</a></span>(age2,
-             geno2,
-             <span class="dt">k =</span> <span class="dv">2</span>,
-             <span class="dt">lambda =</span> <span class="fl">5e-2</span>,
-             <span class="dt">center =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<span class="no">mod</span>  <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tfa.html">tfa</a></span>(<span class="no">age2</span>,
+             <span class="no">geno2</span>,
+             <span class="kw">k</span> <span class="kw">=</span> <span class="fl">2</span>,
+             <span class="kw">lambda</span> <span class="kw">=</span> <span class="fl">5e-2</span>,
+             <span class="kw">center</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p>We want to choose a value of <code>lambda</code> for which dependency on time is removed from the second factor. To this objective, we use a grid of values in the function <code><a href="../reference/choose_lambda.html">choose_lambda()</a></code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/choose_lambda.html">choose_lambda</a></span>(mod, geno2)
-<span class="kw"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(<span class="dt">v =</span> <span class="op">-</span><span class="fl">2.75</span>, <span class="dt">col =</span> <span class="st">"orange"</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode"><html><body><pre class="r"><span class="no">r_2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/choose_lambda.html">choose_lambda</a></span>(<span class="no">mod</span>, <span class="no">geno2</span>)
+<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(<span class="kw">v</span> <span class="kw">=</span> -<span class="fl">1</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"orange"</span>, <span class="kw">lty</span> <span class="kw">=</span> <span class="fl">2</span>)</pre></body></html></div>
 <p><img src="tfa-vignette_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
 <p>The result can be interpreted as the proportion of temporal variance explained by the k factors. Here, the orange line indicates the value for which the effect of age is removed from the <strong>second</strong> factor of the <code>tfa</code> analysis.</p>
 <p>We eventually rerun the main function with the selected value</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Run the final FA model with k = 2</span>
- mod  &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tfa.html">tfa</a></span>(age2,
-             geno2,
-             <span class="dt">k =</span> <span class="dv">2</span>,
-             <span class="dt">lambda =</span> <span class="dv">10</span><span class="op">**</span>(<span class="op">-</span><span class="fl">2.75</span>),
-             <span class="dt">center =</span> <span class="ot">TRUE</span>)
+<div class="sourceCode"><html><body><pre class="r"><span class="co"># Run the final FA model with k = 2</span>
+ <span class="no">mod</span>  <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tfa.html">tfa</a></span>(<span class="no">age2</span>,
+             <span class="no">geno2</span>,
+             <span class="kw">k</span> <span class="kw">=</span> <span class="fl">2</span>,
+             <span class="kw">lambda</span> <span class="kw">=</span> <span class="fl">10</span>**(-<span class="fl">1</span>),
+             <span class="kw">center</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 
  <span class="co"># Re-evaluate ancestry coefficients</span>
- metadata &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as.tfa_metadata.html">as.tfa_metadata</a></span>(meta[meta<span class="op">$</span>Group.ID <span class="op">!=</span><span class="st"> "Serbia_HG"</span>,])
- <span class="kw"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="dt">model =</span> mod,
-                       <span class="dt">metadata =</span> metadata,
-                       <span class="dt">source =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Anatolia_N"</span>, <span class="st">"Russia_Yamnaya"</span>),
-                       <span class="dt">target =</span> <span class="st">"England_Bell_Beaker"</span>)
+ <span class="no">metadata</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/as.tfa_metadata.html">as.tfa_metadata</a></span>(<span class="no">meta</span>[<span class="no">meta</span>$<span class="no">Group.ID</span> <span class="kw">!=</span> <span class="st">"Serbia_HG"</span>,])
+ <span class="fu"><a href="../reference/ancestry_coefficients.html">ancestry_coefficients</a></span>(<span class="kw">model</span> <span class="kw">=</span> <span class="no">mod</span>,
+                       <span class="kw">metadata</span> <span class="kw">=</span> <span class="no">metadata</span>,
+                       <span class="kw">source</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Anatolia_N"</span>, <span class="st">"Russia_Yamnaya"</span>),
+                       <span class="kw">target</span> <span class="kw">=</span> <span class="st">"England_Bell_Beaker"</span>)
 <span class="co">#&gt;                     Anatolia_N Russia_Yamnaya</span>
-<span class="co">#&gt; England_Bell_Beaker  0.6517483      0.3482517</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># clear everything</span>
-<span class="co"># rm(list = ls())</span></code></pre></div>
+<span class="co">#&gt; England_Bell_Beaker  0.4873187      0.5126813</span></pre></body></html></div>
+<div class="sourceCode"><html><body><pre class="r"># clear everything
+# rm(list = ls())</pre></body></html></div>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
       </div>
 
 </div>
@@ -304,7 +305,7 @@ mod  &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tfa.ht
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
