@@ -1,7 +1,7 @@
 # tfa: factor analysis of temporal samples
 
 ## Summary
-The R package `tfa` implements a factor analysis algorithm for temporal DNA or ancient DNA samples, ajusting individual scores for the effect of allele frequency drift through time. The adjusted scores provide geometric representations of temporal samples consistent with estimates of ancestry proportions and have  interpretation similar to principal component analysis. Based on the adjusted factors, the program can also estimate ancestry proportions for a target population or a subset of target individuals given specified source populations. 
+The R package `tfa` implements a factor analysis algorithm for temporal DNA or ancient DNA samples, adjusting individual scores for the effect of allele frequency drift through time. The adjusted scores provide geometric representations of temporal samples consistent with estimates of ancestry proportions and have  interpretation similar to principal component analysis. Based on the adjusted factors, the program can also estimate ancestry proportions for a target population or a subset of target individuals given specified source populations. 
 
 
 ## Package overview
