@@ -23,6 +23,6 @@ devtools::install_github("bcm-uga/tfa")
 
 ## References
 
-- Olivier François, Séverine Liégeois, Benjamin Demaille, Flora Jay. (2019). Inference of population genetic structure from temporal samples of DNA. bioRxiv 801324. [doi:10.1101/801324](https://doi.org/10.1101/801324).
+- Olivier François, Flora Jay. (2020). Factor analysis of ancient population genomic samples. Nature Communications, 11, in press.
 
-- Olivier François, Flora Jay. (2020). Factor analysis of ancient population genomic samples. Under review.
+- Olivier François, Séverine Liégeois, Benjamin Demaille, Flora Jay. (2019). Inference of population genetic structure from temporal samples of DNA. bioRxiv 801324. [doi:10.1101/801324](https://doi.org/10.1101/801324).
